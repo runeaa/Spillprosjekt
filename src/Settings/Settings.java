@@ -17,6 +17,16 @@ public class Settings {
     public void setAvrageFPS(double avrageFPS) {
         this.avrageFPS = avrageFPS;
     }
+    
+    /**
+     * Set the desired amount of frames per second to be generated
+     * for the visualization of the in-game graphics.
+     * @param FPS Integer value of the desired FPS.
+     */
+    public void setFPS(int FPS){
+        this.FPS = FPS;
+    }
+    
 
     public void setWITDH(int WITDH) {
         this.WITDH = WITDH;

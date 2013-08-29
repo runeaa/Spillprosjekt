@@ -9,7 +9,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -45,6 +47,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void init() {
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
+        
+        //Anti-aliasing
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
     }
 
@@ -88,17 +96,19 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
+        g.setColor(new Color(0, 100, 255));
+        g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);        
+        g.drawImage(image, 0, 0, null);
+        
+        g.setColor(Color.BLACK);
+        g.drawString("FPS:" + settings.avrageFPS, settings.WITDH/2 , settings.HEIGHT/2);
+        g.drawString("FrameCount:" + frameCount, settings.WITDH/2 , (settings.HEIGHT/2)+20);
+        this.add(new JButton("Tester"));
     }
 
-    public void draw() {
+    public void draw() {        
         Graphics g2 = this.getGraphics();
-        
-        g2.setColor(new Color(0, 100, 255));
-        g2.fillRect(0, 0, WIDTH, HEIGHT);        
         g2.drawImage(image, 0, 0, null);
-        
-        g2.setColor(Color.BLACK);
-        g2.drawString("FPS:" + settings.avrageFPS, settings.HEIGHT / 2, settings.WITDH/ 2);
         g2.dispose();
     }
 }
