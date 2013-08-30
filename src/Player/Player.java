@@ -23,32 +23,45 @@ public class Player implements KeyListener {
     private int x, y;
     private int dx, dy;
     private int speed;
-    private boolean up,down,left,right;
+    private boolean up,down,left,right, facingLeft;
     private final int spriteWidth = 16;
     private final int spriteHeight = 17;
     private BufferedImage[] walking_sideways;
     private BufferedImage[] walking_up;
-    private BufferedImage[] idleSprite;
-
+    private BufferedImage[] walking_down;
+    private BufferedImage[] idleSprite = new BufferedImage[1];
+    private Animation animation;
+    private int width;
+    
+    
+    
     public Player(int x, int y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         
         try{
-            idleSprite[0] = ImageIO.read(new File("res/bob_sideways_idle.png"));
+            
+            idleSprite = new BufferedImage[1];
             walking_sideways = new BufferedImage[2];
             walking_up = new BufferedImage[2];
+            walking_down = new BufferedImage[2];
+            idleSprite[0] = ImageIO.read(new File("res/bob_sideways_idle.png"));
             BufferedImage img = ImageIO.read(new File("res/bob_sideways.png"));
             BufferedImage img2 = ImageIO.read(new File("res/bob_up.png"));
+            BufferedImage img3 = ImageIO.read(new File("res/bob_down.png"));
             for (int i = 0; i < walking_up.length; i++) {
-                walking_sideways[i] = img.getSubimage(i*spriteWidth+i, 0, spriteWidth, spriteHeight);
-                walking_up[i] = img2.getSubimage(i*spriteWidth+i, 0, spriteWidth, spriteHeight);
+                walking_sideways[i] = img.getSubimage(i*spriteWidth, 0, spriteWidth, spriteHeight);
+                walking_up[i] = img2.getSubimage(i*spriteWidth, 0, spriteWidth, spriteHeight);
+                walking_down[i] = img3.getSubimage(i*spriteWidth, 0, spriteWidth, spriteHeight);
             }
             
         }catch (IOException e){
             e.printStackTrace();
         }
+        
+        animation = new Animation();
+        facingLeft = false;
     }
 
     public void update() {
@@ -66,11 +79,41 @@ public class Player implements KeyListener {
         }
         x = dx;
         y = dy;
+        
+        //sprite animation
+        if(left || right){
+            animation.setFrames(walking_sideways);
+            animation.setDelay(100);
+        }else{
+            animation.setFrames(idleSprite);
+            animation.setDelay(-1);
+        }
+        
+        if(up){
+            animation.setFrames(walking_up);
+            animation.setDelay(100);
+        }
+        if(down){
+            animation.setFrames(walking_down);
+            animation.setDelay(100);
+        }
+        animation.update();
+        facingLeft = (dx < 0) ? true : false;
+        
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.red);
-        g.fillOval(x, y, 20, 20);
+        //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
+        int tx = 50;
+        int ty = 50;
+        
+        if(facingLeft){
+            g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth /2), null);
+        }else{
+            g.drawImage(animation.getImage(),(tx - x - spriteWidth / 2 + spriteWidth), (int) (ty + y - spriteHeight /2),
+                    -spriteWidth, spriteHeight, null);
+        }
+        
     }
 
     @Override
