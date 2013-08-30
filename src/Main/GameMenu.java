@@ -40,7 +40,7 @@ public class GameMenu extends JPanel {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setSize(settings.WITDH, settings.HEIGHT);
-        menuSetup();
+        startMenuSetup();
     }
 
     public void setButtonSetup(final JButton button) {
@@ -63,6 +63,7 @@ public class GameMenu extends JPanel {
                     } catch (IOException er) {
                         er.printStackTrace();
                     }
+                    settingsSetup();
                     pan.revalidate();
                     pan.repaint();
                 }
@@ -89,6 +90,8 @@ public class GameMenu extends JPanel {
                     button.setIcon(new ImageIcon("./res/img/Avsluttspillhoover.png"));
                 } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
                     button.setIcon(new ImageIcon("./res/img/Innstillingerhoover.png"));
+                } else if (buttonTitle.equalsIgnoreCase("sound")) {
+                    button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakermute.png") : new ImageIcon("./res/img/speakeron.png"));
                 }
             }
 
@@ -103,12 +106,39 @@ public class GameMenu extends JPanel {
                     button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
                 } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
                     button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
+                } else if (buttonTitle.equalsIgnoreCase("sound")) {
+                    button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakeron.png") : new ImageIcon("./res/img/speakermute.png"));
                 }
             }
         });
     }
 
-    public void menuSetup() {
+    private void settingsSetup() {
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button;
+
+        //TODO: Sound enable ( disable
+        button = new JButton();
+        button.setToolTipText("Sound");
+        setButtonSetup(button);
+        button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakeron.png") : new ImageIcon("./res/img/speakermute.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 20, 0, 0);
+        c.gridx = 1;
+        c.gridy = 1;
+        add(button, c);
+
+        //TODO: Back
+        button = new JButton("Back");
+        button.setToolTipText("Back");
+        setButtonSetup(button);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        add(button, c);
+    }
+
+    private void startMenuSetup() {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
