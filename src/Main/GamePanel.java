@@ -4,12 +4,15 @@
  */
 package Main;
 
+import Player.Player;
 import Settings.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
     int frameCount = 1;
     private Thread thread;
     private Graphics2D g;
+    private Player player;
 
     public GamePanel() {
         super();
@@ -35,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
     }
 
+    @Override
     public void addNotify() {
         super.addNotify();
         if (thread == null) {
@@ -53,12 +58,13 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
+        player = new Player(HEIGHT/2, WIDTH/2, 10);
+        addKeyListener(player);
     }
 
     public void run() {
         init();
-        long start, end, loopTime, wait;
+        long start, loopTime, wait;
         long targetTime = 1000 / settings.FPS;
         long totalTime = 0;
 
@@ -93,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+       player.update();
     }
 
     public void render() {
@@ -100,10 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
         g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);        
         g.drawImage(image, 0, 0, null);
         
+        player.draw(g);
+        
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH/2 , settings.HEIGHT/2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH/2 , (settings.HEIGHT/2)+20);
-        this.add(new JButton("Tester"));
     }
 
     public void draw() {        
