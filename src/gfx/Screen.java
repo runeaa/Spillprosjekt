@@ -24,6 +24,7 @@ public class Screen {
 
     /**
      * Method for rendering what will be shown on the screen.
+     *
      * @param xPos the x position of the player.
      * @param yPos the y position of the player.
      * @param tile the tiles visible to the player.

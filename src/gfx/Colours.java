@@ -15,8 +15,6 @@ public class Colours {
                 + get(colour1);
     }
 
-    
-    
     public static int get(int colour) {
         if (0 > colour) {
             return 255;

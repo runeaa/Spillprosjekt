@@ -16,14 +16,14 @@ import level.tiles.Tile;
  *
  * @author Rune
  */
-public class Player extends Entity implements KeyListener{
+public class Player extends Entity implements KeyListener {
 
     private int colour = Colours.get(-1, 111, 145, 543);
     private int scale = 1;
     protected boolean isSwimming = false;
     private int tickCount = 0;
     private String userName;
-    private int xa,ya;
+    private int xa, ya;
     protected String name;
     protected int speed;
     protected int numSteps = 0;
@@ -32,10 +32,7 @@ public class Player extends Entity implements KeyListener{
     public int x, y;
     protected Level level;
     private boolean up, down, right, left;
-    
-    
-    
-    
+
     public Player(Level level, int x, int y, int speed, String userName) {
         super(level);
         this.userName = userName;
@@ -45,12 +42,9 @@ public class Player extends Entity implements KeyListener{
         this.userName = userName;
     }
 
-      
-    
     /*
      * 
      */
-
     public void move(int xa, int ya) {
         if (xa != 0 && ya != 0) {
             move(xa, 0);
@@ -76,7 +70,6 @@ public class Player extends Entity implements KeyListener{
             y += ya * speed;
         }
     }
-
 
     protected boolean isSolidTile(int xa, int ya, int x, int y) {
         if (level == null) {
@@ -110,29 +103,27 @@ public class Player extends Entity implements KeyListener{
         this.movingDir = movingDir;
     }
 
-    
-    
     /*
      * 
      */
     public void tick() {
-        xa= 0;
+        xa = 0;
         ya = 0;
-            if (up) {
-                ya--;
-            }
+        if (up) {
+            ya--;
+        }
 
-            if (down) {
-                ya++;
-            }
+        if (down) {
+            ya++;
+        }
 
-            if (left) {
-                xa--;
-            }
+        if (left) {
+            xa--;
+        }
 
-            if (right) {
-                xa++;
-            }
+        if (right) {
+            xa++;
+        }
         if (xa != 0 || ya != 0) {
             move(xa, ya);
             isMoving = true;
@@ -215,9 +206,11 @@ public class Player extends Entity implements KeyListener{
 
     /**
      * Checing if the player character has collided with an solid object
+     *
      * @param xa the x value of the player
      * @param ya the y value of the player.
-     * @return returns a value of true if a collision has occured, otherwise returns false.
+     * @return returns a value of true if a collision has occured, otherwise
+     * returns false.
      */
     public boolean hasCollided(int xa, int ya) {
         int xMin = 0;
@@ -250,7 +243,7 @@ public class Player extends Entity implements KeyListener{
     public String getUsername() {
         return userName;
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -287,5 +280,5 @@ public class Player extends Entity implements KeyListener{
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             right = false;
         }
-    }    
+    }
 }
