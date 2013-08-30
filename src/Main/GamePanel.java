@@ -4,10 +4,8 @@
  */
 package Main;
 
-import Player2.Player;
+import Player.Player;
 import Settings.*;
-import gfx.Screen;
-import gfx.SpriteSheet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +13,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-import level.Level;
 
 /**
  *
@@ -31,9 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int[] colors = new int[6 * 6 * 6];
     private Thread thread;
     private Graphics2D g;
-    private Screen screen;
-    private game.entities.Player player;
-    public Level level;
+    private Player player;
 
 
     public GamePanel() {
@@ -63,23 +58,8 @@ public class GamePanel extends JPanel implements Runnable {
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         addKeyListener(player);
+        Player player = new Player(100, 100, 50);
 
-        int index = 0;
-        for (int r = 0; r < 6; r++) {
-            for (int g = 0; g < 6; g++) {
-                for (int b = 0; b < 6; b++) {
-                    int rr = (r * 255 / 5);
-                    int gg = (g * 255 / 5);
-                    int bb = (b * 255 / 5);
-
-                    colors[index++] = rr << 16 | gg << 8 | bb;
-                }
-            }
-        }
-        screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
-        level = new Level("/levels/water_test_level.png");
-
-        player = new game.entities.Player(level, 100, 100, 5, "BOB");
     }
 
     
@@ -121,16 +101,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.tick();
+        player.update();
     }
 
     public void render() {
         g.setColor(new Color(0, 100, 255));
         g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);
         g.drawImage(image, 0, 0, null);
-
-        player.update(screen);
-
+        player.draw(g);
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);

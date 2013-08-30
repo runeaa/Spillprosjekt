@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Player2;
+package Player;
 
 import Main.GamePanel;
 import java.awt.Color;
