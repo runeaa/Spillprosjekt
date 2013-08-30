@@ -3,6 +3,8 @@ package Main;
 import java.awt.GridBagLayout;
 import javax.swing.*;
 import Settings.*;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,6 +29,7 @@ public class GameMenu extends JPanel {
 
     public Settings settings = new Settings();
     private BufferedImage img;
+    private JPanel pan = this;
 
     public GameMenu() {
         try {
@@ -46,8 +49,23 @@ public class GameMenu extends JPanel {
         button.setBorderPainted(false);
         button.setBorder(null);
         button.addMouseListener(new MouseListener() {
+            public String buttonTitle = button.getToolTipText();
+
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
+                    for (Component c : pan.getComponents()) {
+                        pan.remove(c);
+                    }
+
+                    try {
+                        img = ImageIO.read(new File("./res/img/Innstillingerbg.png"));
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                    pan.revalidate();
+                    pan.repaint();
+                }
             }
 
             @Override
@@ -56,29 +74,35 @@ public class GameMenu extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                String buttonTitle = button.getToolTipText();
+
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
                 if (buttonTitle.equalsIgnoreCase("Start spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Startspillhoover.png"));
+                    button.setIcon(new ImageIcon("./res/img/Startspillhoover.png"));;
                 } else if (buttonTitle.equalsIgnoreCase("Last spill")) {
                     button.setIcon(new ImageIcon("./res/img/Lastspillhoover.png"));
                 } else if (buttonTitle.equalsIgnoreCase("Avslutt spill")) {
                     button.setIcon(new ImageIcon("./res/img/Avsluttspillhoover.png"));
+                } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
+                    button.setIcon(new ImageIcon("./res/img/Innstillingerhoover.png"));
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                String buttonTitle = button.getToolTipText();
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 if (buttonTitle.equalsIgnoreCase("Start spill")) {
                     button.setIcon(new ImageIcon("./res/img/Startspill.png"));
                 } else if (buttonTitle.equalsIgnoreCase("Last spill")) {
                     button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
                 } else if (buttonTitle.equalsIgnoreCase("Avslutt spill")) {
                     button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
+                } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
+                    button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
                 }
             }
         });
@@ -95,7 +119,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Startspill.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(70, 80, 0, 100);
+        c.insets = new Insets(180, 80, 0, 100);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
@@ -106,7 +130,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(70, 0, 0, 100);
+        c.insets = new Insets(180, 0, 0, 100);
         c.gridx = 1;
         c.gridy = 1;
         add(button, c);
@@ -122,12 +146,15 @@ public class GameMenu extends JPanel {
         add(button, c);
 
         //TODO: Settings
-       /* button = new JButton("Innstillinger");
-         setButtonSetup(button);
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.gridx = 5;
-         c.gridy = 2;
-         add(button, c);*/
+        button = new JButton();
+        button.setToolTipText("Innstillinger");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(80, 80, 0, 100);
+        c.gridx = 0;
+        c.gridy = 2;
+        add(button, c);
 
     }
 
