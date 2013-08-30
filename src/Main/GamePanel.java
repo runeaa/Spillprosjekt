@@ -25,11 +25,9 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage image;
     private int maxrameCount = 60;
     int frameCount = 1;
-    private int[] colors = new int[6 * 6 * 6];
     private Thread thread;
     private Graphics2D g;
     private Player player;
-
 
     public GamePanel() {
         super();
@@ -57,12 +55,10 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        player = new Player(200, 200, 5);
         addKeyListener(player);
-        Player player = new Player(100, 100, 50);
-
     }
-
-    
 
     public void run() {
         init();
