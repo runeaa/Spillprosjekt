@@ -6,7 +6,8 @@ package Settings;
 
 /**
  *
- * @author Rune
+ * @author
+ * Rune
  */
 public class Settings {
 
@@ -21,10 +22,33 @@ public class Settings {
     }
 
     /**
-     * Set the desired amount of frames per second to be generated for the
-     * visualization of the in-game graphics.
+     * Set
+     * the
+     * desired
+     * amount
+     * of
+     * frames
+     * per
+     * second
+     * to
+     * be
+     * generated
+     * for
+     * the
+     * visualization
+     * of
+     * the
+     * in-game
+     * graphics.
      *
-     * @param FPS Integer value of the desired FPS.
+     * @param
+     * FPS
+     * Integer
+     * value
+     * of
+     * the
+     * desired
+     * FPS.
      */
     public void setFPS(int FPS) {
         this.FPS = FPS;
@@ -36,5 +60,9 @@ public class Settings {
 
     public void setHEIGHT(int HEIGHT) {
         this.HEIGHT = HEIGHT;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
     }
 }

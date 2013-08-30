@@ -1,21 +1,23 @@
 package Main;
 
+import Listeners.GameMenuMouseListener;
 import java.awt.GridBagLayout;
 import javax.swing.*;
 import Settings.*;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -27,8 +29,9 @@ import javax.imageio.ImageIO;
  */
 public class GameMenu extends JPanel {
 
+    public PlayerSettings playerSettings = new PlayerSettings();
     public Settings settings = new Settings();
-    private BufferedImage img;
+    public BufferedImage img;
     private JPanel pan = this;
 
     public GameMenu() {
@@ -48,97 +51,107 @@ public class GameMenu extends JPanel {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setBorder(null);
-        button.addMouseListener(new MouseListener() {
-            public String buttonTitle = button.getToolTipText();
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
-                    for (Component c : pan.getComponents()) {
-                        pan.remove(c);
-                    }
-
-                    try {
-                        img = ImageIO.read(new File("./res/img/Innstillingerbg.png"));
-                    } catch (IOException er) {
-                        er.printStackTrace();
-                    }
-                    settingsSetup();
-                    pan.revalidate();
-                    pan.repaint();
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-                setCursor(new Cursor(Cursor.HAND_CURSOR));
-                if (buttonTitle.equalsIgnoreCase("Start spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Startspillhoover.png"));;
-                } else if (buttonTitle.equalsIgnoreCase("Last spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Lastspillhoover.png"));
-                } else if (buttonTitle.equalsIgnoreCase("Avslutt spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Avsluttspillhoover.png"));
-                } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
-                    button.setIcon(new ImageIcon("./res/img/Innstillingerhoover.png"));
-                } else if (buttonTitle.equalsIgnoreCase("sound")) {
-                    button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakermute.png") : new ImageIcon("./res/img/speakeron.png"));
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                if (buttonTitle.equalsIgnoreCase("Start spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Startspill.png"));
-                } else if (buttonTitle.equalsIgnoreCase("Last spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
-                } else if (buttonTitle.equalsIgnoreCase("Avslutt spill")) {
-                    button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
-                } else if (buttonTitle.equalsIgnoreCase("Innstillinger")) {
-                    button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
-                } else if (buttonTitle.equalsIgnoreCase("sound")) {
-                    button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakeron.png") : new ImageIcon("./res/img/speakermute.png"));
-                }
-            }
-        });
+        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this);
+        button.addMouseListener(gamemenulistener);
     }
 
-    private void settingsSetup() {
+    public void nameSetup() {
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button;
+        button = new JButton();
+        button.setToolTipText("Tilbake til Hovedmenyen");
+        button.setName("tilbake");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 110, 0, 110);
+        c.gridx = 0;
+        c.gridy = 1;
+        add(button, c);
+
+        button = new JButton();
+        button.setToolTipText("Gå til Systemtype valg");
+        button.setName("frem");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/frem.png"));
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 110, 0, 110);
+        c.gridx = 2;
+        c.gridy = 1;
+
+        add(button, c);
+
+        final JTextField name = new JTextField((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
+        name.setToolTipText("navn");
+        name.setMinimumSize(new Dimension(200, 20));
+        name.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                name.selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            }
+        });
+        name.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                playerSettings.setPlayerName(name.getText());
+            }
+        });
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 1;
+
+        add(name, c);
+
+
+
+    }
+
+    public void settingsSetup() {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
         //TODO: Sound enable ( disable
         button = new JButton();
-        button.setToolTipText("Sound");
+        button.setToolTipText("Lyd");
         setButtonSetup(button);
         button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakeron.png") : new ImageIcon("./res/img/speakermute.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 20, 0, 0);
+        c.insets = new Insets(0, 60, 0, 220);
         c.gridx = 1;
         c.gridy = 1;
         add(button, c);
 
         //TODO: Back
-        button = new JButton("Back");
-        button.setToolTipText("Back");
+        button = new JButton();
+        button.setToolTipText("Tilbake til Hovedmenyen");
+        button.setName("tilbake");
         setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 20, 0, 40);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
     }
 
-    private void startMenuSetup() {
+    public void systemTypeSetup() {
+    }
+
+    public void startMenuSetup() {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
@@ -193,5 +206,13 @@ public class GameMenu extends JPanel {
         super.paintComponent(g);
         // paint the background image and scale it to fill the entire space
         g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
     }
 }
