@@ -137,6 +137,14 @@ public class Player extends NPC {
             animation.setFrames(walking_up);
             System.out.println("SKJERDETNOE");
             animation.setDelay(200);
+        }        else if (up && y != 0) {
+            animation.setFrames(walking_up);
+            animation.setDelay(200);
+        }
+        else  if (down && y != 410) {
+            animation.setFrames(walking_down);
+            animation.setDelay(200);
+        
         } else {
             animation.setFrames(idleSprite);
             animation.setDelay(-1);
@@ -161,7 +169,6 @@ public class Player extends NPC {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
         int tx = tileMap.getX();
         int ty = tileMap.getY();
-
         if (facingLeft) {
             g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
         } else {
