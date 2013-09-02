@@ -36,11 +36,11 @@ public class Quiz {
             readFromFile(s);
         }
         if (valg == 2) {
-            String s = "/res/up.txt";
+            String s = "res/up.txt";
             readFromFile(s);
         }
         if (valg == 3) {
-            String s = "/res/scrum.txt";
+            String s = "res/scrum.txt";
             readFromFile(s);
         }
     }
@@ -49,21 +49,21 @@ public class Quiz {
         try {
             BufferedReader br = new BufferedReader(new FileReader(s));
             int numQuiz = Integer.parseInt(br.readLine());
-            String delimiters = "\\n";
-            quizTab = new String[numQuiz][4];
+            //String delimiters = "\\n";
+            int linesPerQuestion = 4;
+            quizTab = new String[numQuiz][linesPerQuestion];
             for (int i = 0; i < numQuiz; i++) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < linesPerQuestion; j++) {
                     String line = br.readLine();
                     quizTab[i][j] = line;
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public String toString(){
-        String s = " ";
+        String s = "";
         for(int i = 0; i < quizTab.length; i++){
             for(int j = 0; j < quizTab[0].length;j++){
                 s += quizTab[i][j] + "\n";
