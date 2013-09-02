@@ -23,15 +23,15 @@ public class NPC implements KeyListener {
     private String npc2 = "/res/npcsprite2";
     private String npc3 = "/res/npcsprite3";
     private BufferedImage[] idleSprite = new BufferedImage[2];
-    private final int spriteWidth = 16;
-    private final int spriteHeight = 17;
+    private final int spriteWidth = 32;
+    private final int spriteHeight = 34;
     private Animation animation;
 
-    public NPC(int x, int y) {
+    public NPC(int x, int y, String color) {
         this.x = x;
         this.y = y;
         try {
-            BufferedImage img = ImageIO.read(new File("res/bob_up.png"));
+            BufferedImage img = ImageIO.read(new File("res/npc/"+color+"NPC.png"));
             for (int i = 0; i < idleSprite.length; i++) {
                 idleSprite[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }

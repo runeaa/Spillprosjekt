@@ -13,8 +13,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -42,10 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
         super();
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
-        requestFocusInWindow();
-        setFocusable(true);
-        getFocusTraversalKeysEnabled();
-        
+        requestFocus();
     }
 
     @Override
@@ -71,7 +66,9 @@ public class GamePanel extends JPanel implements Runnable {
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/floored.txt", 32);
         tileMap.loadTiles("res/levels/tileset.gif");
-        player = new Player(tileMap, 200, 200, 5);
+        player = new Player(tileMap, 200, 200, 5, "blue");
+        npc1 = new NPC(50, 300, "red");
+        npc2 = new NPC(200, 100, "blue");
         addKeyListener(player);
     }
 
@@ -111,6 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    
 
     public void update() {
         player.update();
@@ -118,12 +116,23 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void render() {
      
+        if(!player.getOptionValue()){
         tileMap.draw(g);
-        player.draw(g);
 //        npc1.draw(g);
+        npc1.draw(g);
+        npc2.draw(g);
+        player.draw(g);
+
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
+        }else{
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(0, 0,  tileMap.getMapWidth(), 425);
+            g.setColor(Color.red);
+            g.drawString("OPTIONS", tileMap.getMapHeight()/2, 400);
+
+        }
     }
 
     public void draw() {

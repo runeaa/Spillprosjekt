@@ -64,6 +64,10 @@ public class TileMap {
     public int getMapWidth(){
         return width * tileSize;
     }
+    
+    public int getMapHeight(){
+        return height * tileSize;
+    }
 
     public void setX(int x) {
         this.x = x;

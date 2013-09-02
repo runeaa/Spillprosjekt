@@ -35,13 +35,17 @@ public class Player extends NPC {
     private BufferedImage[] idleSprite = new BufferedImage[1];
     private Animation animation;
     private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
+    private String color;
+    private boolean OptionTrigger;
+    private int lock = 1;
 
-    public Player(TileMap tileMap, int x, int y, int speed) {
-        super(x,y);
+    public Player(TileMap tileMap, int x, int y, int speed, String color) {
+        super(x, y, color);
         this.tileMap = tileMap;
         this.x = x;
         this.y = y;
         this.speed = speed;
+
         try {
 
             idleSprite = new BufferedImage[1];
@@ -53,8 +57,9 @@ public class Player extends NPC {
             BufferedImage img2 = ImageIO.read(new File("res/player/playerup.png"));
             BufferedImage img3 = ImageIO.read(new File("res/player/playerdown.png"));
             for (int i = 0; i < walking_up.length; i++) {
-                walking_sideways[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
                 walking_up[i] = img2.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
+                walking_sideways[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
+                
                 walking_down[i] = img3.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }
 
@@ -82,14 +87,14 @@ public class Player extends NPC {
             return true;
         }
         return false;
-            
+
     }
 
     public int interaction() {
         for (int i = 0; i < npc.length; i++) {
             int a = npc[i][0];
             int b = npc[i][1];
-            if(interact(a,b)){
+            if (interact(a, b)) {
                 return i;
             }
         }
@@ -100,8 +105,8 @@ public class Player extends NPC {
 //        System.out.println("Y: " + y + ", X: " + x);
 //        dy = 0;
 //        dx = 0;
-  //      System.out.println(interaction());
-        
+//        System.out.println(interaction());
+
         if (up && y != 0) {
             dy -= speed;
         }
@@ -114,22 +119,23 @@ public class Player extends NPC {
         if (right && x != -640) {
             dx -= speed;
         }
-        if(interaction){
-            if(interaction()!= -1){
-            System.out.println("MORRADIIIFAGGOT");
+        if (interaction) {
+            if (interaction() != -1) {
+                System.out.println("MORRADIIIFAGGOT");
             }
             // interact();
         }
         x = dx;
         y = dy;
-        
+
         //flytter vinduet
 //        tileMap.setX((int) (GamePanel.WIDTH / 2)+x);
 //        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
         if (left && x != 0 || right && x != -640) {
-            animation.setFrames(walking_sideways);
+            animation.setFrames(walking_up);
+            System.out.println("SKJERDETNOE");
             animation.setDelay(200);
         } else {
             animation.setFrames(idleSprite);
@@ -138,13 +144,17 @@ public class Player extends NPC {
 
         if (up && y != 0) {
             animation.setFrames(walking_up);
-            animation.setDelay(1000);
+            animation.setDelay(200);
         }
         if (down && y != 410) {
             animation.setFrames(walking_down);
-            animation.setDelay(500);
+            animation.setDelay(200);
         }
         animation.update();
+    }
+
+    public boolean getOptionValue() {
+        return OptionTrigger;
     }
 
     public void draw(Graphics2D g) {
@@ -159,6 +169,7 @@ public class Player extends NPC {
                     -spriteWidth, spriteHeight, null);
         }
 
+
     }
 
     @Override
@@ -167,13 +178,14 @@ public class Player extends NPC {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+            System.out.println("WWWWW");
             up = true;
         }
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             facingLeft = false;
+            System.out.println("HHHHHHHH");
             left = true;
         }
         if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
@@ -186,6 +198,15 @@ public class Player extends NPC {
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
             interaction = true;
+        }
+        if (key == KeyEvent.VK_ESCAPE) {
+            if (lock % 2 != 0) {
+                OptionTrigger = true;
+                lock--;
+            } else {
+                OptionTrigger = false;
+                lock++;
+            }
         }
     }
 
