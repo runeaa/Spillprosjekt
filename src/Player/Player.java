@@ -42,7 +42,6 @@ public class Player extends NPC {
         this.x = x;
         this.y = y;
         this.speed = speed;
-
         try {
 
             idleSprite = new BufferedImage[1];
@@ -98,10 +97,10 @@ public class Player extends NPC {
     }
 
     public void update() {
-        System.out.println("Y: " + y + ", X: " + x);
+//        System.out.println("Y: " + y + ", X: " + x);
 //        dy = 0;
 //        dx = 0;
-        System.out.println(interaction());
+  //      System.out.println(interaction());
         
         if (up && y != 0) {
             dy -= speed;
@@ -168,6 +167,7 @@ public class Player extends NPC {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
             up = true;

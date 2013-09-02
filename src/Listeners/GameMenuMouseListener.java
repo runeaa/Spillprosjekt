@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import Main.GameMenu;
 import Main.GamePanel;
+import java.awt.event.ComponentListener;
 
 /**
  *
@@ -75,8 +76,14 @@ public class GameMenuMouseListener implements MouseListener {
         } else if (currentPage.equalsIgnoreCase("difficulity")) {
             setNextAndPrevious("valgteinnstillinger.png", "utviklingsmodell.png");
         } else if(currentPage.equalsIgnoreCase("chosenSettings") && buttonTitle.equalsIgnoreCase("startGame")){
-            frame.removeAll();
-            frame.setContentPane(new GamePanel());
+            frame.getContentPane().removeAll();
+            for(ComponentListener c:gamem.getComponentListeners()){
+            frame.getContentPane().removeComponentListener(c);
+            }
+            frame.getContentPane().add(new GamePanel());
+            frame.getContentPane().revalidate();            
+            frame.getContentPane().repaint();
+            
         }
         else if(currentPage.equalsIgnoreCase("chosenSettings")){
             setNextAndPrevious("", "vanskelighetsgrad.png");

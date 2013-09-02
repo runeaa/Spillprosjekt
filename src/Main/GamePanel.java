@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -40,7 +42,10 @@ public class GamePanel extends JPanel implements Runnable {
         super();
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
-        requestFocus();
+        requestFocusInWindow();
+        setFocusable(true);
+        getFocusTraversalKeysEnabled();
+        
     }
 
     @Override
