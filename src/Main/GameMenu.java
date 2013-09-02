@@ -50,7 +50,7 @@ public class GameMenu extends JPanel {
         startMenuSetup();
         try {
             clip = AudioSystem.getClip();
-            startMusic();
+    //   startMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,18 +131,25 @@ public class GameMenu extends JPanel {
         c.gridy = 1;
         add(button, c);
 
-        button = new JButton();
-        button.setToolTipText("Gå til Systemtype valg");
-        button.setName("next");
-        setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/frem.png"));
-
+        final JButton button2 = new JButton();
+        button2.setToolTipText("Gå til Systemtype valg");
+        button2.setName("next");
+        if(playerSettings.getPlayerName()==null || playerSettings.getPlayerName().equals("")){
+        button2.setEnabled(false);
+            button2.setOpaque(false);
+        button2.setContentAreaFilled(false);
+        button2.setBorderPainted(false);
+        button2.setBorder(null);
+        }else{
+            setButtonSetup(button2);
+        }
+        button2.setIcon(new ImageIcon("./res/img/frem.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(0, 110, 0, 110);
         c.gridx = 2;
         c.gridy = 1;
 
-        add(button, c);
+        add(button2, c);
 
         final JTextField name = new JTextField((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
         name.setToolTipText("Skriv inn navnet ditt");
@@ -169,7 +176,11 @@ public class GameMenu extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if(!name.getText().equals("")){
+                button2.setEnabled(true);
+                setButtonSetup(button2);
                 playerSettings.setPlayerName(name.getText());
+                }
             }
         });
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -188,7 +199,6 @@ public class GameMenu extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
-        //TODO: Sound enable / disable
         button = new JButton();
         button.setToolTipText("Lyd");
         button.setName("Lyd");
@@ -235,6 +245,9 @@ public class GameMenu extends JPanel {
         model.addElement("Informasjonssystem");
         model.addElement("Telekommunikasjonssystem");
         model.addElement("Feiltolerantsystem");
+        if(playerSettings.system==null){
+        playerSettings.setSystem(model.getElementAt(0).toString());
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -289,7 +302,9 @@ public class GameMenu extends JPanel {
         model.addElement("Fossefallsmetoden");
         model.addElement("Spiralmetoden");
         model.addElement("Unified Processing");
-
+        if(playerSettings.getDevMethod()==null){
+        playerSettings.setDevMethod(model.getElementAt(0).toString());
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -342,7 +357,9 @@ public class GameMenu extends JPanel {
         model.addElement("Enkelt");
         model.addElement("Normalt");
         model.addElement("Vanskelig");
-
+        if(playerSettings.difficulity==-1){
+        playerSettings.setDifficulity(0);
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -380,8 +397,74 @@ public class GameMenu extends JPanel {
         add(button, c);
     }
 
-    public void informationSetup() {
-        currentPage = "information";
+    public void chosenSettingsSetup() {
+        currentPage = "chosenSettings";
+        JButton button;
+        GridBagConstraints c = new GridBagConstraints();
+        
+        button = new JButton();
+        button.setToolTipText("Tilbake til navn valg");
+        button.setName("previous");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0,-300, 0, 0);
+        c.gridx = 0;
+        c.gridy = 4;
+        add(button, c);
+
+        
+       JLabel name = new JLabel((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(120, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 2;
+        add(name, c);
+
+        JLabel system = new JLabel(playerSettings.getSystem());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(30, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 3;
+        add(system,c);
+        
+        JLabel devMethod = new JLabel(playerSettings.getDevMethod());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(35, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 4;
+        add(devMethod,c);
+        
+        String dif ="";
+        if(playerSettings.difficulity==PlayerSettings.EASY){
+            dif = "Enkelt";
+        }else if(playerSettings.difficulity == PlayerSettings.NORMAL){
+            dif = "Normal";
+        }else if(playerSettings.difficulity == PlayerSettings.HARD){
+            dif = "Hard";
+        }
+        JLabel difficulity = new JLabel(dif);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(35, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 5;
+        add(difficulity, c);
+        
+        
+        
+        
+        
+        button = new JButton();
+        button.setToolTipText("Start spillet");
+        button.setName("startGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/startgold01.gif"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(20, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 6;
+        add(button,c);
+        
     }
 
     public void startMusic() throws Exception {

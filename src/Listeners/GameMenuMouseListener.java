@@ -67,7 +67,9 @@ public class GameMenuMouseListener implements MouseListener {
         } else if (currentPage.equalsIgnoreCase("devmethod")) {
             setNextAndPrevious("vanskelighetsgrad.png", "systemtype.png");
         } else if (currentPage.equalsIgnoreCase("difficulity")) {
-            setNextAndPrevious("", "utviklingsmodell.png");
+            setNextAndPrevious("valgteinnstillinger.png", "utviklingsmodell.png");
+        }else if(currentPage.equalsIgnoreCase("chosenSettings")){
+            setNextAndPrevious("", "vanskelighetsgrad.png");
         }
     }
 
@@ -92,8 +94,7 @@ public class GameMenuMouseListener implements MouseListener {
             }
         }
 
-
-        if (buttonTitle.equalsIgnoreCase("startGame")) {
+        if (buttonTitle.equalsIgnoreCase("startGame") && currentPage.equalsIgnoreCase("startMenu")) {
             button.setIcon(new ImageIcon("./res/img/Startspillhoover.png"));;
         } else if (buttonTitle.equalsIgnoreCase("loadGame")) {
             button.setIcon(new ImageIcon("./res/img/Lastspillhoover.png"));
@@ -104,6 +105,7 @@ public class GameMenuMouseListener implements MouseListener {
         } else if (buttonTitle.equalsIgnoreCase("Lyd")) {
             button.setIcon((gamem.settings.sound) ? new ImageIcon("./res/img/speakeronhoover.png") : new ImageIcon("./res/img/speakermutehoover.png"));
         }
+        
     }
 
     @Override
@@ -117,7 +119,7 @@ public class GameMenuMouseListener implements MouseListener {
             }
         }
 
-        if (buttonTitle.equalsIgnoreCase("startGame")) {
+        if (buttonTitle.equalsIgnoreCase("startGame") && currentPage.equalsIgnoreCase("startMenu")) {
             button.setIcon(new ImageIcon("./res/img/Startspill.png"));
         } else if (buttonTitle.equalsIgnoreCase("loadGame")) {
             button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
@@ -168,11 +170,11 @@ public class GameMenuMouseListener implements MouseListener {
             }
         } else if (currentPage.equalsIgnoreCase("difficulity")) {
             if (buttonTitle.equalsIgnoreCase("next")) {
-                gamem.informationSetup();
+                gamem.chosenSettingsSetup();
             } else if (buttonTitle.equalsIgnoreCase("previous")) {
                 gamem.devMethodSetup();
             }
-        } else if (currentPage.equalsIgnoreCase("information")) {
+        }else if(currentPage.equalsIgnoreCase("chosenSettings")){
             if (buttonTitle.equalsIgnoreCase("startGame")) {
                 //START SPILL
             } else if (buttonTitle.equalsIgnoreCase("previous")) {
