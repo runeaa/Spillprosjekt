@@ -65,9 +65,9 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
-        tileMap = new TileMap("src/Resources/testmap.txt", 32);
-        tileMap.loadTiles("src/Resources/tileset.gif");
-        player = new Player(200, 200, 5);
+        tileMap = new TileMap("res/levels/floored.txt", 32);
+        tileMap.loadTiles("res/tileset.gif");
+        player = new Player(tileMap, 200, 200, 5);
         addKeyListener(player);
     }
 
@@ -113,11 +113,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
-        g.setColor(new Color(0, 100, 255));
-        g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);
-        g.drawImage(image, 0, 0, null);
+     
+        tileMap.draw(g);
         player.draw(g);
-        npc1.draw(g);
+//        npc1.draw(g);
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
