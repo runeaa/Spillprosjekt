@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import Main.GameMenu;
+import Main.GamePanel;
 
 /**
  *
@@ -21,9 +22,11 @@ public class GameMenuMouseListener implements MouseListener {
     private JButton button;
     private String buttonTitle;
     private String currentPage;
+    JFrame frame;
 
-    public GameMenuMouseListener(JButton button, GameMenu gamem) {
+    public GameMenuMouseListener(JButton button, GameMenu gamem,JFrame frame) {
         this.gamem = gamem;
+        this.frame = frame;
         this.button = button;
         this.buttonTitle = button.getName();
         this.currentPage = gamem.currentPage;
@@ -43,7 +46,10 @@ public class GameMenuMouseListener implements MouseListener {
                 gamem.revalidate();
                 gamem.repaint();
             } else if (buttonTitle.equalsIgnoreCase("loadGame")) {
-                //LOAD GAME
+                JFileChooser opener = new JFileChooser("./res/saveGame");
+               gamem.add(opener);
+               opener.showOpenDialog(gamem);
+               
             } else if (buttonTitle.equalsIgnoreCase("exitGame")) {
                 System.exit(0);
             }
@@ -68,7 +74,11 @@ public class GameMenuMouseListener implements MouseListener {
             setNextAndPrevious("vanskelighetsgrad.png", "systemtype.png");
         } else if (currentPage.equalsIgnoreCase("difficulity")) {
             setNextAndPrevious("valgteinnstillinger.png", "utviklingsmodell.png");
-        }else if(currentPage.equalsIgnoreCase("chosenSettings")){
+        } else if(currentPage.equalsIgnoreCase("chosenSettings") && buttonTitle.equalsIgnoreCase("startGame")){
+            frame.removeAll();
+            frame.setContentPane(new GamePanel());
+        }
+        else if(currentPage.equalsIgnoreCase("chosenSettings")){
             setNextAndPrevious("", "vanskelighetsgrad.png");
         }
     }
@@ -176,7 +186,7 @@ public class GameMenuMouseListener implements MouseListener {
             }
         }else if(currentPage.equalsIgnoreCase("chosenSettings")){
             if (buttonTitle.equalsIgnoreCase("startGame")) {
-                //START SPILL
+                
             } else if (buttonTitle.equalsIgnoreCase("previous")) {
                 gamem.difficulitySetup();
             }

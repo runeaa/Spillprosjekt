@@ -37,8 +37,9 @@ public class GameMenu extends JPanel {
     private JPanel pan = this;
     public String currentPage;
     public Clip clip;
+    private JFrame frame;
 
-    public GameMenu() {
+    public GameMenu(JFrame frame) {
         try {
             img = ImageIO.read(new File("./res/img/menu.png"));
         } catch (IOException e) {
@@ -48,9 +49,10 @@ public class GameMenu extends JPanel {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setSize(settings.WITDH, settings.HEIGHT);
         startMenuSetup();
+        this.frame=frame;
         try {
             clip = AudioSystem.getClip();
-    //   startMusic();
+       startMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +63,7 @@ public class GameMenu extends JPanel {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setBorder(null);
-        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this);
+        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this,frame);
         button.addMouseListener(gamemenulistener);
     }
 
