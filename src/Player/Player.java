@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author Rune
  */
-public class Player implements KeyListener {
+public class Player extends NPC {
 
     private int x, y;
     private int dx, dy;
@@ -35,6 +35,7 @@ public class Player implements KeyListener {
     private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
 
     public Player(int x, int y, int speed) {
+        super(x,y);
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -94,7 +95,7 @@ public class Player implements KeyListener {
     }
 
     public void update() {
-        System.out.println("DY: " + dy + ", DX: " + dx);
+        System.out.println("Y: " + y + ", X: " + x);
 //        dy = 0;
 //        dx = 0;
         System.out.println(interaction());
@@ -137,7 +138,6 @@ public class Player implements KeyListener {
             animation.setDelay(500);
         }
         animation.update();
-
     }
 
     public void draw(Graphics2D g) {

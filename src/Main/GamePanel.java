@@ -6,6 +6,7 @@ package Main;
 
 import Map.Tile;
 import Map.TileMap;
+import Player.NPC;
 import Player.Player;
 import Settings.*;
 import java.awt.Color;
@@ -31,6 +32,10 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread thread;
     private Graphics2D g;
     private Player player;
+    private NPC npc1;
+    private NPC npc2;
+    private NPC npc3;
+    private NPC npc4;
 
     public GamePanel() {
         super();
@@ -75,10 +80,11 @@ public class GamePanel extends JPanel implements Runnable {
         //gameloop
         while (running) {
             start = System.nanoTime();
-
+            
             update();
             render();
             draw();
+            
 
             loopTime = (System.nanoTime() - start) / 1000000;
 
@@ -111,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
         g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);
         g.drawImage(image, 0, 0, null);
         player.draw(g);
+        npc1.draw(g);
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
