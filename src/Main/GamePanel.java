@@ -56,7 +56,8 @@ public class GamePanel extends JPanel implements Runnable {
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //Quiz quiz = new Quiz(int valg);
-        player = new Player(quiz, 200, 200, 5);
+        //player = new Player(quiz, 200, 200, 5);
+        player = new Player(200, 200, 5);
         addKeyListener(player);
     }
 

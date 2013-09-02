@@ -10,8 +10,8 @@ import Quiz.Quiz;
  */
 public class testmain {
     public static void main(String[] args) {
-        Quiz quiz = new Quiz(1);
-        
+        Quiz quiz = new Quiz(0);
+        System.out.println(quiz.toString());
         
     }
 }

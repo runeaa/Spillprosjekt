@@ -7,6 +7,7 @@ package Quiz;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.annotation.PostConstruct;
 import javax.imageio.IIOException;
 
 /**
@@ -20,18 +21,18 @@ public class Quiz {
 
     public Quiz(int valg) {
         this.valg = valg;
+        buildQuiz(valg);
 
     }
-
+    
     public void buildQuiz(int valg) {
         if (valg == 0) {
-            String s = "/res/fossefall.txt";
-
+            String s = "res/fossefall.txt";
             readFromFile(s);
 
         }
         if (valg == 1) {
-            String s = "/res/spiral.txt";
+            String s = "res/spiral.txt";
             readFromFile(s);
         }
         if (valg == 2) {
@@ -43,7 +44,7 @@ public class Quiz {
             readFromFile(s);
         }
     }
-
+    
     private void readFromFile(String s) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(s));
@@ -60,5 +61,14 @@ public class Quiz {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public String toString(){
+        String s = " ";
+        for(int i = 0; i < quizTab.length; i++){
+            for(int j = 0; j < quizTab[0].length;j++){
+                s += quizTab[i][j] + "\n";
+            }
+        }
+        return s;
     }
 }
