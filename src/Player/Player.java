@@ -5,6 +5,7 @@
 package Player;
 
 import Main.GamePanel;
+import Map.TileMap;
 //import com.sun.xml.internal.bind.v2.model.core.Adapter;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -24,6 +25,7 @@ public class Player extends NPC {
     private int x, y;
     private int dx, dy;
     private int speed;
+    private TileMap tileMap;
     private boolean up, down, left, right, facingLeft, interaction;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
@@ -34,8 +36,9 @@ public class Player extends NPC {
     private Animation animation;
     private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
 
-    public Player(int x, int y, int speed) {
+    public Player(TileMap tileMap, int x, int y, int speed) {
         super(x,y);
+        this.tileMap = tileMap;
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -119,6 +122,10 @@ public class Player extends NPC {
         }
         x = dx;
         y = dy;
+        
+        //flytter vinduet
+        tileMap.setX(-(int) (GamePanel.WIDTH / 2 - x));
+        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
         if (left || right) {
@@ -142,8 +149,8 @@ public class Player extends NPC {
 
     public void draw(Graphics2D g) {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
-        int tx = 50;
-        int ty = 50;
+        int tx = tileMap.getX();
+        int ty = tileMap.getY();
 
         if (facingLeft) {
             g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
