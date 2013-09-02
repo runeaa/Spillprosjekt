@@ -10,6 +10,10 @@ public class PlayerSettings {
     public String system;
     public String playerName;
     public String devMethod;
+    public int difficulity = -1; //-1 = no diff choosen.
+    public static final int EASY = 0;
+    public static final int NORMAL = 1;
+    public static final int HARD = 2;
 
     public String getSystem() {
         return system;
@@ -33,5 +37,9 @@ public class PlayerSettings {
 
     public void setDevMethod(String devMethod) {
         this.devMethod = devMethod;
+    }
+
+    public void setDifficulity(int difficulity) {
+        this.difficulity = difficulity;
     }
 }
