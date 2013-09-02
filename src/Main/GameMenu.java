@@ -1,13 +1,12 @@
 package Main;
 
 import Listeners.GameMenuMouseListener;
-import java.awt.GridBagLayout;
-import javax.swing.*;
-import Settings.*;
-import java.awt.Component;
+import Settings.PlayerSettings;
+import Settings.Settings;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +14,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.sound.sampled.*;
 
 /**
  *
@@ -33,6 +33,8 @@ public class GameMenu extends JPanel {
     public Settings settings = new Settings();
     public BufferedImage img;
     private JPanel pan = this;
+    public String currentPage;
+    public Clip clip;
 
     public GameMenu() {
         try {
@@ -44,6 +46,12 @@ public class GameMenu extends JPanel {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setSize(settings.WITDH, settings.HEIGHT);
         startMenuSetup();
+        try {
+            clip = AudioSystem.getClip();
+            startMusic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setButtonSetup(final JButton button) {
@@ -55,12 +63,64 @@ public class GameMenu extends JPanel {
         button.addMouseListener(gamemenulistener);
     }
 
+    public void startMenuSetup() {
+        currentPage = "startMenu";
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button;
+
+
+        button = new JButton();
+        button.setToolTipText("Start Spill");
+        button.setName("startGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/Startspill.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(180, 80, 0, 100);
+        c.gridx = 0;
+        c.gridy = 1;
+        add(button, c);
+
+        button = new JButton();
+        button.setToolTipText("Last Spill");
+        button.setName("loadGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(180, 0, 0, 100);
+        c.gridx = 1;
+        c.gridy = 1;
+        add(button, c);
+
+        button = new JButton();
+        button.setToolTipText("Avslutt Spill");
+        button.setName("exitGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 1;
+        add(button, c);
+
+        button = new JButton();
+        button.setToolTipText("Innstillinger");
+        button.setName("settings");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(80, 80, 0, 100);
+        c.gridx = 0;
+        c.gridy = 2;
+        add(button, c);
+
+    }
+
     public void nameSetup() {
+        currentPage = "name";
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
         button = new JButton();
         button.setToolTipText("Tilbake til Hovedmenyen");
-        button.setName("tilbake");
+        button.setName("previous");
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -71,7 +131,7 @@ public class GameMenu extends JPanel {
 
         button = new JButton();
         button.setToolTipText("Gå til Systemtype valg");
-        button.setName("frem");
+        button.setName("next");
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/frem.png"));
 
@@ -83,7 +143,8 @@ public class GameMenu extends JPanel {
         add(button, c);
 
         final JTextField name = new JTextField((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
-        name.setToolTipText("navn");
+        name.setToolTipText("Skriv inn navnet ditt");
+        name.setName("navn");
         name.setMinimumSize(new Dimension(200, 20));
         name.addFocusListener(new FocusListener() {
             @Override
@@ -121,12 +182,14 @@ public class GameMenu extends JPanel {
     }
 
     public void settingsSetup() {
+        currentPage = "settings";
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
-        //TODO: Sound enable ( disable
+        //TODO: Sound enable / disable
         button = new JButton();
         button.setToolTipText("Lyd");
+        button.setName("Lyd");
         setButtonSetup(button);
         button.setIcon((settings.sound) ? new ImageIcon("./res/img/speakeron.png") : new ImageIcon("./res/img/speakermute.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -135,10 +198,9 @@ public class GameMenu extends JPanel {
         c.gridy = 1;
         add(button, c);
 
-        //TODO: Back
         button = new JButton();
-        button.setToolTipText("Tilbake til Hovedmenyen");
-        button.setName("tilbake");
+        button.setToolTipText("Tilbake til hovedmenyen");
+        button.setName("previous");
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -149,55 +211,187 @@ public class GameMenu extends JPanel {
     }
 
     public void systemTypeSetup() {
-    }
-
-    public void startMenuSetup() {
+        currentPage = "systemType";
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
-
-        //TODO: Start game
         button = new JButton();
-        button.setToolTipText("Start Spill");
+        button.setToolTipText("Tilbake til navn valg");
+        button.setName("previous");
         setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/Startspill.png"));
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(180, 80, 0, 100);
+        c.insets = new Insets(0, 100, 0, 100);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
 
-        //TODO: Load game
-        button = new JButton();
-        button.setToolTipText("Last Spill");
-        setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Spillsystem");
+        model.addElement("Sikkerhetskritiskesystem");
+        model.addElement("Sanntidssystem");
+        model.addElement("Informasjonssystem");
+        model.addElement("Telekommunikasjonssystem");
+        model.addElement("Feiltolerantsystem");
+        final JComboBox comboBox = new JComboBox(model);
+        comboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String system = comboBox.getSelectedItem().toString();
+                playerSettings.setSystem(system);
+            }
+        });
+        if (playerSettings.getSystem() != null) {
+            int i = model.getIndexOf(playerSettings.getSystem());
+            comboBox.setSelectedIndex(i);
+        }
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(180, 0, 0, 100);
+        c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 1;
-        add(button, c);
+        add(comboBox, c);
 
-        //TODO: Exit game
         button = new JButton();
-        button.setToolTipText("Avslutt Spill");
+        button.setToolTipText("Gå til Utviklingsmodell valg");
+        button.setName("next");
         setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
+        button.setIcon(new ImageIcon("./res/img/frem.png"));
+
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 95, 0, 95);
         c.gridx = 2;
+        c.gridy = 1;
+
+        add(button, c);
+    }
+
+    public void devMethodSetup() {
+        currentPage = "devmethod";
+
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button;
+
+        button = new JButton();
+        button.setToolTipText("Tilbake til systemtype valg");
+        button.setName("previous");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 130, 0, 130);
+        c.gridx = 0;
         c.gridy = 1;
         add(button, c);
 
-        //TODO: Settings
-        button = new JButton();
-        button.setToolTipText("Innstillinger");
-        setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("SCRUM");
+        model.addElement("Fossefallsmetoden");
+        model.addElement("Spiralmetoden");
+        model.addElement("Unified Processing");
+
+        final JComboBox comboBox = new JComboBox(model);
+        comboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String devMethod = comboBox.getSelectedItem().toString();
+                playerSettings.setDevMethod(devMethod);
+            }
+        });
+        if (playerSettings.getDevMethod() != null) {
+            int i = model.getIndexOf(playerSettings.getDevMethod());
+            comboBox.setSelectedIndex(i);
+        }
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(80, 80, 0, 100);
-        c.gridx = 0;
-        c.gridy = 2;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 1;
+        add(comboBox, c);
+
+        button = new JButton();
+        button.setToolTipText("Gå til vannskelighetsgrad valg");
+        button.setName("next");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/frem.png"));
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 130, 0, 130);
+        c.gridx = 2;
+        c.gridy = 1;
+
         add(button, c);
+    }
+
+    public void difficulitySetup() {
+        currentPage = "difficulity";
+        GridBagConstraints c = new GridBagConstraints();
+        JButton button;
+
+        button = new JButton();
+        button.setToolTipText("Tilbake til Utviklingsmodell valg");
+        button.setName("previous");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 160, 0, 160);
+        c.gridx = 0;
+        c.gridy = 1;
+        add(button, c);
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Enkelt");
+        model.addElement("Normalt");
+        model.addElement("Vanskelig");
+
+        final JComboBox comboBox = new JComboBox(model);
+        comboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String difficulity = comboBox.getSelectedItem().toString();
+                if (difficulity.equalsIgnoreCase("enkelt")) {
+                    playerSettings.setDifficulity(PlayerSettings.EASY);
+                } else if (difficulity.equalsIgnoreCase("normalt")) {
+                    playerSettings.setDifficulity(PlayerSettings.NORMAL);
+                } else if (difficulity.equalsIgnoreCase("vanskelig")) {
+                    playerSettings.setDifficulity(PlayerSettings.HARD);
+                }
+            }
+        });
+        if (playerSettings.difficulity != -1) {
+            comboBox.setSelectedIndex(playerSettings.difficulity);
+        }
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 1;
+        add(comboBox, c);
+
+        button = new JButton();
+        button.setToolTipText("Gå til Informasjonsskjerm");
+        button.setName("next");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/frem.png"));
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 160, 0, 160);
+        c.gridx = 2;
+        c.gridy = 1;
+
+        add(button, c);
+    }
+
+    public void informationSetup() {
+        currentPage = "information";
+    }
+
+    public void startMusic() throws Exception {
+        ArrayList<String> musicFiles = new ArrayList();
+        musicFiles.add("wakemeup.mid");
+
+        File file = new File("./res/music/wakemeup.mid");
+        // getAudioInputStream() also accepts a File or InputStream
+        AudioInputStream ais = AudioSystem.
+                getAudioInputStream(file);
+        clip.open(ais);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
 
     }
 
