@@ -25,8 +25,8 @@ public class Player implements KeyListener {
     private int dx, dy;
     private int speed;
     private boolean up, down, left, right, facingLeft, interaction;
-    private final int spriteWidth = 16;
-    private final int spriteHeight = 17;
+    private final int spriteWidth = 32;
+    private final int spriteHeight = 34;
     private BufferedImage[] walking_sideways;
     private BufferedImage[] walking_up;
     private BufferedImage[] walking_down;
@@ -45,10 +45,10 @@ public class Player implements KeyListener {
             walking_sideways = new BufferedImage[2];
             walking_up = new BufferedImage[2];
             walking_down = new BufferedImage[2];
-            idleSprite[0] = ImageIO.read(new File("res/bob_sideways_idle.png"));
-            BufferedImage img = ImageIO.read(new File("res/bob_sideways.png"));
-            BufferedImage img2 = ImageIO.read(new File("res/bob_up.png"));
-            BufferedImage img3 = ImageIO.read(new File("res/bob_down.png"));
+            idleSprite[0] = ImageIO.read(new File("res/player/playeridle.png"));
+            BufferedImage img = ImageIO.read(new File("res/player/playersidewalk.png"));
+            BufferedImage img2 = ImageIO.read(new File("res/player/playerup.png"));
+            BufferedImage img3 = ImageIO.read(new File("res/player/playerdown.png"));
             for (int i = 0; i < walking_up.length; i++) {
                 walking_sideways[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
                 walking_up[i] = img2.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
@@ -94,7 +94,7 @@ public class Player implements KeyListener {
     }
 
     public void update() {
-        System.out.println("DY: " + y + ", DX: " + x);
+        System.out.println("DY: " + dy + ", DX: " + dx);
 //        dy = 0;
 //        dx = 0;
         System.out.println(interaction());
@@ -111,6 +111,9 @@ public class Player implements KeyListener {
             dx -= speed;
         }
         if(interaction){
+            if(interaction()!= -1){
+            System.out.println("MORRADIIIFAGGOT");
+            }
             // interact();
         }
         x = dx;

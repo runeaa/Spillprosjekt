@@ -4,6 +4,8 @@
  */
 package Main;
 
+import Map.Tile;
+import Map.TileMap;
 import Player.Player;
 import Settings.*;
 import java.awt.Color;
@@ -25,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage image;
     private int maxrameCount = 60;
     int frameCount = 1;
+    private TileMap tileMap;
     private Thread thread;
     private Graphics2D g;
     private Player player;
@@ -57,6 +60,8 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
+        tileMap = new TileMap("src/Resources/testmap.txt", 32);
+        tileMap.loadTiles("src/Resources/tileset.gif");
         player = new Player(200, 200, 5);
         addKeyListener(player);
     }
