@@ -17,7 +17,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.sound.sampled.*;
@@ -385,8 +387,18 @@ public class GameMenu extends JPanel {
     public void startMusic() throws Exception {
         ArrayList<String> musicFiles = new ArrayList();
         musicFiles.add("wakemeup.mid");
-
-        File file = new File("./res/music/wakemeup.mid");
+        musicFiles.add("mario1.mid");
+        musicFiles.add("pokemon1.mid");
+        musicFiles.add("pokemon2.mid");
+        musicFiles.add("pokemon3.mid");
+        musicFiles.add("pokemon4.mid");
+        musicFiles.add("zelda1.mid");
+        musicFiles.add("aoe2.mid");
+        musicFiles.add("tetris1.mid");
+        Random rn = new Random();
+        int songnr= rn.nextInt(9);
+        String song = musicFiles.get(songnr);
+        File file = new File("./res/music/"+song);
         // getAudioInputStream() also accepts a File or InputStream
         AudioInputStream ais = AudioSystem.
                 getAudioInputStream(file);
