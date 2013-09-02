@@ -5,7 +5,7 @@
 package Player;
 
 import Main.GamePanel;
-import com.sun.xml.internal.bind.v2.model.core.Adapter;
+//import com.sun.xml.internal.bind.v2.model.core.Adapter;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -24,7 +24,7 @@ public class Player implements KeyListener {
     private int x, y;
     private int dx, dy;
     private int speed;
-    private boolean up, down, left, right, facingLeft;
+    private boolean up, down, left, right, facingLeft, interaction;
     private final int spriteWidth = 16;
     private final int spriteHeight = 17;
     private BufferedImage[] walking_sideways;
@@ -32,6 +32,7 @@ public class Player implements KeyListener {
     private BufferedImage[] walking_down;
     private BufferedImage[] idleSprite = new BufferedImage[1];
     private Animation animation;
+    private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
 
     public Player(int x, int y, int speed) {
         this.x = x;
@@ -62,10 +63,41 @@ public class Player implements KeyListener {
         facingLeft = false;
     }
 
+    private boolean interX(int interactionDist, int tx) {
+        return (tx + interactionDist > x && tx - interactionDist < x);
+
+    }
+
+    private boolean interY(int interactionDist, int ty) {
+        return (ty + interactionDist > x && ty - interactionDist < y);
+
+    }
+
+    private boolean interact(int tx, int ty) {
+        int interactionDist = 10;
+        if (interY(interactionDist, tx) && interX(interactionDist, ty)) {
+            return true;
+        }
+        return false;
+            
+    }
+
+    public int interaction() {
+        for (int i = 0; i < npc.length; i++) {
+            int a = npc[i][0];
+            int b = npc[i][1];
+            if(interact(a,b)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void update() {
-        System.out.println("DY: " + dy + ", DX: " + dx);
+        System.out.println("DY: " + y + ", DX: " + x);
 //        dy = 0;
 //        dx = 0;
+        System.out.println(interaction());
         if (up) {
             dy -= speed;
         }
@@ -77,6 +109,9 @@ public class Player implements KeyListener {
         }
         if (right) {
             dx -= speed;
+        }
+        if(interaction){
+            // interact();
         }
         x = dx;
         y = dy;
@@ -138,6 +173,9 @@ public class Player implements KeyListener {
 
             right = true;
         }
+        if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
+            interaction = true;
+        }
     }
 
     @Override
@@ -154,6 +192,9 @@ public class Player implements KeyListener {
         }
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             right = false;
+        }
+        if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
+            interaction = false;
         }
     }
 }
