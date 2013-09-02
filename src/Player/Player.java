@@ -133,30 +133,19 @@ public class Player extends NPC {
 //        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
-        if (left && x != 0 || right && x != -640) {
-            animation.setFrames(walking_up);
-            System.out.println("SKJERDETNOE");
-            animation.setDelay(200);
-        }        else if (up && y != 0) {
+        if(((right || left) && up) || (up && y!=0)){
             animation.setFrames(walking_up);
             animation.setDelay(200);
-        }
-        else  if (down && y != 410) {
+        }else if( ((right || left) && down || (down && y!=410))  ){
             animation.setFrames(walking_down);
             animation.setDelay(200);
-        
-        } else {
+        }
+        else if (left && x != 0 || right && x != -640) {
+            animation.setFrames(walking_sideways);
+            animation.setDelay(200);      
+        } else  {
             animation.setFrames(idleSprite);
             animation.setDelay(-1);
-        }
-
-        if (up && y != 0) {
-            animation.setFrames(walking_up);
-            animation.setDelay(200);
-        }
-        if (down && y != 410) {
-            animation.setFrames(walking_down);
-            animation.setDelay(200);
         }
         animation.update();
     }
@@ -170,10 +159,10 @@ public class Player extends NPC {
         int tx = tileMap.getX();
         int ty = tileMap.getY();
         if (facingLeft) {
-            g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
-        } else {
             g.drawImage(animation.getImage(), (tx - x - spriteWidth / 2 + spriteWidth), (int) (ty + y - spriteHeight / 2),
                     -spriteWidth, spriteHeight, null);
+        } else {
+            g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
         }
 
 
@@ -187,20 +176,17 @@ public class Player extends NPC {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-            System.out.println("WWWWW");
             up = true;
         }
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-            facingLeft = false;
-            System.out.println("HHHHHHHH");
+            facingLeft = true;
             left = true;
         }
         if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
             down = true;
         }
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-            facingLeft = true;
-
+            facingLeft = false;
             right = true;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
