@@ -53,7 +53,7 @@ public class TileMap {
         }
     }
     
-        public int getX() {
+    public int getX() {
         return x;
     }
 
@@ -133,42 +133,4 @@ public class TileMap {
     public int getTileSize() {
         return tileSize;
     }
-
-//    public void readFile() {
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader("res/levels/map.txt"));
-//            width = Integer.parseInt(br.readLine());
-//            height = Integer.parseInt(br.readLine());
-//            map = new int[height][width];
-//            for (int i = 0; i < height; i++) {
-//                String mapLine = br.readLine();
-//                String[] element = mapLine.split("\\s+");
-//                for (int j = 0; j < width; j++) {
-//                    map[i][j] = Integer.parseInt(element[j]);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-////    }
-//
-//    public String toString() {
-//        readFile();
-//        String s = "";
-//        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < width; j++) {
-//                s += map[i][j] + " ";
-//            }
-//            s += "\n";
-//        }
-//        return s;
-//    }
 }
-//
-//class test {
-//
-//    public static void main(String[] args) {
-//        TileMap map = new TileMap();
-//        System.out.println(map.toString());
-//    }
-//}

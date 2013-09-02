@@ -6,6 +6,7 @@ package Main;
 
 import Map.Tile;
 import Map.TileMap;
+import Player.NPC;
 import Player.Player;
 import Settings.*;
 import java.awt.Color;
