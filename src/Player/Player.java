@@ -102,16 +102,17 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
         System.out.println(interaction());
-        if (up) {
+        
+        if (up && y != 0) {
             dy -= speed;
         }
-        if (down) {
+        if (down && y != 410) {
             dy += speed;
         }
-        if (left) {
+        if (left && x != 0) {
             dx += speed;
         }
-        if (right) {
+        if (right && x != -640) {
             dx -= speed;
         }
         if(interaction){
@@ -124,11 +125,11 @@ public class Player extends NPC {
         y = dy;
         
         //flytter vinduet
-        tileMap.setX(-(int) (GamePanel.WIDTH / 2 - x));
-        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
+//        tileMap.setX((int) (GamePanel.WIDTH / 2)+x);
+//        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
-        if (left || right) {
+        if (left && x != 0 || right && x != -640) {
             animation.setFrames(walking_sideways);
             animation.setDelay(200);
         } else {
@@ -136,11 +137,11 @@ public class Player extends NPC {
             animation.setDelay(-1);
         }
 
-        if (up) {
+        if (up && y != 0) {
             animation.setFrames(walking_up);
             animation.setDelay(1000);
         }
-        if (down) {
+        if (down && y != 410) {
             animation.setFrames(walking_down);
             animation.setDelay(500);
         }

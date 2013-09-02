@@ -4,7 +4,6 @@
  */
 package Main;
 
-import Map.Tile;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
@@ -66,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/floored.txt", 32);
-        tileMap.loadTiles("res/tileset.gif");
+        tileMap.loadTiles("res/levels/tileset.gif");
         player = new Player(tileMap, 200, 200, 5);
         addKeyListener(player);
     }
