@@ -50,7 +50,7 @@ public class GameMenu extends JPanel {
         startMenuSetup();
         try {
             clip = AudioSystem.getClip();
-            startMusic();
+    //   startMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,6 +235,7 @@ public class GameMenu extends JPanel {
         model.addElement("Informasjonssystem");
         model.addElement("Telekommunikasjonssystem");
         model.addElement("Feiltolerantsystem");
+        playerSettings.setSystem(model.getElementAt(0).toString());
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -289,7 +290,7 @@ public class GameMenu extends JPanel {
         model.addElement("Fossefallsmetoden");
         model.addElement("Spiralmetoden");
         model.addElement("Unified Processing");
-
+        playerSettings.setDevMethod(model.getElementAt(0).toString());
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -380,8 +381,74 @@ public class GameMenu extends JPanel {
         add(button, c);
     }
 
-    public void informationSetup() {
-        currentPage = "information";
+    public void chosenSettingsSetup() {
+        currentPage = "chosenSettings";
+        JButton button;
+        GridBagConstraints c = new GridBagConstraints();
+        
+        button = new JButton();
+        button.setToolTipText("Tilbake til navn valg");
+        button.setName("previous");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0,0, 0, 20);
+        c.gridx = 0;
+        c.gridy = 1;
+        add(button, c);
+
+        
+       JLabel name = new JLabel((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 2;
+        add(name, c);
+
+        JLabel system = new JLabel(playerSettings.getSystem());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 3;
+        add(system,c);
+        
+        JLabel devMethod = new JLabel(playerSettings.getDevMethod());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 4;
+        add(devMethod,c);
+        
+        String dif ="";
+        if(playerSettings.difficulity==PlayerSettings.EASY){
+            dif = "Enkelt";
+        }else if(playerSettings.difficulity == PlayerSettings.NORMAL){
+            dif = "Normal";
+        }else if(playerSettings.difficulity == PlayerSettings.HARD){
+            dif = "Hard";
+        }
+        JLabel difficulity = new JLabel();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 5;
+        add(difficulity, c);
+        
+        
+        
+        
+        
+        button = new JButton();
+        button.setToolTipText("Start spillet");
+        button.setName("startGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/startgold01.gif"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 6;
+        add(button,c);
+        
     }
 
     public void startMusic() throws Exception {
