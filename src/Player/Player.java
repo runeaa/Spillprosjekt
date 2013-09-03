@@ -126,6 +126,17 @@ public class Player extends NPC {
         return -1;
     }
 
+    private boolean wall() {
+        //boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
+        int tempx = ((-dx-21) / 32);
+        int tempy = ((dy-16) / 32);
+        tempy = (tempy > 0) ? tempy + 1 : tempy;
+        tempx = (tempx > 0) ? tempx + 1 : tempx;
+        boolean outsideOfMap = ((tempx)>20 || tempy>20)? true:false;
+        return (outsideOfMap && tileMap.getTile(tempy, tempx) >= 13);
+
+    }
+
     public void update() {
 //        System.out.println("Y: " + y + ", X: " + x);
 //        dy = 0;
@@ -141,21 +152,21 @@ public class Player extends NPC {
             if (left && x != 0) {
                 dx += speed;
             }
-            if (right && x != -640) {
+            if (right && x != -630) {
                 dx -= speed;
             }
 //            
         }
-        /* I don't even
+
         System.out.println("X =  " + x + "   y =  " + y);
-        boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
-        if (tileMap.getTile(((dy) / 32), ((-dx+45) / 32)) >= 13 || outsideOfMap) {
+
+        if (wall()) {// || outsideOfMap) {
             dx = x;
             dy = y;
-        } else {*/
+        } else {
             x = dx;
             y = dy;
-        //}
+        }
         //Sjekker kollisjon
         int curCol = tileMap.getColTile((int) x);
         int curRow = tileMap.getRowTile((int) y);
