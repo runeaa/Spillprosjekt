@@ -29,10 +29,13 @@ public class Player extends NPC {
     private boolean up, down, left, right, facingLeft, interaction;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
+    private int idleDirection = 3;
     private BufferedImage[] walking_sideways;
     private BufferedImage[] walking_up;
     private BufferedImage[] walking_down;
     private BufferedImage[] idleSprite = new BufferedImage[1];
+    private BufferedImage[] idleSprite_up = new BufferedImage[1];
+    private BufferedImage[] idleSprite_down = new BufferedImage[1];
     private Animation animation;
     private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
     private String color;
@@ -59,7 +62,7 @@ public class Player extends NPC {
             for (int i = 0; i < walking_up.length; i++) {
                 walking_up[i] = img2.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
                 walking_sideways[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
-                
+
                 walking_down[i] = img3.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }
 
@@ -106,25 +109,25 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
-        if(!OptionTrigger){
-        if (up && y != 0) {
-            dy -= speed;
-        }
-        if (down && y != 410) {
-            dy += speed;
-        }
-        if (left && x != 0) {
-            dx += speed;
-        }
-        if (right && x != -640) {
-            dx -= speed;
-        }
-        if (interaction) {
-            if (interaction() != -1) {
-                System.out.println("MORRADIIIFAGGOT");
+        if (!OptionTrigger) {
+            if (up && y != 0) {
+                dy -= speed;
             }
-            // interact();
-        }
+            if (down && y != 410) {
+                dy += speed;
+            }
+            if (left && x != 0) {
+                dx += speed;
+            }
+            if (right && x != -640) {
+                dx -= speed;
+            }
+            if (interaction) {
+                if (interaction() != -1) {
+                    System.out.println("MORRADIIIFAGGOT");
+                }
+                // interact();
+            }
         }
         x = dx;
         y = dy;
@@ -134,19 +137,26 @@ public class Player extends NPC {
 //        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
-        if(((right || left) && up) || (up && y!=0)){
+        if (((right || left) && up) || (up && y != 0)) {
             animation.setFrames(walking_up);
             animation.setDelay(200);
-        }else if( ((right || left) && down || (down && y!=410))  ){
+        } else if (((right || left) && down || (down && y != 410))) {
             animation.setFrames(walking_down);
             animation.setDelay(200);
-        }
-        else if (left && x != 0 || right && x != -640) {
+        } else if (left && x != 0 || right && x != -640) {
             animation.setFrames(walking_sideways);
-            animation.setDelay(200);      
-        } else  {
-            animation.setFrames(idleSprite);
-            animation.setDelay(-1);
+            animation.setDelay(200);
+//        } else {
+//            if (idleDirection == 1) {
+//            } else if (idleDirection == 2) {
+//                animation.setFrames(idleSprite);
+//                animation.setDelay(-1);
+//            } else if (idleDirection == 3) {
+//            } else {
+//                animation.setFrames(idleSprite);
+//                animation.setDelay(-1);
+//            }
+            System.out.println("idlenoe");
         }
         animation.update();
     }
@@ -175,19 +185,23 @@ public class Player extends NPC {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP)  {
+        if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
             up = true;
+            idleDirection = 1;
         }
-        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT)  {
+        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             facingLeft = true;
             left = true;
+            idleDirection = 2;
         }
-        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN)  {
+        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
             down = true;
+            idleDirection = 3;
         }
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             facingLeft = false;
             right = true;
+            idleDirection = 4;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
             interaction = true;

@@ -22,8 +22,6 @@ public class Animation {
         if (currentFrame >= frames.length) {
             currentFrame = 0;
         }
-
-
     }
 
     public void setDelay(long delay) {

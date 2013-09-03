@@ -12,9 +12,10 @@ import java.awt.Graphics2D;
  * @author Rune
  */
 public class GameStateSettings {
-    private Settings setting = new Settings();
+    private Settings setting;
 
-    public GameStateSettings() {
+    public GameStateSettings(Settings setting) {
+        this.setting = setting;
     }
     
     public void update(){}
@@ -22,7 +23,7 @@ public class GameStateSettings {
     public void render(){}
     
     public void draw(Graphics2D g){
-        g.setColor(Color.blue);
+        g.setColor(Color.YELLOW);
         g.fillRect(0, 0, setting.WITDH, setting.HEIGHT);
     }
 }
