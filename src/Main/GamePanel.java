@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     private boolean running;
     private BufferedImage image;
     private int maxrameCount = 60;
+    private GameStateSettings optionState;
     int frameCount = 1;
     private TileMap tileMap;
     private Thread thread;
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         player = new Player(tileMap, 200, 200, 5, "blue");
         npc1 = new NPC(50, 300, "red");
         npc2 = new NPC(200, 100, "blue");
+        optionState = new GameStateSettings();
         addKeyListener(player);
     }
 
@@ -115,10 +117,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
-     
         if(!player.getOptionValue()){
         tileMap.draw(g);
-//        npc1.draw(g);
         npc1.draw(g);
         npc2.draw(g);
         player.draw(g);
@@ -127,11 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
         }else{
-            g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(0, 0,  tileMap.getMapWidth(), 425);
-            g.setColor(Color.red);
-            g.drawString("OPTIONS", tileMap.getMapHeight()/2, 400);
-
+            optionState.draw(g);
         }
     }
 

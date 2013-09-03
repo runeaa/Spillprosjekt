@@ -106,7 +106,7 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
-
+        if(!OptionTrigger){
         if (up && y != 0) {
             dy -= speed;
         }
@@ -124,6 +124,7 @@ public class Player extends NPC {
                 System.out.println("MORRADIIIFAGGOT");
             }
             // interact();
+        }
         }
         x = dx;
         y = dy;
@@ -154,6 +155,7 @@ public class Player extends NPC {
         return OptionTrigger;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
         int tx = tileMap.getX();
@@ -173,14 +175,14 @@ public class Player extends NPC {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP)  {
             up = true;
         }
-        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT)  {
             facingLeft = true;
             left = true;
         }
-        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN)  {
             down = true;
         }
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
