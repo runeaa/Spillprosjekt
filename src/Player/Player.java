@@ -159,7 +159,7 @@ public class Player extends NPC {
         } else {*/
             x = dx;
             y = dy;
-        }
+        //}
         //Sjekker kollisjon
         int curCol = tileMap.getColTile((int) x);
         int curRow = tileMap.getRowTile((int) y);
