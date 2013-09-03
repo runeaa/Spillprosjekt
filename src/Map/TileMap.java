@@ -135,10 +135,12 @@ public class TileMap {
     }
 
     public int getColTile(int x) {
-        return x / tileSize;
+        System.out.println("COL TILE"+ -(x/tileSize));
+        return -(x / tileSize);
     }
 
     public int getRowTile(int y) {
+        System.out.println("ROW TILE"+ y/tileSize);
         return y / tileSize;
     }
 
@@ -148,5 +150,17 @@ public class TileMap {
 
     public int getTileSize() {
         return tileSize;
+    }
+    
+    public boolean isBlocked(int row, int col) {
+        if(row < 0 || col < 0){
+            return false;
+        }
+     
+        int rc = map[row][col];
+        int r = rc / tiles[0].length;
+        int c = rc % tiles[0].length;
+        System.out.println(tiles[r][c].isBlocked());
+        return tiles[r][c].isBlocked();
     }
 }

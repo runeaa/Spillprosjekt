@@ -28,6 +28,7 @@ public class Player extends NPC {
     private int speed;
     private TileMap tileMap;
     private boolean up, down, left, right, facingLeft, interactionPressed,interOk;
+    private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private int idleDirection = 3;
@@ -79,15 +80,26 @@ public class Player extends NPC {
         facingLeft = false;
     }
 
+    private void calculateCorners(int x, int y) {
+        int leftTile = tileMap.getColTile((int) (x - spriteWidth / 2));
+        int rightTile = tileMap.getColTile((int) (x + spriteWidth / 2) - 1);
+        int topTile = tileMap.getRowTile((int) (y - spriteHeight / 2));
+        int bottomTile = tileMap.getRowTile((int) (y + spriteHeight / 2) - 1);
+        topLeft = tileMap.isBlocked(topTile, leftTile);
+        topRight = tileMap.isBlocked(topTile, rightTile);
+        bottomLeft = tileMap.isBlocked(bottomTile, leftTile);
+        bottomRight = tileMap.isBlocked(bottomTile, rightTile);
+    }
+
     private boolean interX(int interactionDist, int tx) {
-        return (tx + interactionDist > x+20 && tx - interactionDist < x+20);
+        return (tx + interactionDist > x + 20 && tx - interactionDist < x + 20);
 
     }
-    
-    public void setNPCs(ArrayList<NPC> npcs){
+
+    public void setNPCs(ArrayList<NPC> npcs) {
         this.npcs = npcs;
     }
-    
+
     private boolean interY(int interactionDist, int ty) {
         return (ty + interactionDist > y && ty - interactionDist < y);
 
@@ -108,7 +120,7 @@ public class Player extends NPC {
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
-                
+
             }
         }
         return -1;
@@ -143,9 +155,64 @@ public class Player extends NPC {
                 // interact();
             }
         }
-        x = dx;
-        y = dy;
+        /* I don't even
+        System.out.println("X =  " + x + "   y =  " + y);
+        boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
+        if (tileMap.getTile(((dy) / 32), ((-dx+45) / 32)) >= 13 || outsideOfMap) {
+            dx = x;
+            dy = y;
+        } else {*/
+            x = dx;
+            y = dy;
+        //}
+        //Sjekker kollisjon
+        int curCol = tileMap.getColTile((int) x);
+        int curRow = tileMap.getRowTile((int) y);
 
+        double toX = x + dx;
+        double toY = y + dy;
+
+        double tempX = x;
+        double tempY = y;
+
+//        calculateCorners(x, toY);
+//        if (dy < 0) {
+//            if (topLeft || topRight) {
+//                dy = 0;
+//                tempY = curRow * tileMap.getTileSize() + spriteHeight / 2;
+//            } else {
+//                tempY += dy;
+//            }
+//        }
+//        if (dy > 0) {
+//            if (bottomLeft || bottomRight) {
+//                dy = 0;
+////                input.falling.toggle(false);
+////                falling = false;
+//                tempY = (curRow + 1) * tileMap.getTileSize() - spriteHeight / 2;
+//            } else {
+//                tempY += dy;
+//            }
+//        }
+//        
+//        calculateCorners(toX, y);
+//        if (dx < 0) {
+//            if (topLeft || bottomLeft) {
+//                dx = 0;
+//                tempX = curCol * tileMap.getTileSize() + spriteWidth / 2;
+//            } else {
+//                tempX += dx;
+//            }
+//        }
+//        if (dx > 0) {
+//            if (topRight || bottomRight) {
+//                dx = 0;
+//                tempX = (curCol + 1) * tileMap.getTileSize() - spriteWidth / 2;
+//                
+//            } else {
+//                tempX += dx;
+//            }
+//        }
         //flytter vinduet
 //        tileMap.setX((int) (GamePanel.WIDTH / 2)+x);
 //        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
@@ -186,8 +253,8 @@ public class Player extends NPC {
     @Override
     public void draw(Graphics2D g) {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
-        int tx = tileMap.getX();
-        int ty = tileMap.getY();
+        int tx = tileMap.getX() + 10;
+        int ty = tileMap.getY() + 10;
         if (facingLeft) {
             g.drawImage(animation.getImage(), (tx - x - spriteWidth / 2 + spriteWidth), (int) (ty + y - spriteHeight / 2),
                     -spriteWidth, spriteHeight, null);
