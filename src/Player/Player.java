@@ -27,7 +27,7 @@ public class Player extends NPC {
     private int dx, dy;
     private int speed;
     private TileMap tileMap;
-    private boolean up, down, left, right, facingLeft, interaction;
+    private boolean up, down, left, right, facingLeft, interactionPressed,interOk;
     private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
@@ -39,8 +39,11 @@ public class Player extends NPC {
     private BufferedImage[] idleSprite_up = new BufferedImage[1];
     private BufferedImage[] idleSprite_down = new BufferedImage[1];
     private Animation animation;
+    private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
+    private String color;
     private boolean OptionTrigger;
     private int lock = 1;
+    private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
 
     public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
@@ -117,6 +120,7 @@ public class Player extends NPC {
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
+
             }
         }
         return -1;
@@ -140,10 +144,14 @@ public class Player extends NPC {
             if (right && x != -640) {
                 dx -= speed;
             }
-            if (interaction) {
-                if (interaction() != -1) {
-                    System.out.println("MORRADIIIFAGGOT");
-                }
+            if (interactionPressed && interaction() != -1) {
+                System.out.println("if (interactionPressed && interaction() != -1) interOK før satt til true: " + interOk);
+//                if (interaction() != -1) {
+                    interOk = true;
+                }else{
+                interactionPressed = false;
+                    interOk = false;
+               // }
                 // interact();
             }
         }
@@ -220,7 +228,6 @@ public class Player extends NPC {
             animation.setFrames(walking_sideways);
             animation.setDelay(200);
         } else {
-            System.out.println("Direction: " + idleDirection);
             if (idleDirection == 1) {
                 animation.setFrames(idleSprite_up);
                 animation.setDelay(-1);
@@ -282,7 +289,26 @@ public class Player extends NPC {
             idleDirection = 4;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-            interaction = true;
+           System.out.println("IF: key event interactionPressed før true satt: "+interactionPressed);
+            interactionPressed = true;
+            System.out.println("IF: key event interactionPressed etter true satt: "+interactionPressed);
+//            if(!interactionPressed){
+//                interactionPressed = false;
+//                        System.out.println(interactionPressed);
+//            }else if(interactionPressed){
+//                
+//                interactionPressed = true;
+//                System.out.println(interactionPressed);
+//            }
+                
+            
+            
+            
+               
+            
+            
+        }else{
+            interactionPressed = false;
         }
         if (key == KeyEvent.VK_ESCAPE) {
             if (lock % 2 != 0) {
@@ -293,6 +319,9 @@ public class Player extends NPC {
                 lock++;
             }
         }
+    }
+    public boolean getInterOk(){
+        return interOk;
     }
 
     @Override
@@ -310,8 +339,8 @@ public class Player extends NPC {
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             right = false;
         }
-        if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-            interaction = false;
-        }
+//        if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
+//            interaction = false;
+//        }
     }
 }

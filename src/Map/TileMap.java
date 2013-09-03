@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  */
 public class TileMap {
 
-    private int x, y; 
+    private int x, y;
     private int minX, minY;
     private int maxX = 0;
     private int maxY = 0;
