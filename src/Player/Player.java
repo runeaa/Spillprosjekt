@@ -56,6 +56,8 @@ public class Player extends NPC {
             walking_up = new BufferedImage[2];
             walking_down = new BufferedImage[2];
             idleSprite[0] = ImageIO.read(new File("res/player/playeridle.png"));
+            idleSprite_up[0] = ImageIO.read(new File("res/player/playeridleup.png"));
+            idleSprite_down[0] = ImageIO.read(new File("res/player/playeridledown.png"));
             BufferedImage img = ImageIO.read(new File("res/player/playersidewalk.png"));
             BufferedImage img2 = ImageIO.read(new File("res/player/playerup.png"));
             BufferedImage img3 = ImageIO.read(new File("res/player/playerdown.png"));
@@ -147,15 +149,20 @@ public class Player extends NPC {
             animation.setFrames(walking_sideways);
             animation.setDelay(200);
         } else {
-//            if (idleDirection == 1) {
-//            } else if (idleDirection == 2) {
-//                animation.setFrames(idleSprite);
-//                animation.setDelay(-1);
-//            } else if (idleDirection == 3) {
-////            } else {
+                System.out.println("Direction: "+idleDirection);
+            if (idleDirection == 1) {
+                animation.setFrames(idleSprite_up);
+                animation.setDelay(-1);
+            } else if (idleDirection == 2) {
                 animation.setFrames(idleSprite);
                 animation.setDelay(-1);
-//            }
+            } else if (idleDirection == 3) {
+                animation.setFrames(idleSprite_down);
+                animation.setDelay(-1);
+            } else {
+                animation.setFrames(idleSprite);
+                animation.setDelay(-1);
+            }
 
         }
         animation.update();
