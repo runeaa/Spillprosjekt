@@ -83,8 +83,8 @@ public class TileMap {
 
     public void setY(int y) {
         this.y = y;
-        System.out.println("MINY: " + minY);
-        System.out.println("MAXY: " + maxY);
+       System.out.println("MINY: " + minY);
+//        System.out.println("MAXY: " + maxY);
 
         if (y < minY) {
             this.y = minY;
@@ -135,12 +135,12 @@ public class TileMap {
     }
 
     public int getColTile(int x) {
-        System.out.println("COL TILE"+ -(x/tileSize));
+        //System.out.println("COL TILE"+ -(x/tileSize));
         return -(x / tileSize);
     }
 
     public int getRowTile(int y) {
-        System.out.println("ROW TILE"+ y/tileSize);
+        //System.out.println("ROW TILE"+ y/tileSize);
         return y / tileSize;
     }
 

@@ -26,7 +26,7 @@ public class Interact {
         System.out.println("HEEEEIA");
     }
     public void draw(Graphics2D g){
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.BLUE);
         g.fillRect(0, 0, setting.WITDH, setting.HEIGHT);
     }
 }
