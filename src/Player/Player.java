@@ -79,7 +79,7 @@ public class Player extends NPC {
     }
 
     private boolean interX(int interactionDist, int tx) {
-        return (tx + interactionDist > x && tx - interactionDist < x);
+        return (tx + interactionDist > x+20 && tx - interactionDist < x+20);
 
     }
     
@@ -93,7 +93,7 @@ public class Player extends NPC {
     }
 
     private boolean interact(int tx, int ty) {
-        int interactionDist = 15;
+        int interactionDist = 20;
         if (interY(interactionDist, ty) && interX(interactionDist, tx)) {
             return true;
         }
@@ -103,10 +103,9 @@ public class Player extends NPC {
 
     public int interaction() {
         for (int i = 0; i < npcs.size(); i++) {
-            int a = npcs.get(i).getX();
+            int a = -npcs.get(i).getX();
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
-                System.out.println("LOL  " + i);
                 return i;
                 
             }
