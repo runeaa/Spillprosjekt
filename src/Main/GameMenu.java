@@ -240,12 +240,15 @@ public class GameMenu extends JPanel {
                     c.gridx = 1;
                     c.gridy = 3;
                     remove(playerPic);
+                    setButtonSetup(button2);
                     add(playerPic, c);
                     revalidate();
                     repaint();
                 } else {
+                    playerSettings.setPlayerName(null);
                     playerName.setText("Skriv inn navnet ditt!");
                     button2.setEnabled(false);
+                    button2.removeMouseListener(button2.getMouseListeners()[0]);
                     playerPic.setIcon(new ImageIcon("./res/player/playeridledown.png"));
                 }
             }
