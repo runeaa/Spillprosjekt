@@ -45,9 +45,9 @@ public class GameMenu extends JPanel {
     private JFrame frame;
     private String songName;
     public AudioInputStream ais;
-    final private String scrumHINT="I Scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.";
+    final private String scrumHINT="<html><b style=\"color:red; font-size:1.2em\">Info:</b>I scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.</br></br>Før første sprint må man gjøre litt forarbeid som f.eks å definere problemet man skal løse.</html>";
     final private String upHINT ="UP";
-    final private String waterfallHINT = "WATERFALL";
+    final private String waterfallHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I fossefallsmodellen jobber man sekvensiellt, først spesifiserer man krav og dokumenterer design før programmeringen begynner.</html>";
     final private String spiralHINT ="SPIRAL";
 
     public GameMenu(JFrame frame) {
@@ -316,20 +316,19 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 130, 0, 130);
+        c.insets = new Insets(0, 90, 0, 90);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
 
         
-
-        final JTextField pane = new JTextField();
-        pane.setEditable(false);
+        final JLabel label = new JLabel();
+        label.setMinimumSize(new Dimension(240, 100));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(70,0,0,0);
+        c.insets = new Insets(130, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 1;
-        add(pane,c);
+        add(label,c);
         
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("SCRUM");
@@ -339,6 +338,8 @@ public class GameMenu extends JPanel {
         if(playerSettings.getDevMethod()==null){
         playerSettings.setDevMethod(model.getElementAt(0).toString());
         }
+        
+        
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -346,13 +347,13 @@ public class GameMenu extends JPanel {
                 String devMethod = comboBox.getSelectedItem().toString();
                 playerSettings.setDevMethod(devMethod);
                 if(devMethod.equalsIgnoreCase("SCRUM")){
-                    pane.setText(scrumHINT);
+                    label.setText(scrumHINT);
                 }else if(devMethod.equalsIgnoreCase("Fossefallsmetoden")){
-                    pane.setText(waterfallHINT);
+                    label.setText(waterfallHINT);
                 }else if(devMethod.equalsIgnoreCase("Spiralmetoden")){
-                    pane.setText(spiralHINT);
+                    label.setText(spiralHINT);
                 }else if(devMethod.equalsIgnoreCase("Unified Processing")){
-                    pane.setText(upHINT);
+                    label.setText(upHINT);
                 }
                     
             }
@@ -374,7 +375,7 @@ public class GameMenu extends JPanel {
         button.setIcon(new ImageIcon("./res/img/frem.png"));
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 130, 0, 130);
+        c.insets = new Insets(0, 90, 0, 90);
         c.gridx = 2;
         c.gridy = 1;
 
