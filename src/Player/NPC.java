@@ -28,6 +28,7 @@ public class NPC implements KeyListener {
     private Animation animation;
     private int npcID;
 
+    
     public NPC(int npcID, int x, int y, String color) {
         this.x = x;
         this.y = y;
