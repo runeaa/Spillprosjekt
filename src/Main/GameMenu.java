@@ -11,6 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -18,13 +20,11 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.sound.sampled.*;
-import sun.awt.X11.InfoWindow;
 
 /**
  *
@@ -391,6 +391,24 @@ public class GameMenu extends JPanel {
                 }
             }
         });
+        comboBox.addComponentListener(new ComponentListener() {
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
         if (playerSettings.difficulity != -1) {
             comboBox.setSelectedIndex(playerSettings.difficulity);
         }
@@ -463,7 +481,7 @@ public class GameMenu extends JPanel {
         JLabel difficulity = new JLabel(dif);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(35, 40, 0, 0);
-        c.gridx = 1;
+        c.gridx = 1;;
         c.gridy = 5;
         add(difficulity, c);
         
