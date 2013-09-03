@@ -131,7 +131,7 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
-        if (!OptionTrigger) {
+        if (!OptionTrigger&&!interOk) {
             if (up && y != 0) {
                 dy -= speed;
             }
@@ -144,16 +144,7 @@ public class Player extends NPC {
             if (right && x != -640) {
                 dx -= speed;
             }
-            if (interactionPressed && interaction() != -1) {
-                System.out.println("if (interactionPressed && interaction() != -1) interOK før satt til true: " + interOk);
-//                if (interaction() != -1) {
-                    interOk = true;
-                }else{
-                interactionPressed = false;
-                    interOk = false;
-               // }
-                // interact();
-            }
+//            
         }
         /* I don't even
         System.out.println("X =  " + x + "   y =  " + y);
@@ -289,27 +280,15 @@ public class Player extends NPC {
             idleDirection = 4;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-           System.out.println("IF: key event interactionPressed før true satt: "+interactionPressed);
-            interactionPressed = true;
-            System.out.println("IF: key event interactionPressed etter true satt: "+interactionPressed);
-//            if(!interactionPressed){
-//                interactionPressed = false;
-//                        System.out.println(interactionPressed);
-//            }else if(interactionPressed){
-//                
-//                interactionPressed = true;
-//                System.out.println(interactionPressed);
-//            }
-                
-            
-            
-            
-               
-            
-            
-        }else{
-            interactionPressed = false;
-        }
+           
+           if(interaction() != -1 && interOk == false){ 
+           interOk=true;
+           }else if(interOk == true){
+               interOk = false;
+           }
+           
+       }    
+
         if (key == KeyEvent.VK_ESCAPE) {
             if (lock % 2 != 0) {
                 OptionTrigger = true;
@@ -339,8 +318,6 @@ public class Player extends NPC {
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             right = false;
         }
-//        if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-//            interaction = false;
-//        }
+
     }
 }
