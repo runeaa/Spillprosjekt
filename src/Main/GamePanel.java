@@ -4,6 +4,7 @@
  */
 package Main;
 
+import Quiz.Interact;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
@@ -38,12 +39,14 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc3;
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
+    Interact interact = new Interact(settings);
 
     public GamePanel() {
         super();
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
+        setVisible(true);
     }
 
     @Override
@@ -134,7 +137,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
+        
         if (!player.getOptionValue()) {
+            if(!player.getInterOk()){
             tileMap.draw(g);
             npc1.draw(g);
             npc2.draw(g);
@@ -150,7 +155,9 @@ public class GamePanel extends JPanel implements Runnable {
                 g.setColor(Color.BLACK);
                 g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
             }
-        } else{
+                }else{   interact.draw(g);}
+        
+        }else{
             optionState.draw(g);
         }
     }

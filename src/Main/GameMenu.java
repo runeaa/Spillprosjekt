@@ -54,6 +54,7 @@ public class GameMenu extends JPanel {
     final private String spiralHINT = "<html><br></br><br></br><br></br><br></br><b style=\"color:red; font-size:1.2em\">Info:</b>I denne model skal du arrangere alle aktivitetene i en form av spiral:<ul><li>Bestemme målene, alternativer og begrensninger</li><li>Risikoanalyse og evaluering av alternativer</li><li>Gjennomføring av den fasen av utviklingen.Planlegging av neste fase</li></ul></html>";
 
     public GameMenu(JFrame frame) {
+       
         try {
             img = ImageIO.read(new File("./res/img/menu.png"));
         } catch (IOException e) {
@@ -70,8 +71,9 @@ public class GameMenu extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        startMenuSetup();
+        startMenuSetup();;
     }
+    
 
     public void setButtonSetup(final JButton button) {
         button.setOpaque(false);
