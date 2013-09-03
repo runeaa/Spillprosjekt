@@ -45,6 +45,7 @@ public class Player extends NPC {
     private int lock = 1;
     private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
+    public int interactedNPCID = -1;
 
     public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
         super(npcID, x, y, color);
@@ -290,8 +291,8 @@ public class Player extends NPC {
             idleDirection = 4;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-           
-           if(interaction() != -1 && interOk == false){ 
+          interactedNPCID = interaction();
+           if(interactedNPCID != -1 && interOk == false){  
            interOk=true;
            }else if(interOk == true){
                interOk = false;
