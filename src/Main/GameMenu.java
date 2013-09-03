@@ -4,6 +4,7 @@ import Listeners.GameMenuMouseListener;
 import Settings.PlayerSettings;
 import Settings.Settings;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -22,7 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;;
+import javax.swing.*;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.sound.sampled.*;
 
@@ -42,6 +45,10 @@ public class GameMenu extends JPanel {
     private JFrame frame;
     private String songName;
     public AudioInputStream ais;
+    final private String scrumHINT="I Scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.";
+    final private String upHINT ="UP";
+    final private String waterfallHINT = "WATERFALL";
+    final private String spiralHINT ="SPIRAL";
 
     public GameMenu(JFrame frame) {
         try {
@@ -314,6 +321,16 @@ public class GameMenu extends JPanel {
         c.gridy = 1;
         add(button, c);
 
+        
+
+        final JTextField pane = new JTextField();
+        pane.setEditable(false);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(70,0,0,0);
+        c.gridx = 1;
+        c.gridy = 1;
+        add(pane,c);
+        
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("SCRUM");
         model.addElement("Fossefallsmetoden");
@@ -328,6 +345,16 @@ public class GameMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String devMethod = comboBox.getSelectedItem().toString();
                 playerSettings.setDevMethod(devMethod);
+                if(devMethod.equalsIgnoreCase("SCRUM")){
+                    pane.setText(scrumHINT);
+                }else if(devMethod.equalsIgnoreCase("Fossefallsmetoden")){
+                    pane.setText(waterfallHINT);
+                }else if(devMethod.equalsIgnoreCase("Spiralmetoden")){
+                    pane.setText(spiralHINT);
+                }else if(devMethod.equalsIgnoreCase("Unified Processing")){
+                    pane.setText(upHINT);
+                }
+                    
             }
         });
         if (playerSettings.getDevMethod() != null) {
@@ -339,7 +366,7 @@ public class GameMenu extends JPanel {
         c.gridx = 1;
         c.gridy = 1;
         add(comboBox, c);
-
+        
         button = new JButton();
         button.setToolTipText("Gå til vannskelighetsgrad valg");
         button.setName("next");
@@ -389,24 +416,6 @@ public class GameMenu extends JPanel {
                 } else if (difficulity.equalsIgnoreCase("vanskelig")) {
                     playerSettings.setDifficulity(PlayerSettings.HARD);
                 }
-            }
-        });
-        comboBox.addComponentListener(new ComponentListener() {
-
-            @Override
-            public void componentResized(ComponentEvent e) {
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e) {
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
             }
         });
         if (playerSettings.difficulity != -1) {
@@ -549,7 +558,7 @@ public class GameMenu extends JPanel {
     }else if(song.contains("jamesbond")){
         songName = "Theme from James Bond";
     }
-        File file = new File("./res/music/"+song);
+        File file = new File("./res/music/"+musicFiles.get(12));
         // getAudioInputStream() also accepts a File or InputStream
         ais = AudioSystem.
                 getAudioInputStream(file);

@@ -164,8 +164,6 @@ public class Player extends NPC {
         } else {
             g.drawImage(animation.getImage(), (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
         }
-
-
     }
 
     @Override
