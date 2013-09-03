@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;;
 import javax.swing.*;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.sound.sampled.*;
 
@@ -557,7 +558,7 @@ public class GameMenu extends JPanel {
     }else if(song.contains("jamesbond")){
         songName = "Theme from James Bond";
     }
-        File file = new File("./res/music/"+musicFiles.get(12));
+        File file = new File("./res/music/"+song);
         // getAudioInputStream() also accepts a File or InputStream
         ais = AudioSystem.
                 getAudioInputStream(file);
