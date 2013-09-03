@@ -132,8 +132,8 @@ public class Player extends NPC {
         int tempy = ((dy-16) / 32);
         tempy = (tempy > 0) ? tempy + 1 : tempy;
         tempx = (tempx > 0) ? tempx + 1 : tempx;
-        boolean outsideOfMap = ((tempx)>20 || tempy>20)? true:false;
-        return (outsideOfMap && tileMap.getTile(tempy, tempx) >= 13);
+        boolean outsideOfMap = ((tempx)>=20 || tempy>=20)? true:false;
+        return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 13);
 
     }
 
