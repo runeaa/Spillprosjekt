@@ -155,7 +155,11 @@ public class GamePanel extends JPanel implements Runnable {
                 g.setColor(Color.BLACK);
                 g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
             }
-                }else{   interact.draw(g);}
+                }else{   
+                
+                interact.draw(g);
+            
+            }
         
         }else{
             optionState.draw(g);

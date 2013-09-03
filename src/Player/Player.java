@@ -27,7 +27,7 @@ public class Player extends NPC {
     private int dx, dy;
     private int speed;
     private TileMap tileMap;
-    private boolean up, down, left, right, facingLeft, interactionPressed,interOk;
+    private boolean up, down, left, right, facingLeft,interOk;
     private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
@@ -120,7 +120,6 @@ public class Player extends NPC {
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
-
             }
         }
         return -1;
