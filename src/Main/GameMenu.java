@@ -46,7 +46,7 @@ public class GameMenu extends JPanel {
     private String songName;
     public AudioInputStream ais;
     final private String scrumHINT="<html><b style=\"color:red; font-size:1.2em\">Info:</b>I scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.</br></br>Før første sprint må man gjøre litt forarbeid som f.eks å definere problemet man skal løse.</html>";
-    final private String upHINT ="<html><b style=\"color:red; font-size:1.2em\">Info:</b> UP er 'use'case drevet, arkitektur-sentralt, iterativ og inkrementell'</html>";
+    final private String upHINT ="<html><b style=\"color:red; font-size:1.2em\">Info:</b> UP er 'use'case drevet, arkitektur-sentralt, iterativ og inkrementell'. Det må definere hvem som gjør hva, når det skal gjøre og hvordan man skal nå et bestemt mål.</html>";
     final private String waterfallHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I fossefallsmodellen jobber man sekvensiellt, først spesifiserer man krav og dokumenterer design før programmeringen begynner.</html>";
     final private String spiralHINT ="<html><br></br><br></br><br></br><br></br><b style=\"color:red; font-size:1.2em\">Info:</b>I denne model skal du arrangere alle aktivitetene i en form av spiral:<ul><li>Bestemme målene, alternativer og begrensninger</li><li>Risikoanalyse og evaluering av alternativer</li><li>Gjennomføring av den fasen av utviklingen.Planlegging av neste fase</li></ul></html>";
 
