@@ -77,7 +77,6 @@ public class GameMenu extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
-
         button = new JButton();
         button.setToolTipText("Start Spill");
         button.setName("startGame");
@@ -484,9 +483,9 @@ public class GameMenu extends JPanel {
         wavingMan.setName("wavingMan");
         wavingMan.setIcon(new ImageIcon("./res/img/os.gif"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 0, 0, 0);
-        c.gridx = 2;
-        c.gridy = 4;
+        c.insets = new Insets(0, 200, 0, 0);
+        c.gridx = 1;
+        c.gridy = 5;
         add(wavingMan,c);
         
     }
@@ -507,7 +506,7 @@ public class GameMenu extends JPanel {
         musicFiles.add("jurassicpark.mid");
         musicFiles.add("jamesbond.mid");
         Random rn = new Random();
-        int songnr= rn.nextInt(14);
+        int songnr= rn.nextInt(13);
        String song = musicFiles.get(songnr);
        
        //Description of songs
