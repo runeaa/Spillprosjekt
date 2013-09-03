@@ -45,8 +45,8 @@ public class QuizTest {
         int valg = 0;
         Quiz instance = new Quiz(valg);
         instance.buildQuiz(valg);
-        String firstLine = "Hvem er den beste i verden?";
-        // TODO review the generated test code and remove the default call to fail.
+        String firstLine = "Hva er det første steget i fossefallsmodellen?";
+        // only checks if first line is correctly read, maybe fix this
         assertEquals(instance.quizTab[0][0],firstLine);
     }
 }

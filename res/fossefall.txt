@@ -1,13 +1,5 @@
-3
-Hvem er den beste i verden?
-Ingen.
-Alle.
-Kun de utvalgte.
-Hvor fisker fiskerne?
-I vannet.
-I potetskaala.
-I dass.
-Hvem er det som ble paakjoert?
-Tore.
-Tord.
-Faettsund.
+1
+Hva er det første steget i fossefallsmodellen?
+Design
+Kravspesifikasjon
+Implementasjon
