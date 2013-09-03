@@ -146,17 +146,17 @@ public class Player extends NPC {
         } else if (left && x != 0 || right && x != -640) {
             animation.setFrames(walking_sideways);
             animation.setDelay(200);
-//        } else {
+        } else {
 //            if (idleDirection == 1) {
 //            } else if (idleDirection == 2) {
 //                animation.setFrames(idleSprite);
 //                animation.setDelay(-1);
 //            } else if (idleDirection == 3) {
-//            } else {
-//                animation.setFrames(idleSprite);
-//                animation.setDelay(-1);
+////            } else {
+                animation.setFrames(idleSprite);
+                animation.setDelay(-1);
 //            }
-            System.out.println("idlenoe");
+
         }
         animation.update();
     }
