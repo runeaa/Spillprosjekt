@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc2;
     private NPC npc3;
     private NPC npc4;
+    private ArrayList<NPC> npcs = new ArrayList<NPC>();
 
     public GamePanel() {
         super();
@@ -67,9 +69,12 @@ public class GamePanel extends JPanel implements Runnable {
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/floored.txt", 32);
         tileMap.loadTiles("res/levels/tileset.gif");
-        player = new Player(tileMap, 200, 200, 5, "blue");
-        npc1 = new NPC(50, 300, "red");
-        npc2 = new NPC(200, 100, "blue");
+        player = new Player(tileMap, 0, 200, 200, 5, "blue");
+        npc1 = new NPC(1, 50, 300, "red");
+        npcs.add(npc1);
+        npc2 = new NPC(2, 200, 100, "blue");
+        npcs.add(npc2);
+        player.setNPCs(npcs);
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
@@ -116,17 +121,36 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
-    public void render() {
-        if(!player.getOptionValue()){
-        tileMap.draw(g);
-        npc1.draw(g);
-        npc2.draw(g);
-        player.draw(g);
+     private String[] drawText() {
+        String[] s = new String[3];
+        int interaction = player.interaction();
+        s[0] = "O hi young programmer";
+        if (interaction == 0) {
+            s[1] = ((Integer) npcs.get(interaction).getX()).toString();
+            s[2] = ((Integer) npcs.get(interaction).getY()).toString();
+            return s;
+        }
+        return null;
+    }
 
-        g.setColor(Color.BLACK);
-        g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
-        g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
-        }else{
+    public void render() {
+        if (!player.getOptionValue()) {
+            tileMap.draw(g);
+            npc1.draw(g);
+            npc2.draw(g);
+            player.draw(g);
+
+            g.setColor(Color.BLACK);
+            g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
+            g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
+            String[] s = drawText();
+            if (s != null) {
+                g.setColor(Color.WHITE);
+                g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                g.setColor(Color.BLACK);
+                g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
+            }
+        } else{
             optionState.draw(g);
         }
     }
