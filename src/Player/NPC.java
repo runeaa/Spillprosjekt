@@ -26,10 +26,12 @@ public class NPC implements KeyListener {
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private Animation animation;
+    private int npcID;
 
-    public NPC(int x, int y, String color) {
+    public NPC(int npcID, int x, int y, String color) {
         this.x = x;
         this.y = y;
+        this.npcID = npcID;
         try {
             BufferedImage img = ImageIO.read(new File("res/npc/"+color+"NPC.png"));
             for (int i = 0; i < idleSprite.length; i++) {
