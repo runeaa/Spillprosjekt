@@ -1,5 +1,5 @@
 1
-Æ TÆSTE SJØH!
-Ja.
-Joda.
-Nååååå deeeet.
+Hva gjør man i oppstartsfasen?
+Skriver kode
+Definerer use-cases
+Tegner klassediagram

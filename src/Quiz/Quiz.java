@@ -62,6 +62,8 @@ public class Quiz {
             e.printStackTrace();
         }
     }
+    
+    @Override
     public String toString(){
         String s = "";
         for(int i = 0; i < quizTab.length; i++){
