@@ -134,7 +134,7 @@ public class GameMenu extends JPanel {
           c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(80, 0, 0, 0);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         add(musicLabel,c);
         }
 
