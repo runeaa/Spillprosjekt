@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         player = new Player(tileMap, 200, 200, 5, "blue");
         npc1 = new NPC(50, 300, "red");
         npc2 = new NPC(200, 100, "blue");
-        optionState = new GameStateSettings();
+        optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
 
