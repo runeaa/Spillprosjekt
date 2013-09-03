@@ -4,8 +4,8 @@
  */
 package Main;
 
-import Map.Tile;
 import Map.TileMap;
+import Player.NPC;
 import Player.Player;
 import Settings.*;
 import java.awt.Color;
@@ -31,6 +31,10 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread thread;
     private Graphics2D g;
     private Player player;
+    private NPC npc1;
+    private NPC npc2;
+    private NPC npc3;
+    private NPC npc4;
 
     public GamePanel() {
         super();
@@ -60,9 +64,11 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
-        tileMap = new TileMap("src/Resources/testmap.txt", 32);
-        tileMap.loadTiles("src/Resources/tileset.gif");
-        player = new Player(200, 200, 5);
+        tileMap = new TileMap("res/levels/floored.txt", 32);
+        tileMap.loadTiles("res/levels/tileset.gif");
+        player = new Player(tileMap, 200, 200, 5, "blue");
+        npc1 = new NPC(50, 300, "red");
+        npc2 = new NPC(200, 100, "blue");
         addKeyListener(player);
     }
 
@@ -75,10 +81,11 @@ public class GamePanel extends JPanel implements Runnable {
         //gameloop
         while (running) {
             start = System.nanoTime();
-
+            
             update();
             render();
             draw();
+            
 
             loopTime = (System.nanoTime() - start) / 1000000;
 
@@ -101,19 +108,31 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    
 
     public void update() {
         player.update();
     }
 
     public void render() {
-        g.setColor(new Color(0, 100, 255));
-        g.fillRect(0, 0, settings.WITDH, settings.HEIGHT);
-        g.drawImage(image, 0, 0, null);
+     
+        if(!player.getOptionValue()){
+        tileMap.draw(g);
+//        npc1.draw(g);
+        npc1.draw(g);
+        npc2.draw(g);
         player.draw(g);
+
         g.setColor(Color.BLACK);
         g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
         g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
+        }else{
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(0, 0,  tileMap.getMapWidth(), 425);
+            g.setColor(Color.red);
+            g.drawString("OPTIONS", tileMap.getMapHeight()/2, 400);
+
+        }
     }
 
     public void draw() {

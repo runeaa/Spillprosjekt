@@ -3,6 +3,7 @@ package Main;
 import Listeners.GameMenuMouseListener;
 import Settings.PlayerSettings;
 import Settings.Settings;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -23,6 +24,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.sound.sampled.*;
+import sun.awt.X11.InfoWindow;
 
 /**
  *
@@ -37,8 +39,11 @@ public class GameMenu extends JPanel {
     private JPanel pan = this;
     public String currentPage;
     public Clip clip;
+    private JFrame frame;
+    private String songName;
+    public AudioInputStream ais;
 
-    public GameMenu() {
+    public GameMenu(JFrame frame) {
         try {
             img = ImageIO.read(new File("./res/img/menu.png"));
         } catch (IOException e) {
@@ -47,13 +52,15 @@ public class GameMenu extends JPanel {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setSize(settings.WITDH, settings.HEIGHT);
-        startMenuSetup();
+
+        this.frame=frame;
         try {
             clip = AudioSystem.getClip();
-            startMusic();
+       startMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        startMenuSetup();
     }
 
     public void setButtonSetup(final JButton button) {
@@ -61,7 +68,7 @@ public class GameMenu extends JPanel {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setBorder(null);
-        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this);
+        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this,frame);
         button.addMouseListener(gamemenulistener);
     }
 
@@ -69,7 +76,6 @@ public class GameMenu extends JPanel {
         currentPage = "startMenu";
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
-
 
         button = new JButton();
         button.setToolTipText("Start Spill");
@@ -113,6 +119,17 @@ public class GameMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 2;
         add(button, c);
+        
+        if(settings.sound){
+        JLabel musicLabel = new JLabel("Now playing: "+songName
+                );
+        musicLabel.setForeground(Color.white);
+          c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(80, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 2;
+        add(musicLabel,c);
+        }
 
     }
 
@@ -131,18 +148,25 @@ public class GameMenu extends JPanel {
         c.gridy = 1;
         add(button, c);
 
-        button = new JButton();
-        button.setToolTipText("Gå til Systemtype valg");
-        button.setName("next");
-        setButtonSetup(button);
-        button.setIcon(new ImageIcon("./res/img/frem.png"));
-
+        final JButton button2 = new JButton();
+        button2.setToolTipText("Gå til Systemtype valg");
+        button2.setName("next");
+        if(playerSettings.getPlayerName()==null || playerSettings.getPlayerName().equals("")){
+        button2.setEnabled(false);
+            button2.setOpaque(false);
+        button2.setContentAreaFilled(false);
+        button2.setBorderPainted(false);
+        button2.setBorder(null);
+        }else{
+            setButtonSetup(button2);
+        }
+        button2.setIcon(new ImageIcon("./res/img/frem.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(0, 110, 0, 110);
         c.gridx = 2;
         c.gridy = 1;
 
-        add(button, c);
+        add(button2, c);
 
         final JTextField name = new JTextField((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
         name.setToolTipText("Skriv inn navnet ditt");
@@ -169,7 +193,11 @@ public class GameMenu extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if(!name.getText().equals("")){
+                button2.setEnabled(true);
+                setButtonSetup(button2);
                 playerSettings.setPlayerName(name.getText());
+                }
             }
         });
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -188,7 +216,6 @@ public class GameMenu extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
-        //TODO: Sound enable / disable
         button = new JButton();
         button.setToolTipText("Lyd");
         button.setName("Lyd");
@@ -235,6 +262,9 @@ public class GameMenu extends JPanel {
         model.addElement("Informasjonssystem");
         model.addElement("Telekommunikasjonssystem");
         model.addElement("Feiltolerantsystem");
+        if(playerSettings.system==null){
+        playerSettings.setSystem(model.getElementAt(0).toString());
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -289,7 +319,9 @@ public class GameMenu extends JPanel {
         model.addElement("Fossefallsmetoden");
         model.addElement("Spiralmetoden");
         model.addElement("Unified Processing");
-
+        if(playerSettings.getDevMethod()==null){
+        playerSettings.setDevMethod(model.getElementAt(0).toString());
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -342,7 +374,9 @@ public class GameMenu extends JPanel {
         model.addElement("Enkelt");
         model.addElement("Normalt");
         model.addElement("Vanskelig");
-
+        if(playerSettings.difficulity==-1){
+        playerSettings.setDifficulity(0);
+        }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -380,8 +414,80 @@ public class GameMenu extends JPanel {
         add(button, c);
     }
 
-    public void informationSetup() {
-        currentPage = "information";
+    public void chosenSettingsSetup() {
+        currentPage = "chosenSettings";
+        JButton button;
+        GridBagConstraints c = new GridBagConstraints();
+        
+        button = new JButton();
+        button.setToolTipText("Tilbake til navn valg");
+        button.setName("previous");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/tilbake.png"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0,-300, 0, 0);
+        c.gridx = 0;
+        c.gridy = 4;
+        add(button, c);
+
+        
+       JLabel name = new JLabel((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(120, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 2;
+        add(name, c);
+
+        JLabel system = new JLabel(playerSettings.getSystem());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(30, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 3;
+        add(system,c);
+        
+        JLabel devMethod = new JLabel(playerSettings.getDevMethod());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(35, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 4;
+        add(devMethod,c);
+        
+        String dif ="";
+        if(playerSettings.difficulity==PlayerSettings.EASY){
+            dif = "Enkelt";
+        }else if(playerSettings.difficulity == PlayerSettings.NORMAL){
+            dif = "Normal";
+        }else if(playerSettings.difficulity == PlayerSettings.HARD){
+            dif = "Hard";
+        }
+        JLabel difficulity = new JLabel(dif);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(35, 40, 0, 0);
+        c.gridx = 1;
+        c.gridy = 5;
+        add(difficulity, c);
+        
+        button = new JButton();
+        button.setToolTipText("Start spillet");
+        button.setName("startGame");
+        setButtonSetup(button);
+        button.setIcon(new ImageIcon("./res/img/startgold01.gif"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(20, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 6;
+        add(button,c);
+        
+        JLabel wavingMan = new JLabel();
+        wavingMan.setToolTipText("Hei der "+playerSettings.getPlayerName()+", er du klar for en utrolig reise?");
+        wavingMan.setName("wavingMan");
+        wavingMan.setIcon(new ImageIcon("./res/img/os.gif"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 200, 0, 0);
+        c.gridx = 1;
+        c.gridy = 5;
+        add(wavingMan,c);
+        
     }
 
     public void startMusic() throws Exception {
@@ -395,12 +501,39 @@ public class GameMenu extends JPanel {
         musicFiles.add("zelda1.mid");
         musicFiles.add("aoe2.mid");
         musicFiles.add("tetris1.mid");
+        musicFiles.add("sandstorm.mid");
+        musicFiles.add("itsmylife.mid");
+        musicFiles.add("jurassicpark.mid");
+        musicFiles.add("jamesbond.mid");
         Random rn = new Random();
-        int songnr= rn.nextInt(9);
-        String song = musicFiles.get(songnr);
+        int songnr= rn.nextInt(13);
+       String song = musicFiles.get(songnr);
+       
+       //Description of songs
+          if(song.contains("aoe")){
+            songName = "Theme from Age of Empires";
+        }else if(song.contains("pokemon")){
+            songName =  "Theme from Pokemon";
+        }else if(song.contains("mario")){
+            songName = "Theme from Super Mario";
+        }else if(song.contains("zelda")){
+            songName = "Theme from Zelda";
+        }else if(song.contains("sandstorm")){
+            songName = "Darude - Sandstorm";
+        }else if(song.contains("tetris")){
+            songName = "Theme from Tetris";
+        }else if(song.contains("wakemeup")){
+        songName = "Avicii - Wake me up";
+    } else if (song.contains("itsmylife")){
+        songName= "Bon Jovi - Its my life";
+    }else if(song.contains("jurassicpark.mid")){
+        songName = "Theme from Jurassic Park";
+    }else if(song.contains("jamesbond")){
+        songName = "Theme from James Bond";
+    }
         File file = new File("./res/music/"+song);
         // getAudioInputStream() also accepts a File or InputStream
-        AudioInputStream ais = AudioSystem.
+        ais = AudioSystem.
                 getAudioInputStream(file);
         clip.open(ais);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
