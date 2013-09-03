@@ -23,7 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.imageio.ImageIO;;
+import javax.imageio.ImageIO;
+;
 import javax.swing.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -34,6 +35,8 @@ import javax.sound.sampled.*;
  * @author
  * haavamoa
  */
+
+
 public class GameMenu extends JPanel {
 
     public PlayerSettings playerSettings = new PlayerSettings();
@@ -45,10 +48,10 @@ public class GameMenu extends JPanel {
     private JFrame frame;
     private String songName;
     public AudioInputStream ais;
-    final private String scrumHINT="<html><b style=\"color:red; font-size:1.2em\">Info:</b>I scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.</br></br>Før første sprint må man gjøre litt forarbeid som f.eks å definere problemet man skal løse.</html>";
-    final private String upHINT ="<html><b style=\"color:red; font-size:1.2em\">Info:</b> UP er 'use-case drevet, arkitektur-sentralt, iterativ og inkrementell'. Det må defineres hvem som gjør hva, når det skal gjøres og hvordan man skal nå et bestemt mål.</html>";
+    final private String scrumHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.</br></br>Før første sprint må man gjøre litt forarbeid som f.eks å definere problemet man skal løse.</html>";
+    final private String upHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b> UP er 'use-case drevet, arkitektur-sentralt, iterativ og inkrementell'. Det må defineres hvem som gjør hva, når det skal gjøres og hvordan man skal nå et bestemt mål.</html>";
     final private String waterfallHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I fossefallsmetoden jobber man sekvensiellt, først spesifiserer man krav og dokumenterer design før programmeringen begynner.</html>";
-    final private String spiralHINT ="<html><br></br><br></br><br></br><br></br><b style=\"color:red; font-size:1.2em\">Info:</b>I denne model skal du arrangere alle aktivitetene i en form av spiral:<ul><li>Bestemme målene, alternativer og begrensninger</li><li>Risikoanalyse og evaluering av alternativer</li><li>Gjennomføring av den fasen av utviklingen.Planlegging av neste fase</li></ul></html>";
+    final private String spiralHINT = "<html><br></br><br></br><br></br><br></br><b style=\"color:red; font-size:1.2em\">Info:</b>I denne model skal du arrangere alle aktivitetene i en form av spiral:<ul><li>Bestemme målene, alternativer og begrensninger</li><li>Risikoanalyse og evaluering av alternativer</li><li>Gjennomføring av den fasen av utviklingen.Planlegging av neste fase</li></ul></html>";
 
     public GameMenu(JFrame frame) {
         try {
@@ -60,10 +63,10 @@ public class GameMenu extends JPanel {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setSize(settings.WITDH, settings.HEIGHT);
 
-        this.frame=frame;
+        this.frame = frame;
         try {
             clip = AudioSystem.getClip();
-       startMusic();
+            startMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,14 +77,15 @@ public class GameMenu extends JPanel {
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
+        button.setFocusPainted(false);
         button.setBorder(null);
-        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this,frame);
+        GameMenuMouseListener gamemenulistener = new GameMenuMouseListener(button, this, frame);
         button.addMouseListener(gamemenulistener);
     }
 
     public void startMenuSetup() {
         currentPage = "startMenu";
-        GridBagConstraints c = new GridBagConstraints();
+        final GridBagConstraints c = new GridBagConstraints();
         JButton button;
 
         button = new JButton();
@@ -90,7 +94,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Startspill.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(180, 80, 0, 100);
+        c.insets = new Insets(100, 0, 0, 0);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
@@ -101,7 +105,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Lastspill.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(180, 0, 0, 100);
+        c.insets = new Insets(100, 0, 0, 100);
         c.gridx = 1;
         c.gridy = 1;
         add(button, c);
@@ -112,6 +116,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Avsluttspill.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(100, 0, 0, 120);
         c.gridx = 2;
         c.gridy = 1;
         add(button, c);
@@ -122,27 +127,26 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/Innstillinger.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(80, 80, 0, 100);
+        c.insets = new Insets(400, 80, 0, 100);
         c.gridx = 0;
-        c.gridy = 2;
-        add(button, c);
-        
-        if(settings.sound){
-        JLabel musicLabel = new JLabel("Now playing: "+songName
-                );
-        musicLabel.setForeground(Color.white);
-          c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(80, 0, 0, 0);
-        c.gridx = 1;
         c.gridy = 1;
-        add(musicLabel,c);
+        add(button, c);
+
+        if (settings.sound) {
+            JLabel musicLabel = new JLabel("Now playing: " + songName);
+            musicLabel.setForeground(Color.white);
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.insets = new Insets(400, 0, 0, 0);
+            c.gridx = 1;
+            c.gridy = 1;
+            add(musicLabel, c);
         }
 
     }
 
     public void nameSetup() {
         currentPage = "name";
-        GridBagConstraints c = new GridBagConstraints();
+        final GridBagConstraints c = new GridBagConstraints();
         JButton button;
         button = new JButton();
         button.setToolTipText("Tilbake til Hovedmenyen");
@@ -158,13 +162,13 @@ public class GameMenu extends JPanel {
         final JButton button2 = new JButton();
         button2.setToolTipText("Gå til Systemtype valg");
         button2.setName("next");
-        if(playerSettings.getPlayerName()==null || playerSettings.getPlayerName().equals("")){
-        button2.setEnabled(false);
+        if (playerSettings.getPlayerName() == null || playerSettings.getPlayerName().equals("")) {
+            button2.setEnabled(false);
             button2.setOpaque(false);
-        button2.setContentAreaFilled(false);
-        button2.setBorderPainted(false);
-        button2.setBorder(null);
-        }else{
+            button2.setContentAreaFilled(false);
+            button2.setBorderPainted(false);
+            button2.setBorder(null);
+        } else {
             setButtonSetup(button2);
         }
         button2.setIcon(new ImageIcon("./res/img/frem.png"));
@@ -174,6 +178,30 @@ public class GameMenu extends JPanel {
         c.gridy = 1;
 
         add(button2, c);
+
+        final JLabel playerName = new JLabel();
+        if (playerSettings.getPlayerName() == null) {
+            playerName.setText("Skriv inn navnet ditt!");
+        } else {
+            playerName.setText(playerSettings.getPlayerName());
+        }
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 2;
+        add(playerName, c);
+
+        final JLabel playerPic = new JLabel();
+        if (playerSettings.getPlayerName() == null) {
+            playerPic.setIcon(new ImageIcon("./res/player/playeridledown.png"));
+        } else {
+            playerPic.setIcon(new ImageIcon("./res/img/os.gif"));
+        }
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridx = 1;
+        c.gridy = 3;
+        add(playerPic, c);
 
         final JTextField name = new JTextField((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
         name.setToolTipText("Skriv inn navnet ditt");
@@ -200,10 +228,25 @@ public class GameMenu extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if(!name.getText().equals("")){
-                button2.setEnabled(true);
-                setButtonSetup(button2);
-                playerSettings.setPlayerName(name.getText());
+                if (!name.getText().equals("")) {
+                    button2.setEnabled(true);
+                    setButtonSetup(button2);
+                    playerSettings.setPlayerName(name.getText());
+                    playerPic.setIcon(new ImageIcon("./res/img/os.gif"));
+                    playerName.setText(playerSettings.getPlayerName());
+                    int picCenter = (playerSettings.getPlayerName().length() * 8) / 4;
+                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.insets = new Insets(0, picCenter, 0, picCenter);
+                    c.gridx = 1;
+                    c.gridy = 3;
+                    remove(playerPic);
+                    add(playerPic, c);
+                    revalidate();
+                    repaint();
+                } else {
+                    playerName.setText("Skriv inn navnet ditt!");
+                    button2.setEnabled(false);
+                    playerPic.setIcon(new ImageIcon("./res/player/playeridledown.png"));
                 }
             }
         });
@@ -269,8 +312,8 @@ public class GameMenu extends JPanel {
         model.addElement("Informasjonssystem");
         model.addElement("Telekommunikasjonssystem");
         model.addElement("Feiltolerantsystem");
-        if(playerSettings.system==null){
-        playerSettings.setSystem(model.getElementAt(0).toString());
+        if (playerSettings.system == null) {
+            playerSettings.setSystem(model.getElementAt(0).toString());
         }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
@@ -316,57 +359,56 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 90, 0, 90);
+        c.insets = new Insets(0, 110, 0, 70);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
 
         final JLabel devmethodPic = new JLabel();
-        
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(-130, 50, 0, 0);
+        c.insets = new Insets(-130, 50, 0, 28);
         c.gridx = 1;
         c.gridy = 1;
-        add(devmethodPic,c);
-        
+        add(devmethodPic, c);
+
         final JLabel label = new JLabel();
         label.setMinimumSize(new Dimension(280, 300));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(130, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 1;
-        add(label,c);
-        
+        add(label, c);
+
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("SCRUM");
         model.addElement("Fossefallsmetoden");
         model.addElement("Spiralmetoden");
         model.addElement("Unified Processing");
-        if(playerSettings.getDevMethod()==null){
-        playerSettings.setDevMethod(model.getElementAt(0).toString());
+        if (playerSettings.getDevMethod() == null) {
+            playerSettings.setDevMethod(model.getElementAt(0).toString());
         }
-        
-        
+
+
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String devMethod = comboBox.getSelectedItem().toString();
                 playerSettings.setDevMethod(devMethod);
-                if(devMethod.equalsIgnoreCase("SCRUM")){
+                if (devMethod.equalsIgnoreCase("SCRUM")) {
                     label.setText(scrumHINT);
                     devmethodPic.setIcon(new ImageIcon("./res/img/scrum.png"));
-                }else if(devMethod.equalsIgnoreCase("Fossefallsmetoden")){
+                } else if (devMethod.equalsIgnoreCase("Fossefallsmetoden")) {
                     label.setText(waterfallHINT);
                     devmethodPic.setIcon(new ImageIcon("./res/img/fossefall.png"));
-                }else if(devMethod.equalsIgnoreCase("Spiralmetoden")){
+                } else if (devMethod.equalsIgnoreCase("Spiralmetoden")) {
                     label.setText(spiralHINT);
                     devmethodPic.setIcon(new ImageIcon("./res/img/spiral.png"));
-                }else if(devMethod.equalsIgnoreCase("Unified Processing")){
+                } else if (devMethod.equalsIgnoreCase("Unified Processing")) {
                     label.setText(upHINT);
                     devmethodPic.setIcon(new ImageIcon("./res/img/up.png"));
                 }
-                    
+
             }
         });
         if (playerSettings.getDevMethod() != null) {
@@ -378,7 +420,7 @@ public class GameMenu extends JPanel {
         c.gridx = 1;
         c.gridy = 1;
         add(comboBox, c);
-        
+
         button = new JButton();
         button.setToolTipText("Gå til vannskelighetsgrad valg");
         button.setName("next");
@@ -386,7 +428,7 @@ public class GameMenu extends JPanel {
         button.setIcon(new ImageIcon("./res/img/frem.png"));
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 90, 0, 90);
+        c.insets = new Insets(0, 70, 0, 105);
         c.gridx = 2;
         c.gridy = 1;
 
@@ -404,7 +446,7 @@ public class GameMenu extends JPanel {
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 160, 0, 160);
+        c.insets = new Insets(0, 170, 0, 160);
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
@@ -413,8 +455,8 @@ public class GameMenu extends JPanel {
         model.addElement("Enkelt");
         model.addElement("Normalt");
         model.addElement("Vanskelig");
-        if(playerSettings.difficulity==-1){
-        playerSettings.setDifficulity(0);
+        if (playerSettings.difficulity == -1) {
+            playerSettings.setDifficulity(0);
         }
         final JComboBox comboBox = new JComboBox(model);
         comboBox.addActionListener(new ActionListener() {
@@ -446,7 +488,7 @@ public class GameMenu extends JPanel {
         button.setIcon(new ImageIcon("./res/img/frem.png"));
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0, 160, 0, 160);
+        c.insets = new Insets(0, 170, 0, 160);
         c.gridx = 2;
         c.gridy = 1;
 
@@ -457,20 +499,20 @@ public class GameMenu extends JPanel {
         currentPage = "chosenSettings";
         JButton button;
         GridBagConstraints c = new GridBagConstraints();
-        
+
         button = new JButton();
         button.setToolTipText("Tilbake til navn valg");
         button.setName("previous");
         setButtonSetup(button);
         button.setIcon(new ImageIcon("./res/img/tilbake.png"));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0,-300, 0, 0);
+        c.insets = new Insets(0, -300, 0, 0);
         c.gridx = 0;
         c.gridy = 4;
         add(button, c);
 
-        
-       JLabel name = new JLabel((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
+
+        JLabel name = new JLabel((playerSettings.getPlayerName() == null) ? "Skriv inn navnet ditt her" : playerSettings.getPlayerName());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(120, 40, 0, 0);
         c.gridx = 1;
@@ -482,21 +524,21 @@ public class GameMenu extends JPanel {
         c.insets = new Insets(30, 40, 0, 0);
         c.gridx = 1;
         c.gridy = 3;
-        add(system,c);
-        
+        add(system, c);
+
         JLabel devMethod = new JLabel(playerSettings.getDevMethod());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(35, 40, 0, 0);
         c.gridx = 1;
         c.gridy = 4;
-        add(devMethod,c);
-        
-        String dif ="";
-        if(playerSettings.difficulity==PlayerSettings.EASY){
+        add(devMethod, c);
+
+        String dif = "";
+        if (playerSettings.difficulity == PlayerSettings.EASY) {
             dif = "Enkelt";
-        }else if(playerSettings.difficulity == PlayerSettings.NORMAL){
+        } else if (playerSettings.difficulity == PlayerSettings.NORMAL) {
             dif = "Normal";
-        }else if(playerSettings.difficulity == PlayerSettings.HARD){
+        } else if (playerSettings.difficulity == PlayerSettings.HARD) {
             dif = "Hard";
         }
         JLabel difficulity = new JLabel(dif);
@@ -505,7 +547,7 @@ public class GameMenu extends JPanel {
         c.gridx = 1;;
         c.gridy = 5;
         add(difficulity, c);
-        
+
         button = new JButton();
         button.setToolTipText("Start spillet");
         button.setName("startGame");
@@ -515,18 +557,18 @@ public class GameMenu extends JPanel {
         c.insets = new Insets(20, 0, 0, 0);
         c.gridx = 1;
         c.gridy = 6;
-        add(button,c);
-        
+        add(button, c);
+
         JLabel wavingMan = new JLabel();
-        wavingMan.setToolTipText("Hei der "+playerSettings.getPlayerName()+", er du klar for en utrolig reise?");
+        wavingMan.setToolTipText("Hei der " + playerSettings.getPlayerName() + ", er du klar for en utrolig reise?");
         wavingMan.setName("wavingMan");
         wavingMan.setIcon(new ImageIcon("./res/img/os.gif"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(0, 200, 0, 0);
         c.gridx = 1;
         c.gridy = 5;
-        add(wavingMan,c);
-        
+        add(wavingMan, c);
+
     }
 
     public void startMusic() throws Exception {
@@ -545,32 +587,32 @@ public class GameMenu extends JPanel {
         musicFiles.add("jurassicpark.mid");
         musicFiles.add("jamesbond.mid");
         Random rn = new Random();
-        int songnr= rn.nextInt(13);
-       String song = musicFiles.get(songnr);
-       
-       //Description of songs
-          if(song.contains("aoe")){
+        int songnr = rn.nextInt(13);
+        String song = musicFiles.get(songnr);
+
+        //Description of songs
+        if (song.contains("aoe")) {
             songName = "Theme from Age of Empires";
-        }else if(song.contains("pokemon")){
-            songName =  "Theme from Pokemon";
-        }else if(song.contains("mario")){
+        } else if (song.contains("pokemon")) {
+            songName = "Theme from Pokemon";
+        } else if (song.contains("mario")) {
             songName = "Theme from Super Mario";
-        }else if(song.contains("zelda")){
+        } else if (song.contains("zelda")) {
             songName = "Theme from Zelda";
-        }else if(song.contains("sandstorm")){
+        } else if (song.contains("sandstorm")) {
             songName = "Darude - Sandstorm";
-        }else if(song.contains("tetris")){
+        } else if (song.contains("tetris")) {
             songName = "Theme from Tetris";
-        }else if(song.contains("wakemeup")){
-        songName = "Avicii - Wake me up";
-    } else if (song.contains("itsmylife")){
-        songName= "Bon Jovi - Its my life";
-    }else if(song.contains("jurassicpark.mid")){
-        songName = "Theme from Jurassic Park";
-    }else if(song.contains("jamesbond")){
-        songName = "Theme from James Bond";
-    }
-        File file = new File("./res/music/"+song);
+        } else if (song.contains("wakemeup")) {
+            songName = "Avicii - Wake me up";
+        } else if (song.contains("itsmylife")) {
+            songName = "Bon Jovi - Its my life";
+        } else if (song.contains("jurassicpark.mid")) {
+            songName = "Theme from Jurassic Park";
+        } else if (song.contains("jamesbond")) {
+            songName = "Theme from James Bond";
+        }
+        File file = new File("./res/music/" + song);
         // getAudioInputStream() also accepts a File or InputStream
         ais = AudioSystem.
                 getAudioInputStream(file);
