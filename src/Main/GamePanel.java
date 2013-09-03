@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
+        setVisible(true);
     }
 
     @Override
