@@ -28,7 +28,7 @@ public class Player extends NPC {
     private int speed;
     private TileMap tileMap;
     private boolean up, down, left, right, facingLeft, interaction;
-        private boolean topLeft, topRight, bottomLeft, bottomRight;
+    private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private int idleDirection = 3;
@@ -78,8 +78,8 @@ public class Player extends NPC {
         animation = new Animation();
         facingLeft = false;
     }
-    
-       private void calculateCorners(double x, double y) {
+
+    private void calculateCorners(int x, int y) {
         int leftTile = tileMap.getColTile((int) (x - spriteWidth / 2));
         int rightTile = tileMap.getColTile((int) (x + spriteWidth / 2) - 1);
         int topTile = tileMap.getRowTile((int) (y - spriteHeight / 2));
@@ -91,14 +91,14 @@ public class Player extends NPC {
     }
 
     private boolean interX(int interactionDist, int tx) {
-        return (tx + interactionDist > x+20 && tx - interactionDist < x+20);
+        return (tx + interactionDist > x + 20 && tx - interactionDist < x + 20);
 
     }
-    
-    public void setNPCs(ArrayList<NPC> npcs){
+
+    public void setNPCs(ArrayList<NPC> npcs) {
         this.npcs = npcs;
     }
-    
+
     private boolean interY(int interactionDist, int ty) {
         return (ty + interactionDist > y && ty - interactionDist < y);
 
@@ -119,7 +119,7 @@ public class Player extends NPC {
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
-                
+
             }
         }
         return -1;
@@ -150,18 +150,26 @@ public class Player extends NPC {
                 // interact();
             }
         }
-        x = dx;
-        y = dy;
- //Sjekker kollisjon
+        /* I don't even
+        System.out.println("X =  " + x + "   y =  " + y);
+        boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
+        if (tileMap.getTile(((dy) / 32), ((-dx+45) / 32)) >= 13 || outsideOfMap) {
+            dx = x;
+            dy = y;
+        } else {*/
+            x = dx;
+            y = dy;
+        }
+        //Sjekker kollisjon
         int curCol = tileMap.getColTile((int) x);
         int curRow = tileMap.getRowTile((int) y);
-        
+
         double toX = x + dx;
         double toY = y + dy;
-        
+
         double tempX = x;
         double tempY = y;
-        
+
 //        calculateCorners(x, toY);
 //        if (dy < 0) {
 //            if (topLeft || topRight) {
@@ -215,7 +223,7 @@ public class Player extends NPC {
             animation.setFrames(walking_sideways);
             animation.setDelay(200);
         } else {
-                System.out.println("Direction: "+idleDirection);
+            System.out.println("Direction: " + idleDirection);
             if (idleDirection == 1) {
                 animation.setFrames(idleSprite_up);
                 animation.setDelay(-1);
@@ -241,8 +249,8 @@ public class Player extends NPC {
     @Override
     public void draw(Graphics2D g) {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
-        int tx = tileMap.getX();
-        int ty = tileMap.getY();
+        int tx = tileMap.getX() + 10;
+        int ty = tileMap.getY() + 10;
         if (facingLeft) {
             g.drawImage(animation.getImage(), (tx - x - spriteWidth / 2 + spriteWidth), (int) (ty + y - spriteHeight / 2),
                     -spriteWidth, spriteHeight, null);
