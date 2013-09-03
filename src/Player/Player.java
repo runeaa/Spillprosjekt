@@ -162,44 +162,44 @@ public class Player extends NPC {
         double tempX = x;
         double tempY = y;
         
-        calculateCorners(x, toY);
-        if (dy < 0) {
-            if (topLeft || topRight) {
-                dy = 0;
-                tempY = curRow * tileMap.getTileSize() + spriteHeight / 2;
-            } else {
-                tempY += dy;
-            }
-        }
-        if (dy > 0) {
-            if (bottomLeft || bottomRight) {
-                dy = 0;
-//                input.falling.toggle(false);
-//                falling = false;
-                tempY = (curRow + 1) * tileMap.getTileSize() - spriteHeight / 2;
-            } else {
-                tempY += dy;
-            }
-        }
-        
-        calculateCorners(toX, y);
-        if (dx < 0) {
-            if (topLeft || bottomLeft) {
-                dx = 0;
-                tempX = curCol * tileMap.getTileSize() + spriteWidth / 2;
-            } else {
-                tempX += dx;
-            }
-        }
-        if (dx > 0) {
-            if (topRight || bottomRight) {
-                dx = 0;
-                tempX = (curCol + 1) * tileMap.getTileSize() - spriteWidth / 2;
-                
-            } else {
-                tempX += dx;
-            }
-        }
+//        calculateCorners(x, toY);
+//        if (dy < 0) {
+//            if (topLeft || topRight) {
+//                dy = 0;
+//                tempY = curRow * tileMap.getTileSize() + spriteHeight / 2;
+//            } else {
+//                tempY += dy;
+//            }
+//        }
+//        if (dy > 0) {
+//            if (bottomLeft || bottomRight) {
+//                dy = 0;
+////                input.falling.toggle(false);
+////                falling = false;
+//                tempY = (curRow + 1) * tileMap.getTileSize() - spriteHeight / 2;
+//            } else {
+//                tempY += dy;
+//            }
+//        }
+//        
+//        calculateCorners(toX, y);
+//        if (dx < 0) {
+//            if (topLeft || bottomLeft) {
+//                dx = 0;
+//                tempX = curCol * tileMap.getTileSize() + spriteWidth / 2;
+//            } else {
+//                tempX += dx;
+//            }
+//        }
+//        if (dx > 0) {
+//            if (topRight || bottomRight) {
+//                dx = 0;
+//                tempX = (curCol + 1) * tileMap.getTileSize() - spriteWidth / 2;
+//                
+//            } else {
+//                tempX += dx;
+//            }
+//        }
         //flytter vinduet
 //        tileMap.setX((int) (GamePanel.WIDTH / 2)+x);
 //        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
