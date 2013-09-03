@@ -28,7 +28,7 @@ public class Player extends NPC {
     private int speed;
     private TileMap tileMap;
     private boolean up, down, left, right, facingLeft, interaction;
-        private boolean topLeft, topRight, bottomLeft, bottomRight;
+    private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private int idleDirection = 3;
@@ -39,8 +39,6 @@ public class Player extends NPC {
     private BufferedImage[] idleSprite_up = new BufferedImage[1];
     private BufferedImage[] idleSprite_down = new BufferedImage[1];
     private Animation animation;
-    private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
-    private String color;
     private boolean OptionTrigger;
     private int lock = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
@@ -119,7 +117,6 @@ public class Player extends NPC {
             int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
-                
             }
         }
         return -1;
