@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -41,9 +42,10 @@ public class Player extends NPC {
     private String color;
     private boolean OptionTrigger;
     private int lock = 1;
+    private ArrayList<NPC> npcs = new ArrayList<NPC>();
 
-    public Player(TileMap tileMap, int x, int y, int speed, String color) {
-        super(x, y, color);
+    public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
+        super(npcID, x, y, color);
         this.tileMap = tileMap;
         this.x = x;
         this.y = y;
@@ -77,18 +79,22 @@ public class Player extends NPC {
     }
 
     private boolean interX(int interactionDist, int tx) {
-        return (tx + interactionDist > x && tx - interactionDist < x);
+        return (tx + interactionDist > x+20 && tx - interactionDist < x+20);
 
     }
-
+    
+    public void setNPCs(ArrayList<NPC> npcs){
+        this.npcs = npcs;
+    }
+    
     private boolean interY(int interactionDist, int ty) {
-        return (ty + interactionDist > x && ty - interactionDist < y);
+        return (ty + interactionDist > y && ty - interactionDist < y);
 
     }
 
     private boolean interact(int tx, int ty) {
-        int interactionDist = 10;
-        if (interY(interactionDist, tx) && interX(interactionDist, ty)) {
+        int interactionDist = 20;
+        if (interY(interactionDist, ty) && interX(interactionDist, tx)) {
             return true;
         }
         return false;
@@ -96,11 +102,12 @@ public class Player extends NPC {
     }
 
     public int interaction() {
-        for (int i = 0; i < npc.length; i++) {
-            int a = npc[i][0];
-            int b = npc[i][1];
+        for (int i = 0; i < npcs.size(); i++) {
+            int a = -npcs.get(i).getX();
+            int b = npcs.get(i).getY();
             if (interact(a, b)) {
                 return i;
+                
             }
         }
         return -1;
