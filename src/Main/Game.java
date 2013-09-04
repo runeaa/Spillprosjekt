@@ -14,7 +14,8 @@ public class Game {
     public static void main(String[] args) {
         JFrame window = new JFrame("A Programmer's Tale - You will be taught");
        // window.setContentPane(new GamePanel());
-        window.setContentPane(new GameMenu(window));
+        GameMenu gamemenu = new GameMenu(window);
+        window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.pack();
