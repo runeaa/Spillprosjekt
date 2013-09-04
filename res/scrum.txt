@@ -1,4 +1,3 @@
-3
 Hva er de tre rollene i scrum?
 Produkt-backlog, Sprint backlog og burndown chart#F
 Produkteier, scrummaster og scrumteam#R
