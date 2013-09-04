@@ -28,13 +28,12 @@ public class NPC implements KeyListener {
     private Animation animation;
     private int npcID;
 
-    
     public NPC(int npcID, int x, int y, String color) {
         this.x = x;
         this.y = y;
         this.npcID = npcID;
         try {
-            BufferedImage img = ImageIO.read(new File("res/npc/"+color+"NPC.png"));
+            BufferedImage img = ImageIO.read(new File("res/npc/" + color + "NPC.png"));
             for (int i = 0; i < idleSprite.length; i++) {
                 idleSprite[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }
@@ -53,8 +52,8 @@ public class NPC implements KeyListener {
     }
 
     public void draw(Graphics2D g) {
-       // g.drawImage(idleSprite[0], (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
-        g.drawImage(idleSprite[0],x ,y , null);
+        // g.drawImage(idleSprite[0], (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
+        g.drawImage(idleSprite[0], x, y, null);
 
 
 

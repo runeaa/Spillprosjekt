@@ -142,26 +142,26 @@ public class GamePanel extends JPanel implements Runnable {
         return null;
     }
 
-    public void render() {       
+    public void render() {
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
-                if(currentLevel == 1){
+                if (currentLevel == 1) {
                     tileMap.draw(g);
                     npc1.draw(g);
                     npc2.draw(g);
                     String[] s = drawText();
                     if (s != null) {
-                    g.setColor(Color.WHITE);
-                    g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
-                    g.setColor(Color.BLACK);
-                    g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
-                }
-                }else if(currentLevel == 2){
+                        g.setColor(Color.WHITE);
+                        g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                        g.setColor(Color.BLACK);
+                        g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+                    }
+                } else if (currentLevel == 2) {
                     tileMap2.draw(g);
                 }
-                    player.draw(g);
-                
+                player.draw(g);
+
             } else {
                 DialogBox dialogbox = new DialogBox(playersettings);
                 dialogbox.paintComponent(g);

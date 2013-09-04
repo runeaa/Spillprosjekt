@@ -41,8 +41,8 @@ public class Animation {
             currentFrame = 0;
         }
     }
-    
-    public BufferedImage getImage(){
+
+    public BufferedImage getImage() {
         return frames[currentFrame];
     }
 }

@@ -27,7 +27,7 @@ public class Player extends NPC {
     private int dx, dy;
     private int speed;
     private TileMap tileMap;
-    private boolean up, down, left, right, facingLeft,interOk;
+    private boolean up, down, left, right, facingLeft, interOk;
     private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
@@ -79,8 +79,8 @@ public class Player extends NPC {
         animation = new Animation();
         facingLeft = false;
     }
-    
-    public int getLevel(){
+
+    public int getLevel() {
         return level;
     }
 
@@ -130,15 +130,16 @@ public class Player extends NPC {
 
     public boolean wall() {
         //boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
-        int tempx = ((-dx-21) / 32);
-        int tempy = ((dy-16) / 32);
+        int tempx = ((-dx - 21) / 32);
+        int tempy = ((dy - 16) / 32);
         tempy = (tempy > 0) ? tempy + 1 : tempy;
         tempx = (tempx > 0) ? tempx + 1 : tempx;
-        boolean outsideOfMap = ((tempx)>=20 || tempy>=20)? true:false;
+        boolean outsideOfMap = ((tempx) >= 20 || tempy >= 20) ? true : false;
         return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);
 
     }
-    public void updatePlayerPosition(){
+
+    public void updatePlayerPosition() {
         dx = -50;
         dy = 380;
     }
@@ -148,12 +149,12 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
-        if(level == 1 && y > 375 && x < -615 ){
+        if (level == 1 && y > 375 && x < -615) {
             level++;
             updatePlayerPosition();
         }
-      
-        if (!OptionTrigger&&!interOk) {
+
+        if (!OptionTrigger && !interOk) {
             if (up && y != 0) {
                 dy -= speed;
             }
@@ -302,14 +303,14 @@ public class Player extends NPC {
             idleDirection = 4;
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
-          interactedNPCID = interaction();
-           if(interactedNPCID != -1 && interOk == false){  
-           interOk=true;
-           }else if(interOk == true){
-               interOk = false;
-           }
-           
-       }    
+            interactedNPCID = interaction();
+            if (interactedNPCID != -1 && interOk == false) {
+                interOk = true;
+            } else if (interOk == true) {
+                interOk = false;
+            }
+
+        }
 
         if (key == KeyEvent.VK_ESCAPE) {
             if (lock % 2 != 0) {
@@ -321,7 +322,8 @@ public class Player extends NPC {
             }
         }
     }
-    public boolean getInterOk(){
+
+    public boolean getInterOk() {
         return interOk;
     }
 

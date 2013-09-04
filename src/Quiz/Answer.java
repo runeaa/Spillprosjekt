@@ -9,10 +9,11 @@ package Quiz;
  * @author amund
  */
 public class Answer {
+
     private String answer;
     private boolean isCorrect;
-    
-    public Answer(String answer, boolean isCorrect){
+
+    public Answer(String answer, boolean isCorrect) {
         this.answer = answer;
         this.isCorrect = isCorrect;
     }

@@ -9,5 +9,4 @@ package Listeners;
  * @author Rune
  */
 public class Keys {
-    
 }

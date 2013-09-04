@@ -25,7 +25,7 @@ public class Quiz {
         buildQuiz(valg);
 
     }
-    
+
     public void buildQuiz(int valg) {
         if (valg == 0) {
             String s = "res/fossefall.txt";
@@ -45,14 +45,14 @@ public class Quiz {
             readFromFile(s);
         }
     }
-    
+
     private void readFromFile(String s) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(s));
             final int answersPerQuestion = 3;
             String question;
             questions = new ArrayList<>();
-            while((question = br.readLine())!=null){
+            while ((question = br.readLine()) != null) {
                 List<Answer> answers = new ArrayList<>();
                 for (int j = 0; j < answersPerQuestion; j++) {
                     String line = br.readLine();
@@ -65,13 +65,13 @@ public class Quiz {
             e.printStackTrace();
         }
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         String s = "";
-        for(Question q: getQuestions()){
+        for (Question q : getQuestions()) {
             s += q.getQuestion() + "\n";
-            for(Answer a: q.getAnswers()){
+            for (Answer a : q.getAnswers()) {
                 s += a.getAnswer() + " " + a.isIsCorrect() + "\n";
             }
         }
@@ -101,12 +101,12 @@ public class Quiz {
 
     /**
      * @param questions the questions to set
-     */ 
+     */
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-    
-    public Question getRandomQuestion(){
+
+    public Question getRandomQuestion() {
         return questions.get(new Random().nextInt(questions.size()));
     }
 }

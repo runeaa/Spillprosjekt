@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
  * @author Rune
  */
 public class Tile {
+
     private BufferedImage image;
     private boolean blocked;
 
@@ -26,7 +27,4 @@ public class Tile {
     public boolean isBlocked() {
         return blocked;
     }
-    
-    
 }
-

@@ -36,7 +36,7 @@ public class TileMap {
             BufferedReader br = new BufferedReader(new FileReader(s));
             width = Integer.parseInt(br.readLine());
             height = Integer.parseInt(br.readLine());
-                    System.out.println("Width: "+width+"Height: "+height);
+            System.out.println("Width: " + width + "Height: " + height);
 
             minX = GamePanel.WIDTH - width * tileSize;
             minY = GamePanel.HEIGHT - height * tileSize;
@@ -60,12 +60,12 @@ public class TileMap {
     public int getY() {
         return y;
     }
-    
-    public int getMapWidth(){
+
+    public int getMapWidth() {
         return width * tileSize;
     }
-    
-    public int getMapHeight(){
+
+    public int getMapHeight() {
         return height * tileSize;
     }
 
@@ -83,7 +83,7 @@ public class TileMap {
 
     public void setY(int y) {
         this.y = y;
-       System.out.println("MINY: " + minY);
+        System.out.println("MINY: " + minY);
 //        System.out.println("MAXY: " + maxY);
 
         if (y < minY) {
@@ -93,7 +93,6 @@ public class TileMap {
             this.y = maxY;
         }
     }
-    
 
     public void loadTiles(String s) {
         try {
@@ -151,12 +150,12 @@ public class TileMap {
     public int getTileSize() {
         return tileSize;
     }
-    
+
     public boolean isBlocked(int row, int col) {
-        if(row < 0 || col < 0){
+        if (row < 0 || col < 0) {
             return false;
         }
-     
+
         int rc = map[row][col];
         int r = rc / tiles[0].length;
         int c = rc % tiles[0].length;
