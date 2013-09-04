@@ -149,17 +149,18 @@ public class GamePanel extends JPanel implements Runnable {
                     tileMap.draw(g);
                     npc1.draw(g);
                     npc2.draw(g);
-                }else if(currentLevel == 2){
-                    tileMap2.draw(g);
-                }
-                    player.draw(g);
-                String[] s = drawText();
-                if (s != null) {
+                    String[] s = drawText();
+                    if (s != null) {
                     g.setColor(Color.WHITE);
                     g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
                     g.setColor(Color.BLACK);
                     g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                 }
+                }else if(currentLevel == 2){
+                    tileMap2.draw(g);
+                }
+                    player.draw(g);
+                
             } else {
                 if(!player.finishedInteractedNPCs.contains(player.interactedNPCID)){
                 DialogBox dialogbox = new DialogBox(playersettings);
