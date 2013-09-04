@@ -48,24 +48,18 @@ public class Quiz {
     private void readFromFile(String s) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(s));
-            int numQuiz = Integer.parseInt(br.readLine());
-            //String delimiters = "\\n";
-            int answersPerQuestion = 3;
-            //quizTab = new String[numQuiz][linesPerQuestion];
+            final int answersPerQuestion = 3;
+            String question;
             questions = new ArrayList<>();
-            for (int i = 0; i < numQuiz; i++) {
-                String question = br.readLine();
+            while((question = br.readLine())!=null){
                 List<Answer> answers = new ArrayList<>();
                 for (int j = 0; j < answersPerQuestion; j++) {
                     String line = br.readLine();
                     String[] answer = line.split("#");
                     answers.add(new Answer(answer[0], answer[1].equals("R")));
-//                    quizTab[i][j] = line;
                 }
                 questions.add(new Question(question, answers));
             }
-
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
