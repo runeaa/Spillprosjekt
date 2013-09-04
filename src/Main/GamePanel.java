@@ -5,6 +5,7 @@
 package Main;
 
 import GameElements.DialogBox;
+import GameElements.FeedbackBox;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
@@ -16,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.JPanel;
 
 /**
@@ -42,15 +44,24 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
+    private DialogBox dialogbox;
 
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
         this.settings = settings;
         this.playersettings = playersettings;
+        this.dialogbox = new DialogBox(playersettings);
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
-        setVisible(true);
+        if (settings.sound) {
+            try {
+                settings.clip = AudioSystem.getClip();
+                settings.startMusic(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+    }
+        }
     }
 
     @Override
@@ -149,9 +160,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
+
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
+                if (player.answer != -1) {
+                        FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
+                        feedback.paintComponent(g);
+                        add(feedback);
+                        if(player.confirmedFeedback)
+                    player.answer = -1;
+                } else {
                 if (currentLevel == 1) {
                     tileMap.draw(g);
                     npc1.draw(g);
@@ -165,16 +184,17 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 } else if (currentLevel == 2) {
                     tileMap2.draw(g);
-                    npc2.draw(g);
                 }
                 player.draw(g);
-
+                }
             } else {
-                DialogBox dialogbox = new DialogBox(playersettings);
+                if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
+                    dialogbox.setInteractedNPCID(player.interactedNPCID);
                 dialogbox.paintComponent(g);
                 add(dialogbox);
+                    player.setDialogBoxDrawn(true);
             }
-
+            }
         } else {
             optionState.draw(g);
         }

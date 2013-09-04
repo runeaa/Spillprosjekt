@@ -45,6 +45,9 @@ public class Player extends NPC {
     private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     public int interactedNPCID = -1;
+    public boolean dialogBoxDrawn,confirmedFeedback;
+    public int answer = -1;
+    public ArrayList<Integer> finishedInteractedNPCs = new ArrayList<Integer>();
 
     public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
         super(npcID, x, y, color);
@@ -89,8 +92,6 @@ public class Player extends NPC {
 
     }
 
-  
-    
     public void setNPCs(ArrayList<NPC> npcs) {
         this.npcs = npcs;
     }
@@ -112,23 +113,24 @@ public class Player extends NPC {
         for (int i = 0; i < npcs.size(); i++) {
             int a = -npcs.get(i).getX();
             int b = npcs.get(i).getY();
+            if(!finishedInteractedNPCs.contains(i)){
             if (interact(a, b)) {
                 return i;
             }
+        }
         }
         return -1;
     }
 
     public boolean wall() {
         //boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
-        int tempx = ((-dx - 21) / 32);
-        int tempy = ((dy - 16) / 32);
+        int tempx = ((-dx-21) / 32);
+        int tempy = ((dy-16) / 32);
         tempy = (tempy > 0) ? tempy + 1 : tempy;
         tempx = (tempx > 0) ? tempx + 1 : tempx;
-        boolean outsideOfMap = ((tempx) >= 20 || tempy >= 20) ? true : false;
+        boolean outsideOfMap = ((tempx)>=20 || tempy>=20)? true:false;
         return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);
         
-
     }
 
     public void updatePlayerPosition(int dx, int dy) {
@@ -307,11 +309,16 @@ public class Player extends NPC {
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
             interactedNPCID = interaction();
-            if (interactedNPCID != -1 && interOk == false) {
-                interOk = true;
-            } else if (interOk == true) {
+          if(answer!=-1){
+              confirmedFeedback = true;
+          }else{
+              confirmedFeedback = false;
+           if(interactedNPCID != -1 && interOk == false){  
+           interOk=true;
+           }else if(interOk == true){
                 interOk = false;
             }
+          }
 
         }
 
@@ -324,9 +331,21 @@ public class Player extends NPC {
                 lock++;
             }
         }
+        if(interOk){ //Keyboard events when you interact
+            if(key == KeyEvent.VK_1 || key == KeyEvent.VK_2 || key == KeyEvent.VK_3){
+                if(key == KeyEvent.VK_1){
+                    answer = 0;
+                }else if(key ==KeyEvent.VK_2){
+                    answer = 1;
+                }else if (key == KeyEvent.VK_3){
+                    answer = 2;
     }
-
-    public boolean getInterOk() {
+                finishedInteractedNPCs.add(interactedNPCID);
+                interOk=false;
+        }
+        }
+    }
+    public boolean getInterOk(){
         return interOk;
     }
 
@@ -347,4 +366,10 @@ public class Player extends NPC {
         }
 
     }
+
+    public void setDialogBoxDrawn(boolean dialogBoxDrawn) {
+        this.dialogBoxDrawn = dialogBoxDrawn;
+}
+    
+    
 }

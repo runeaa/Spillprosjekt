@@ -32,7 +32,8 @@ import javax.sound.sampled.*;
 
 /**
  *
- * @author haavamoa
+ * @author
+ * haavamoa
  */
 
 
@@ -43,17 +44,14 @@ public class GameMenu extends JPanel {
     public BufferedImage img;
     private JPanel pan = this;
     public String currentPage;
-    public Clip clip;
     private JFrame frame;
-    private String songName;
-    public AudioInputStream ais;
     final private String scrumHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I scrum jobber man iterativt i \"sprints\" med en fast lengde på 2-4 uker.</br></br>Før første sprint må man gjøre litt forarbeid som f.eks å definere problemet man skal løse.</html>";
     final private String upHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b> UP er 'use-case drevet, arkitektur-sentralt, iterativ og inkrementell'. Det må defineres hvem som gjør hva, når det skal gjøres og hvordan man skal nå et bestemt mål.</html>";
     final private String waterfallHINT = "<html><b style=\"color:red; font-size:1.2em\">Info:</b>I fossefallsmetoden jobber man sekvensiellt, først spesifiserer man krav og dokumenterer design før programmeringen begynner.</html>";
     final private String spiralHINT = "<html><br></br><br></br><br></br><br></br><b style=\"color:red; font-size:1.2em\">Info:</b>I denne model skal du arrangere alle aktivitetene i en form av spiral:<ul><li>Bestemme målene, alternativer og begrensninger</li><li>Risikoanalyse og evaluering av alternativer</li><li>Gjennomføring av den fasen av utviklingen.Planlegging av neste fase</li></ul></html>";
 
     public GameMenu(JFrame frame) {
-
+       
         try {
             img = ImageIO.read(new File("./res/img/menu.png"));
         } catch (IOException e) {
@@ -65,13 +63,14 @@ public class GameMenu extends JPanel {
 
         this.frame = frame;
         try {
-            clip = AudioSystem.getClip();
-            startMusic();
+            settings.clip = AudioSystem.getClip();
+            settings.startMusic(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
         startMenuSetup();;
     }
+    
 
     public void setButtonSetup(final JButton button) {
         button.setOpaque(false);
@@ -131,17 +130,6 @@ public class GameMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
-
-        if (settings.sound) {
-            JLabel musicLabel = new JLabel("Now playing: " + songName);
-            musicLabel.setForeground(Color.white);
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.insets = new Insets(400, 0, 0, 0);
-            c.gridx = 1;
-            c.gridy = 1;
-            add(musicLabel, c);
-        }
-
     }
 
     public void nameSetup() {
@@ -571,56 +559,6 @@ public class GameMenu extends JPanel {
         c.gridx = 1;
         c.gridy = 5;
         add(wavingMan, c);
-
-    }
-
-    public void startMusic() throws Exception {
-        ArrayList<String> musicFiles = new ArrayList();
-        musicFiles.add("wakemeup.mid");
-        musicFiles.add("mario1.mid");
-        musicFiles.add("pokemon1.mid");
-        musicFiles.add("pokemon2.mid");
-        musicFiles.add("pokemon3.mid");
-        musicFiles.add("pokemon4.mid");
-        musicFiles.add("zelda1.mid");
-        musicFiles.add("aoe2.mid");
-        musicFiles.add("tetris1.mid");
-        musicFiles.add("sandstorm.mid");
-        musicFiles.add("itsmylife.mid");
-        musicFiles.add("jurassicpark.mid");
-        musicFiles.add("jamesbond.mid");
-        Random rn = new Random();
-        int songnr = rn.nextInt(13);
-        String song = musicFiles.get(songnr);
-
-        //Description of songs
-        if (song.contains("aoe")) {
-            songName = "Theme from Age of Empires";
-        } else if (song.contains("pokemon")) {
-            songName = "Theme from Pokemon";
-        } else if (song.contains("mario")) {
-            songName = "Theme from Super Mario";
-        } else if (song.contains("zelda")) {
-            songName = "Theme from Zelda";
-        } else if (song.contains("sandstorm")) {
-            songName = "Darude - Sandstorm";
-        } else if (song.contains("tetris")) {
-            songName = "Theme from Tetris";
-        } else if (song.contains("wakemeup")) {
-            songName = "Avicii - Wake me up";
-        } else if (song.contains("itsmylife")) {
-            songName = "Bon Jovi - Its my life";
-        } else if (song.contains("jurassicpark.mid")) {
-            songName = "Theme from Jurassic Park";
-        } else if (song.contains("jamesbond")) {
-            songName = "Theme from James Bond";
-        }
-        File file = new File("./res/music/" + song);
-        // getAudioInputStream() also accepts a File or InputStream
-        ais = AudioSystem.
-                getAudioInputStream(file);
-        clip.open(ais);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
 
     }
 
