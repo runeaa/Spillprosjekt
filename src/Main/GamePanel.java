@@ -4,7 +4,7 @@
  */
 package Main;
 
-import Quiz.Interact;
+import GameElements.DialogBox;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable {
 
-    Settings settings = new Settings();
+    private Settings settings;
     private boolean running;
     private BufferedImage image;
     private int maxrameCount = 60;
@@ -39,10 +39,12 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc3;
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
-    Interact interact = new Interact(settings);
+    private PlayerSettings playersettings;
 
-    public GamePanel() {
+    public GamePanel(PlayerSettings playersettings,Settings settings) {
         super();
+        this.settings = settings;
+        this.playersettings = playersettings;
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
@@ -156,8 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
                 g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
             }
                 }else{   
-                
-                interact.draw(g);
+                add(new DialogBox(player.interactedNPCID, playersettings));
             }
         
         }else{
