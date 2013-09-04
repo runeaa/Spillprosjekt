@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.JPanel;
 
 /**
@@ -50,6 +51,12 @@ public class GamePanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
+          try {
+            settings.clip = AudioSystem.getClip();
+            settings.startMusic(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
