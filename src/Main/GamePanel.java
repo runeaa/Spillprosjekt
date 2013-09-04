@@ -74,9 +74,9 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
-        tileMap = new TileMap("res/levels/floored.txt", 32);
+        tileMap = new TileMap("res/levels/tutorial.txt", 32);
         tileMap.loadTiles("res/levels/tileset.png");
-        tileMap2 = new TileMap("res/levels/map.txt", 32);
+        tileMap2 = new TileMap("res/levels/level1.txt", 32);
         tileMap2.loadTiles("res/levels/tileset.png");
         player = new Player(tileMap, 0, -200, 200, 5, "blue");
         npc1 = new NPC(1, 50, 300, "red");
@@ -126,8 +126,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        currentLevel = player.getLevel();
         player.update();
+        currentLevel = player.getLevel();
+        if(currentLevel == 1){
+            player.updateTitleMap(tileMap);
+        }else if(currentLevel == 2){
+            player.updateTitleMap(tileMap2);
+        }
+        
     }
 
     private String[] drawText() {
@@ -159,6 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 } else if (currentLevel == 2) {
                     tileMap2.draw(g);
+                    npc2.draw(g);
                 }
                 player.draw(g);
 

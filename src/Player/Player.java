@@ -84,22 +84,13 @@ public class Player extends NPC {
         return level;
     }
 
-    private void calculateCorners(int x, int y) {
-        int leftTile = tileMap.getColTile((int) (x - spriteWidth / 2));
-        int rightTile = tileMap.getColTile((int) (x + spriteWidth / 2) - 1);
-        int topTile = tileMap.getRowTile((int) (y - spriteHeight / 2));
-        int bottomTile = tileMap.getRowTile((int) (y + spriteHeight / 2) - 1);
-        topLeft = tileMap.isBlocked(topTile, leftTile);
-        topRight = tileMap.isBlocked(topTile, rightTile);
-        bottomLeft = tileMap.isBlocked(bottomTile, leftTile);
-        bottomRight = tileMap.isBlocked(bottomTile, rightTile);
-    }
-
     private boolean interX(int interactionDist, int tx) {
         return (tx + interactionDist > x + 20 && tx - interactionDist < x + 20);
 
     }
 
+  
+    
     public void setNPCs(ArrayList<NPC> npcs) {
         this.npcs = npcs;
     }
@@ -136,12 +127,20 @@ public class Player extends NPC {
         tempx = (tempx > 0) ? tempx + 1 : tempx;
         boolean outsideOfMap = ((tempx) >= 20 || tempy >= 20) ? true : false;
         return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);
+        
 
     }
 
-    public void updatePlayerPosition() {
-        dx = -50;
-        dy = 380;
+    public void updatePlayerPosition(int dx, int dy) {
+        System.out.println("oppdaterer posisjon til:"+dx+", "+dy);
+        this.dx = dx;
+        this.dy = dy;
+        x = dx;
+        y = dy;
+    }
+     
+    public void updateTitleMap(TileMap tileMap){
+        this.tileMap = tileMap;
     }
 
     public void update() {
@@ -149,11 +148,15 @@ public class Player extends NPC {
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
-        if (level == 1 && y > 375 && x < -615) {
+        if (level == 1 && y >= 370 && x < -615) {
+            System.out.println("Bytter til level2");
+            updatePlayerPosition(-50, 380);
             level++;
-            updatePlayerPosition();
+        }else if(level == 2 && y >= 370 && x > -20){
+            System.out.println("Bytter til level 1");
+            updatePlayerPosition(-600, 380);
+            level--;            
         }
-
         if (!OptionTrigger && !interOk) {
             if (up && y != 0) {
                 dy -= speed;
