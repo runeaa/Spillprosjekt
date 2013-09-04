@@ -158,7 +158,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }else{   
                 
                 interact.draw(g);
-            
             }
         
         }else{
