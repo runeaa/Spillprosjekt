@@ -47,9 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.settings = settings;
         this.playersettings = playersettings;
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
-        setFocusable(true);
         requestFocus();
-        setVisible(true);
     }
     
     @Override
@@ -161,6 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
             } else {                
                 DialogBox dialogbox = new DialogBox(playersettings);
                 dialogbox.paintComponent(g);
+                
                 add(dialogbox);
             }
             
