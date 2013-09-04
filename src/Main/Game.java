@@ -20,6 +20,7 @@ public class Game {
         gamemenu.playerSettings.setPlayerName("test subject");
         gamemenu.playerSettings.setDifficulity(PlayerSettings.EASY);
         gamemenu.playerSettings.setDevMethod("SCRUM");
+        gamemenu.settings.clip.stop();
         window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
