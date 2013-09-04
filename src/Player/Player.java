@@ -40,6 +40,7 @@ public class Player extends NPC {
     private BufferedImage[] idleSprite_down = new BufferedImage[1];
     private Animation animation;
     private boolean OptionTrigger;
+    private int level = 1;
     private int lock = 1;
     private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
@@ -77,6 +78,10 @@ public class Player extends NPC {
 
         animation = new Animation();
         facingLeft = false;
+    }
+    
+    public int getLevel(){
+        return level;
     }
 
     private void calculateCorners(int x, int y) {
@@ -123,22 +128,31 @@ public class Player extends NPC {
         return -1;
     }
 
-    private boolean wall() {
+    public boolean wall() {
         //boolean outsideOfMap = ((dy/32)>=20 || (dx/32) >= 20)? false:true;
         int tempx = ((-dx-21) / 32);
         int tempy = ((dy-16) / 32);
         tempy = (tempy > 0) ? tempy + 1 : tempy;
         tempx = (tempx > 0) ? tempx + 1 : tempx;
         boolean outsideOfMap = ((tempx)>=20 || tempy>=20)? true:false;
-        return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 13);
+        return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);
 
+    }
+    public void updatePlayerPosition(){
+        dx = -50;
+        dy = 380;
     }
 
     public void update() {
-//        System.out.println("Y: " + y + ", X: " + x);
+//      System.out.println("Y: " + y + ", X: " + x);
 //        dy = 0;
 //        dx = 0;
 //        System.out.println(interaction());
+        if(level == 1 && y > 375 && x < -615 ){
+            level++;
+            updatePlayerPosition();
+        }
+      
         if (!OptionTrigger&&!interOk) {
             if (up && y != 0) {
                 dy -= speed;
@@ -155,7 +169,7 @@ public class Player extends NPC {
 //            
         }
 
-
+//        System.out.println("x: "+x+" y: "+y);
 
         if (wall()) {// || outsideOfMap) {
             dx = x;

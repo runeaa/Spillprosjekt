@@ -20,11 +20,10 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author
- * Rune
+ * @author Rune
  */
 public class GamePanel extends JPanel implements Runnable {
-    
+
     private Settings settings;
     private boolean running;
     private BufferedImage image;
@@ -32,16 +31,18 @@ public class GamePanel extends JPanel implements Runnable {
     private GameStateSettings optionState;
     int frameCount = 1;
     private TileMap tileMap;
+    private TileMap tileMap2;
     private Thread thread;
     private Graphics2D g;
     private Player player;
+    private int currentLevel;
     private NPC npc1;
     private NPC npc2;
     private NPC npc3;
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
-    
+
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
         this.settings = settings;
@@ -51,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
         setVisible(true);
     }
-    
+
     @Override
     public void addNotify() {
         super.addNotify();
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
             running = true;
         }
     }
-    
+
     public void init() {
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
@@ -75,16 +76,18 @@ public class GamePanel extends JPanel implements Runnable {
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/floored.txt", 32);
         tileMap.loadTiles("res/levels/tileset.png");
+        tileMap2 = new TileMap("res/levels/map.txt", 32);
+        tileMap2.loadTiles("res/levels/tileset.png");
         player = new Player(tileMap, 0, -200, 200, 5, "blue");
         npc1 = new NPC(1, 50, 300, "red");
         npcs.add(npc1);
-        npc2 = new NPC(2, 200, 100, "blue");
+        npc2 = new NPC(2, 315, 100, "blue");
         npcs.add(npc2);
         player.setNPCs(npcs);
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
-    
+
     public void run() {
         init();
         long start, loopTime, wait;
@@ -94,14 +97,14 @@ public class GamePanel extends JPanel implements Runnable {
         //gameloop
         while (running) {
             start = System.nanoTime();
-            
+
             update();
             render();
             draw();
-            
-            
+
+
             loopTime = (System.nanoTime() - start) / 1000000;
-            
+
             wait = targetTime - loopTime;
             if (wait < 0) {
                 wait = 0;
@@ -113,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             totalTime += System.nanoTime() - start;
             frameCount++;
-            
+
             if (frameCount == maxrameCount) {
                 settings.setAvrageFPS(1000D / ((totalTime / frameCount) / 1000000));
                 totalTime = 0;
@@ -121,11 +124,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-    
+
     public void update() {
+        currentLevel = player.getLevel();
         player.update();
     }
-    
+
     private String[] drawText() {
         String[] s = new String[3];
         int interaction = player.interaction();
@@ -137,38 +141,38 @@ public class GamePanel extends JPanel implements Runnable {
         }
         return null;
     }
-    
-    public void render() {
-//        DialogBox dialogbox = new DialogBox(playersettings);
+
+    public void render() {       
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
-                tileMap.draw(g);
-                npc1.draw(g);
-                npc2.draw(g);
-                player.draw(g);
-                
-//                g.setColor(Color.BLACK);
-//                g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
-//                g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
-                String[] s = drawText();
-                if (s != null) {
+                if(currentLevel == 1){
+                    tileMap.draw(g);
+                    npc1.draw(g);
+                    npc2.draw(g);
+                    String[] s = drawText();
+                    if (s != null) {
                     g.setColor(Color.WHITE);
                     g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
                     g.setColor(Color.BLACK);
                     g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                 }
-            } else {                
+                }else if(currentLevel == 2){
+                    tileMap2.draw(g);
+                }
+                    player.draw(g);
+                
+            } else {
                 DialogBox dialogbox = new DialogBox(playersettings);
                 dialogbox.paintComponent(g);
                 add(dialogbox);
             }
-            
+
         } else {
             optionState.draw(g);
         }
     }
-    
+
     public void draw() {
         Graphics g2 = this.getGraphics();
         g2.drawImage(image, 0, 0, null);
