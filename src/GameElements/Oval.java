@@ -14,11 +14,11 @@ import Player.NPC;
 public class Oval {
 
     public void draw(Graphics2D g, NPC npc, Text text) {
-        int x = text.getText().length() / ;
+/*        int x = text.getText().length() / ;
         
         g.setColor(Color.WHITE);
         g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
         g.setColor(Color.BLACK);
-        g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+        g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);*/
     }
 }
