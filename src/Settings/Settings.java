@@ -12,7 +12,7 @@ package Settings;
 public class Settings {
 
     public int WITDH = 640;
-    public int HEIGHT = 420;
+    public int HEIGHT = 440;
     public int FPS = 30;
     public double avrageFPS = 0;
     public boolean sound = true;

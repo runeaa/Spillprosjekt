@@ -72,8 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/floored.txt", 32);
-        tileMap.loadTiles("res/levels/tileset.gif");
-        player = new Player(tileMap, 0, 200, 200, 5, "blue");
+        tileMap.loadTiles("res/levels/tileset.png");
+        player = new Player(tileMap, 0, -200, 200, 5, "blue");
         npc1 = new NPC(1, 50, 300, "red");
         npcs.add(npc1);
         npc2 = new NPC(2, 200, 100, "blue");
@@ -146,9 +146,9 @@ public class GamePanel extends JPanel implements Runnable {
                 npc2.draw(g);
                 player.draw(g);
                 
-                g.setColor(Color.BLACK);
-                g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
-                g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
+//                g.setColor(Color.BLACK);
+//                g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
+//                g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
                 String[] s = drawText();
                 if (s != null) {
                     g.setColor(Color.WHITE);
