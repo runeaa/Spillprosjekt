@@ -184,7 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                     player.draw(g);
                 }
-            } else {
+            } else if(player.getInterOk()) {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
                     dialogbox.setInteractedNPCID(player.interactedNPCID);
                     dialogbox.paintComponent(g);
