@@ -5,11 +5,14 @@
 package Main;
 
 import GameElements.DialogBox;
+import GameElements.FeedbackBox;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
+import Quiz.Answer;
 import Settings.*;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,7 +24,8 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Rune
+ * @author
+ * Rune
  */
 public class GamePanel extends JPanel implements Runnable {
 
@@ -43,20 +47,23 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
+    private DialogBox dialogbox;
 
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
         this.settings = settings;
         this.playersettings = playersettings;
+        this.dialogbox = new DialogBox(playersettings);
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
-        if(settings.sound)
-          try {
-            settings.clip = AudioSystem.getClip();
-            settings.startMusic(this);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (settings.sound) {
+            try {
+                settings.clip = AudioSystem.getClip();
+                settings.startMusic(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -149,35 +156,42 @@ public class GamePanel extends JPanel implements Runnable {
         return null;
     }
 
-    public void render() {       
+    public void render() {
+
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
-                if(currentLevel == 1){
-                    tileMap.draw(g);
-                    npc1.draw(g);
-                    npc2.draw(g);
-                    String[] s = drawText();
-                    if (s != null) {
-                    g.setColor(Color.WHITE);
-                    g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
-                    g.setColor(Color.BLACK);
-                    g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
-                }
-                }else if(currentLevel == 2){
-                    tileMap2.draw(g);
-                }
+                if (player.answer != -1) {
+                        FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
+                        feedback.paintComponent(g);
+                        add(feedback);
+                        if(player.confirmedFeedback)
+                    player.answer = -1;
+                } else {
+                    if (currentLevel == 1) {
+                        tileMap.draw(g);
+                        npc1.draw(g);
+                        npc2.draw(g);
+                        String[] s = drawText();
+                        if (s != null) {
+                            g.setColor(Color.WHITE);
+                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                            g.setColor(Color.BLACK);
+                            g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+                        }
+                    } else if (currentLevel == 2) {
+                        tileMap2.draw(g);
+                    }
                     player.draw(g);
-                
+                }
             } else {
-                if(!player.finishedInteractedNPCs.contains(player.interactedNPCID)){
-                DialogBox dialogbox = new DialogBox(playersettings);
-                dialogbox.setInteractedNPCID(player.interactedNPCID);
-                dialogbox.paintComponent(g);  
-                add(dialogbox);
-                player.setDialogBoxDrawn(true);
+                if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
+                    dialogbox.setInteractedNPCID(player.interactedNPCID);
+                    dialogbox.paintComponent(g);
+                    add(dialogbox);
+                    player.setDialogBoxDrawn(true);
                 }
-                }
+            }
         } else {
             optionState.draw(g);
         }
