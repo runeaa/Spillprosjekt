@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
+        if(settings.sound)
           try {
             settings.clip = AudioSystem.getClip();
             settings.startMusic(this);

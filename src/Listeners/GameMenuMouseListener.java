@@ -58,10 +58,10 @@ public class GameMenuMouseListener implements MouseListener {
             if (buttonTitle.equalsIgnoreCase("Lyd")) {
                 gamem.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 if (gamem.settings.sound) {
-                    gamem.clip.stop();
+                    gamem.settings.clip.stop();
                     gamem.settings.setSound((gamem.settings.sound) ? false : true);
                 } else {
-                    gamem.clip.start();
+                    gamem.settings.clip.start();
                     gamem.settings.setSound((gamem.settings.sound) ? false : true);
                 }
             }
@@ -76,6 +76,7 @@ public class GameMenuMouseListener implements MouseListener {
         } else if (currentPage.equalsIgnoreCase("difficulity")) {
             setNextAndPrevious("valgteinnstillinger.png", "utviklingsmodell.png");
         } else if(currentPage.equalsIgnoreCase("chosenSettings") && buttonTitle.equalsIgnoreCase("startGame")){
+            gamem.settings.clip.stop();
             frame.getContentPane().removeAll();
             for(ComponentListener c:gamem.getComponentListeners()){
             frame.getContentPane().removeComponentListener(c);
@@ -83,7 +84,6 @@ public class GameMenuMouseListener implements MouseListener {
             frame.getContentPane().add(new GamePanel(gamem.playerSettings,gamem.settings));
             frame.getContentPane().revalidate();            
             frame.getContentPane().repaint();
-            
         }
         else if(currentPage.equalsIgnoreCase("chosenSettings")){
             setNextAndPrevious("", "vanskelighetsgrad.png");

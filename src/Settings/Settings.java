@@ -81,6 +81,9 @@ public class Settings {
     public void startMusic(JPanel p) throws Exception {
         if(p instanceof GameMenu){
             
+File file  = new File("./res/music/z3fairy.mid");
+            ais = AudioSystem.
+                getAudioInputStream(file);
         }else{
         ArrayList<String> musicFiles = new ArrayList();
         musicFiles.add("wakemeup.mid");
@@ -123,11 +126,14 @@ public class Settings {
             songName = "Theme from James Bond";
         }
         File file = new File("./res/music/" + song);
-        // getAudioInputStream() also accepts a File or InputStream
         ais = AudioSystem.
                 getAudioInputStream(file);
+        }
+        
+        // getAudioInputStream() also accepts a File or InputStream
+        
         clip.open(ais);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
+        
     }
 }
