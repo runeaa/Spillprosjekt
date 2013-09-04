@@ -5,35 +5,39 @@
 package GameElements;
 
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 
 /**
  *
  * @author espen
  */
 public class Text {
+
     private String text;
-    private ArrayList <String> tabS = new ArrayList<>();
+    private ArrayList<String> tabS = new ArrayList<>();
     //private String s = "";
     private final int stringLength = 25;
     ArrayList<String> s = new ArrayList<>();
-    public Text(String text){
-        this.text  = text;
+
+    public Text(String text) {
+        this.text = text;
     }
-    public String getText(){
+
+    public String getText() {
         return text;
     }
-    
-    public int getLines(){
+
+    public int getLines() {
         return s.size();
     }
-    
-    public void makeTab(){
+
+    public void makeTab() {
         int counter = 0;
         String string = "";
         String[] parts = text.split(" ");
-        
-        for(int i = 0;i<parts.length;i++){
-            if(counter + parts[i].length() > stringLength ){
+
+        for (int i = 0; i < parts.length; i++) {
+            if (counter + parts[i].length() > stringLength) {
                 s.add(string);
                 counter = 0;
                 string = "";
@@ -42,10 +46,9 @@ public class Text {
             string += parts[i] + " ";
         }
         s.add(string);
-        
     }
-    
-    public ArrayList<String> getString(){
+
+    public ArrayList<String> getString() {
         return s;
     }
 }
