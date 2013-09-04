@@ -1,5 +1,7 @@
 package GameElements;
 
+import Quiz.Answer;
+import Quiz.Question;
 import Quiz.Quiz;
 import Settings.PlayerSettings;
 import java.awt.Color;
@@ -13,7 +15,7 @@ import javax.swing.JLabel;
  * @author haavamoa
  */
 public class DialogBox extends JLabel {
-        private int interactedNPCID;
+        public int interactedNPCID;
         private ImageIcon dialogImage = new ImageIcon("./res/npc/dialog.png");
         private Quiz quiz;
         private PlayerSettings playersettings;
@@ -21,16 +23,20 @@ public class DialogBox extends JLabel {
     public DialogBox(PlayerSettings playersettings) {
         this.setBorder(BorderFactory.createBevelBorder(TOP, Color.white, Color.black));
         this.playersettings = playersettings;
+        quiz = new Quiz(playersettings.getDevMethodInt());
     }
-
-    public void generateQuizText(){
-        //GET DEV METODE
-            //GI SPØRSMÅL GITT METHODE
-               //GET NPC SPØRSMÅL (NPC ID)
-                 //GENERER QUIZ FRA QUIZFIL
-    }
+    
     public void paintComponent(Graphics2D g){
                 dialogImage.paintIcon(null, g, 0, 0);
+                g.drawString("NPC ID: "+interactedNPCID,7,295);
+                //question:
+            Question question= quiz.getQuestions().get(interactedNPCID);
+            String questionString = question.getQuestion();
+            g.drawString(questionString, 250, 640/2);
+                //answer
+                for(Answer a:question.getAnswers()){
+                    System.out.println(a.getAnswer());
+                }
                 super.paintComponent(g);
     }
     public void setInteractedNPCID(int interactedNPCID) {

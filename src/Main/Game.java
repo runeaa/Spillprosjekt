@@ -4,6 +4,7 @@
  */
 package Main;
 
+import Settings.PlayerSettings;
 import javax.swing.JFrame;
 
 /**
@@ -15,6 +16,9 @@ public class Game {
         JFrame window = new JFrame("A Programmer's Tale - You will be taught");
        // window.setContentPane(new GamePanel());
         GameMenu gamemenu = new GameMenu(window);
+        gamemenu.playerSettings.setDevMethod("scrum");
+        gamemenu.playerSettings.setDifficulity(PlayerSettings.EASY);
+        gamemenu.playerSettings.setPlayerName("Tester subject");
         window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

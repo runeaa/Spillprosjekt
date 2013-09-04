@@ -4,13 +4,10 @@
  */
 package Player;
 
-import Main.GamePanel;
 import Map.TileMap;
 //import com.sun.xml.internal.bind.v2.model.core.Adapter;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +41,8 @@ public class Player extends NPC {
     private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     public int interactedNPCID = -1;
+    public boolean dialogBoxDrawn;
+    public ArrayList<Integer> finishedInteractedNPCs = new ArrayList<Integer>();
 
     public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
         super(npcID, x, y, color);
@@ -116,9 +115,11 @@ public class Player extends NPC {
         for (int i = 0; i < npcs.size(); i++) {
             int a = -npcs.get(i).getX();
             int b = npcs.get(i).getY();
+            if(!finishedInteractedNPCs.contains(i)){
             if (interact(a, b)) {
                 return i;
             }
+        }
         }
         return -1;
     }
@@ -273,7 +274,7 @@ public class Player extends NPC {
             up = true;
             idleDirection = 1;
         }
-        if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             facingLeft = true;
             left = true;
             idleDirection = 2;
@@ -306,6 +307,12 @@ public class Player extends NPC {
                 lock++;
             }
         }
+        if(interOk){ //Keyboard events when you interact
+            if(key == KeyEvent.VK_1 || key == KeyEvent.VK_2 || key == KeyEvent.VK_3){
+                finishedInteractedNPCs.add(interactedNPCID);
+                interOk=false;
+        }
+        }
     }
     public boolean getInterOk(){
         return interOk;
@@ -328,4 +335,10 @@ public class Player extends NPC {
         }
 
     }
+
+    public void setDialogBoxDrawn(boolean dialogBoxDrawn) {
+        this.dialogBoxDrawn = dialogBoxDrawn;
+    }
+    
+    
 }

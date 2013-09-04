@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.settings = settings;
         this.playersettings = playersettings;
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
+        setFocusable(true);
         requestFocus();
     }
     
@@ -156,14 +157,16 @@ public class GamePanel extends JPanel implements Runnable {
                     g.setColor(Color.BLACK);
                     g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                 }
-            } else {                
+            } else {
+                if(!player.finishedInteractedNPCs.contains(player.interactedNPCID)){
                 DialogBox dialogbox = new DialogBox(playersettings);
-                dialogbox.paintComponent(g);
-                
+                dialogbox.setInteractedNPCID(player.interactedNPCID);
+                dialogbox.paintComponent(g);  
                 add(dialogbox);
-            }
-            
-        } else {
+                player.setDialogBoxDrawn(true);
+                }
+                }
+            }else {
             optionState.draw(g);
         }
     }

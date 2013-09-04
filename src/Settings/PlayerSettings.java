@@ -47,20 +47,14 @@ public class PlayerSettings {
         this.difficulity = difficulity;
     }
     
-    /*
-     *  model.addElement("SCRUM");
-        model.addElement("Fossefallsmetoden");
-        model.addElement("Spiralmetoden");
-        model.addElement("Unified Processing");
-     */
-    public int getDevMethod(String devmethod){
-        if(devmethod.equalsIgnoreCase("SCRUM")){
+    public int getDevMethodInt(){
+        if(devMethod.equalsIgnoreCase("SCRUM")){
             return scrum;
-        }else if(devmethod.equalsIgnoreCase("Unified Processing")){
+        }else if(devMethod.equalsIgnoreCase("Unified Processing")){
             return up;
-        }else if(devmethod.equalsIgnoreCase("Fossefallsmetoden")){
+        }else if(devMethod.equalsIgnoreCase("Fossefallsmetoden")){
             return waterfall;
-        }else if(devmethod.equalsIgnoreCase("Spiralmetoden")){
+        }else if(devMethod.equalsIgnoreCase("Spiralmetoden")){
             return spiral;
         }
         return -1;
