@@ -1,5 +1,5 @@
 1
 Hva er det første steget i fossefallsmodellen?
-Design
-Kravspesifikasjon
-Implementasjon
+Design#F
+Kravspesifikasjon#R
+Implementasjon#F

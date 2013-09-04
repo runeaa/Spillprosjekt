@@ -1,5 +1,5 @@
 1
 Hva gjør man i oppstartsfasen?
-Skriver kode
-Definerer use-cases
-Tegner klassediagram
+Skriver kode#F
+Definerer use-cases#R
+Tegner klassediagram#F
