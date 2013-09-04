@@ -16,7 +16,11 @@ public class Game {
         JFrame window = new JFrame("A Programmer's Tale - You will be taught");
        // window.setContentPane(new GamePanel());
         GameMenu gamemenu = new GameMenu(window);
-        window.setContentPane(gamemenu);
+        gamemenu.playerSettings.setPlayerName("test subject");
+        gamemenu.playerSettings.setDifficulity(PlayerSettings.EASY);
+        gamemenu.playerSettings.setDevMethod("SCRUM");
+        gamemenu.settings.clip.close();
+        window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.pack();

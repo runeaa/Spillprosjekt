@@ -42,7 +42,8 @@ public class Player extends NPC {
     private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     public int interactedNPCID = -1;
-    public boolean dialogBoxDrawn;
+    public boolean dialogBoxDrawn,confirmedFeedback;
+    public int answer = -1;
     public ArrayList<Integer> finishedInteractedNPCs = new ArrayList<Integer>();
 
     public Player(TileMap tileMap, int npcID, int x, int y, int speed, String color) {
@@ -304,11 +305,16 @@ if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
         }
         if (key == KeyEvent.VK_E || key == KeyEvent.VK_ENTER) {
           interactedNPCID = interaction();
+          if(answer!=-1){
+              confirmedFeedback = true;
+          }else{
+              confirmedFeedback = false;
            if(interactedNPCID != -1 && interOk == false){  
            interOk=true;
            }else if(interOk == true){
                interOk = false;
            }
+          }
            
        }    
 
@@ -323,6 +329,13 @@ if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
         }
         if(interOk){ //Keyboard events when you interact
             if(key == KeyEvent.VK_1 || key == KeyEvent.VK_2 || key == KeyEvent.VK_3){
+                if(key == KeyEvent.VK_1){
+                    answer = 0;
+                }else if(key ==KeyEvent.VK_2){
+                    answer = 1;
+                }else if (key == KeyEvent.VK_3){
+                    answer = 2;
+                }
                 finishedInteractedNPCs.add(interactedNPCID);
                 interOk=false;
         }

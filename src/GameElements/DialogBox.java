@@ -20,8 +20,9 @@ public class DialogBox extends JLabel {
 
     public int interactedNPCID;
     private ImageIcon dialogImage = new ImageIcon("./res/npc/dialogprogrammerfade.png");
-    private Quiz quiz;
+    public  Quiz quiz;
     private PlayerSettings playersettings;
+    public Question question;
 
     public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
@@ -33,7 +34,7 @@ public class DialogBox extends JLabel {
         if (interactedNPCID < 9000) {
             g.drawString("Programmerer", 36, 295);
             //question:
-            Question question = quiz.getQuestions().get(interactedNPCID);
+            question = quiz.getQuestions().get(interactedNPCID);
             String questionString = question.getQuestion();
             int y = 295;
             int x = 155;
