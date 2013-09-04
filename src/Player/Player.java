@@ -39,8 +39,6 @@ public class Player extends NPC {
     private BufferedImage[] idleSprite_up = new BufferedImage[1];
     private BufferedImage[] idleSprite_down = new BufferedImage[1];
     private Animation animation;
-    private int[][] npc = {{30, 30}, {0, 0}, {100, 100}};
-    private String color;
     private boolean OptionTrigger;
     private int lock = 1;
     private int lock2 = 1;
@@ -112,7 +110,6 @@ public class Player extends NPC {
             return true;
         }
         return false;
-
     }
 
     public int interaction() {
