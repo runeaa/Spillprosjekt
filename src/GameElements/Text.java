@@ -4,17 +4,33 @@
  */
 package GameElements;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author espen
  */
-public class Text {
+class Textt {
     private String text;
-    public Text(String text){
+    private ArrayList <String> tabS = new ArrayList<>();
+    public Textt(String text){
         this.text  = text;
     }
     public String getText(){
         return text;
+    }
+    public void makeTab(){
+        int counter = 0;
+        String[] parts = text.split(" ");
+        
+        for(int i = 0;i<parts.length;i++){
+            
+        }
+        
+    }
+    
+    public void drawString(){
+        
     }
     
 }
