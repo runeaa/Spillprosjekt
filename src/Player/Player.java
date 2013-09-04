@@ -155,7 +155,7 @@ public class Player extends NPC {
 //            
         }
 
-        System.out.println("X =  " + x + "   y =  " + y);
+
 
         if (wall()) {// || outsideOfMap) {
             dx = x;

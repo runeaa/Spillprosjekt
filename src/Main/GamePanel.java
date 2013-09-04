@@ -20,10 +20,11 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Rune
+ * @author
+ * Rune
  */
 public class GamePanel extends JPanel implements Runnable {
-
+    
     private Settings settings;
     private boolean running;
     private BufferedImage image;
@@ -40,8 +41,8 @@ public class GamePanel extends JPanel implements Runnable {
     private NPC npc4;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
-
-    public GamePanel(PlayerSettings playersettings,Settings settings) {
+    
+    public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
         this.settings = settings;
         this.playersettings = playersettings;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocus();
         setVisible(true);
     }
-
+    
     @Override
     public void addNotify() {
         super.addNotify();
@@ -60,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
             running = true;
         }
     }
-
+    
     public void init() {
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
@@ -83,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
-
+    
     public void run() {
         init();
         long start, loopTime, wait;
@@ -98,9 +99,9 @@ public class GamePanel extends JPanel implements Runnable {
             render();
             draw();
             
-
+            
             loopTime = (System.nanoTime() - start) / 1000000;
-
+            
             wait = targetTime - loopTime;
             if (wait < 0) {
                 wait = 0;
@@ -112,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             totalTime += System.nanoTime() - start;
             frameCount++;
-
+            
             if (frameCount == maxrameCount) {
                 settings.setAvrageFPS(1000D / ((totalTime / frameCount) / 1000000));
                 totalTime = 0;
@@ -121,12 +122,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     
-
     public void update() {
         player.update();
     }
-
-     private String[] drawText() {
+    
+    private String[] drawText() {
         String[] s = new String[3];
         int interaction = player.interaction();
         s[0] = "O hi young programmer";
@@ -137,36 +137,38 @@ public class GamePanel extends JPanel implements Runnable {
         }
         return null;
     }
-
+    
     public void render() {
-        DialogBox dialogbox = new DialogBox(playersettings);
+//        DialogBox dialogbox = new DialogBox(playersettings);
         if (!player.getOptionValue()) {
-            remove(dialogbox);
-            if(!player.getInterOk()){
-            tileMap.draw(g);
-            npc1.draw(g);
-            npc2.draw(g);
-            player.draw(g);
-
-            g.setColor(Color.BLACK);
-            g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
-            g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
-            String[] s = drawText();
-            if (s != null) {
-                g.setColor(Color.WHITE);
-                g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+            //          remove(dialogbox);
+            if (!player.getInterOk()) {
+                tileMap.draw(g);
+                npc1.draw(g);
+                npc2.draw(g);
+                player.draw(g);
+                
                 g.setColor(Color.BLACK);
-                g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
+                g.drawString("FPS:" + settings.avrageFPS, settings.WITDH / 2, settings.HEIGHT / 2);
+                g.drawString("FrameCount:" + frameCount, settings.WITDH / 2, (settings.HEIGHT / 2) + 20);
+                String[] s = drawText();
+                if (s != null) {
+                    g.setColor(Color.WHITE);
+                    g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                    g.setColor(Color.BLACK);
+                    g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+                }
+            } else {                
+                DialogBox dialogbox = new DialogBox(playersettings);
+                dialogbox.paintComponent(g);
+                add(dialogbox);
             }
-                }else{   
-                add(new DialogBox(playersettings));
-            }
-        
-        }else{
+            
+        } else {
             optionState.draw(g);
         }
     }
-
+    
     public void draw() {
         Graphics g2 = this.getGraphics();
         g2.drawImage(image, 0, 0, null);
