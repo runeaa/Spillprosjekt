@@ -130,17 +130,6 @@ public class GameMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 1;
         add(button, c);
-
-        if (settings.sound) {
-            JLabel musicLabel = new JLabel("Now playing: " + settings.songName);
-            musicLabel.setForeground(Color.white);
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.insets = new Insets(400, 0, 0, 0);
-            c.gridx = 1;
-            c.gridy = 1;
-            add(musicLabel, c);
-        }
-
     }
 
     public void nameSetup() {
