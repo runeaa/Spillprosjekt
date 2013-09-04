@@ -139,8 +139,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
-        
+        DialogBox dialogbox = new DialogBox(playersettings);
         if (!player.getOptionValue()) {
+            remove(dialogbox);
             if(!player.getInterOk()){
             tileMap.draw(g);
             npc1.draw(g);
@@ -158,7 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
                 g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2])-37);
             }
                 }else{   
-                add(new DialogBox(player.interactedNPCID, playersettings));
+                add(new DialogBox(playersettings));
             }
         
         }else{

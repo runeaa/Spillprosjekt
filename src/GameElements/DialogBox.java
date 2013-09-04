@@ -15,9 +15,9 @@ public class DialogBox extends JLabel {
         private Quiz quiz;
         private PlayerSettings playersettings;
 
-    public DialogBox(int interactedNPCID,PlayerSettings playersettings) {
-        this.interactedNPCID = interactedNPCID;
+    public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
+        setText("heihei");
     }
 
     public void generateQuizText(){
@@ -26,5 +26,10 @@ public class DialogBox extends JLabel {
                //GET NPC SPØRSMÅL (NPC ID)
                  //GENERER QUIZ FRA QUIZFIL
     }
+
+    public void setInteractedNPCID(int interactedNPCID) {
+        this.interactedNPCID = interactedNPCID;
+    }
+    
     
 }

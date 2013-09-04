@@ -7,8 +7,8 @@ package Quiz;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import javax.annotation.PostConstruct;
-import javax.imageio.IIOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.imageio.IIOException;
 public class Quiz {
 
     public int valg;
-    public String[][] quizTab;
+    public List<Question> questions;
 
     public Quiz(int valg) {
         this.valg = valg;
@@ -50,14 +50,22 @@ public class Quiz {
             BufferedReader br = new BufferedReader(new FileReader(s));
             int numQuiz = Integer.parseInt(br.readLine());
             //String delimiters = "\\n";
-            int linesPerQuestion = 4;
-            quizTab = new String[numQuiz][linesPerQuestion];
+            int answersPerQuestion = 3;
+            //quizTab = new String[numQuiz][linesPerQuestion];
+            questions = new ArrayList<>();
             for (int i = 0; i < numQuiz; i++) {
-                for (int j = 0; j < linesPerQuestion; j++) {
+                String question = br.readLine();
+                List<Answer> answers = new ArrayList<>();
+                for (int j = 0; j < answersPerQuestion; j++) {
                     String line = br.readLine();
-                    quizTab[i][j] = line;
+                    String[] answer = line.split("#");
+                    answers.add(new Answer(answer[0], answer[1].equals("R")));
+//                    quizTab[i][j] = line;
                 }
+                questions.add(new Question(question, answers));
             }
+
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,9 +74,10 @@ public class Quiz {
     @Override
     public String toString(){
         String s = "";
-        for(int i = 0; i < quizTab.length; i++){
-            for(int j = 0; j < quizTab[0].length;j++){
-                s += quizTab[i][j] + "\n";
+        for(Question q: questions){
+            s += q.getQuestion() + "\n";
+            for(Answer a: q.getAnswers()){
+                s += a.getAnswer() + " " + a.isIsCorrect() + "\n";
             }
         }
         return s;

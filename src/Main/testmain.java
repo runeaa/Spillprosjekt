@@ -10,7 +10,7 @@ import Quiz.Quiz;
  */
 public class testmain {
     public static void main(String[] args) {
-        Quiz quiz = new Quiz(0);
+        Quiz quiz = new Quiz(3);
         System.out.println(quiz.toString());
         
     }
