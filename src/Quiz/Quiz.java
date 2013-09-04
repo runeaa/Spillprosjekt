@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public class Quiz {
 
-    public int valg;
-    public List<Question> questions;
+    private int valg;
+    private List<Question> questions;
 
     public Quiz(int valg) {
         this.valg = valg;
@@ -58,7 +59,7 @@ public class Quiz {
                     String[] answer = line.split("#");
                     answers.add(new Answer(answer[0], answer[1].equals("R")));
                 }
-                questions.add(new Question(question, answers));
+                getQuestions().add(new Question(question, answers));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,12 +69,44 @@ public class Quiz {
     @Override
     public String toString(){
         String s = "";
-        for(Question q: questions){
+        for(Question q: getQuestions()){
             s += q.getQuestion() + "\n";
             for(Answer a: q.getAnswers()){
                 s += a.getAnswer() + " " + a.isIsCorrect() + "\n";
             }
         }
         return s;
+    }
+
+    /**
+     * @return the valg
+     */
+    public int getValg() {
+        return valg;
+    }
+
+    /**
+     * @param valg the valg to set
+     */
+    public void setValg(int valg) {
+        this.valg = valg;
+    }
+
+    /**
+     * @return the questions
+     */
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    /**
+     * @param questions the questions to set
+     */ 
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+    
+    public Question getRandomQuestion(){
+        return questions.get(new Random().nextInt(questions.size()));
     }
 }
