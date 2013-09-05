@@ -142,11 +142,9 @@ public class Player extends NPC {
 
     public void update() {
         if (level == 1 && y >= 370 && x < -615) {
-            System.out.println("Bytter til level2");
             updatePlayerPosition(-50, 380);
             level++;
         } else if (level == 2 && y >= 370 && x > -20) {
-            System.out.println("Bytter til level 1");
             updatePlayerPosition(-600, 380);
             level--;
         }
