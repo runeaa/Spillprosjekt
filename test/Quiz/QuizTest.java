@@ -16,22 +16,22 @@ import static org.junit.Assert.*;
  * @author amund
  */
 public class QuizTest {
-
+    
     public QuizTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
@@ -45,8 +45,13 @@ public class QuizTest {
         int valg = 0;
         Quiz instance = new Quiz(valg);
         instance.buildQuiz(valg);
-        String firstLine = "Hva er det første steget i fossefallsmodellen?";
-        // only checks if first line is correctly read, maybe fix this
-        assertEquals(instance.quizTab[0][0], firstLine);
+        String question = "Hva er det første steget i fossefallsmodellen?";
+        String ans1 = "Design";
+        String ans2 = "Kravspesifikasjon";
+        String ans3 = "Implementasjon";
+        assertEquals(instance.getQuestions().get(0).getQuestion(),question);
+        assertEquals(instance.getQuestions().get(0).getAnswers().get(0).getAnswer(), ans1);
+        assertEquals(instance.getQuestions().get(0).getAnswers().get(1).getAnswer(), ans2);
+        assertEquals(instance.getQuestions().get(0).getAnswers().get(2).getAnswer(), ans3);
     }
 }
