@@ -129,12 +129,12 @@ public class Player extends NPC {
         tempy = (tempy > 0) ? tempy + 1 : tempy;
         tempx = (tempx > 0) ? tempx + 1 : tempx;
         boolean outsideOfMap = ((tempx)>=20 || tempy>=20)? true:false;
-        return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);
-        
+        return (!outsideOfMap && tileMap.getTile(tempy, tempx) >= 2);        
     }
 
+    
+    
     public void updatePlayerPosition(int dx, int dy) {
-        System.out.println("oppdaterer posisjon til:"+dx+", "+dy);
         this.dx = dx;
         this.dy = dy;
         x = dx;
@@ -146,10 +146,6 @@ public class Player extends NPC {
     }
 
     public void update() {
-//      System.out.println("Y: " + y + ", X: " + x);
-//        dy = 0;
-//        dx = 0;
-//        System.out.println(interaction());
         if (level == 1 && y >= 370 && x < -615) {
             System.out.println("Bytter til level2");
             updatePlayerPosition(-50, 380);
@@ -171,11 +167,8 @@ public class Player extends NPC {
             }
             if (right && x != -630) {
                 dx -= speed;
-            }
-//            
+            }            
         }
-
-//        System.out.println("x: "+x+" y: "+y);
 
         if (wall()) {// || outsideOfMap) {
             dx = x;
@@ -184,57 +177,6 @@ public class Player extends NPC {
             x = dx;
             y = dy;
         }
-        //Sjekker kollisjon
-        int curCol = tileMap.getColTile((int) x);
-        int curRow = tileMap.getRowTile((int) y);
-
-        double toX = x + dx;
-        double toY = y + dy;
-
-        double tempX = x;
-        double tempY = y;
-
-//        calculateCorners(x, toY);
-//        if (dy < 0) {
-//            if (topLeft || topRight) {
-//                dy = 0;
-//                tempY = curRow * tileMap.getTileSize() + spriteHeight / 2;
-//            } else {
-//                tempY += dy;
-//            }
-//        }
-//        if (dy > 0) {
-//            if (bottomLeft || bottomRight) {
-//                dy = 0;
-////                input.falling.toggle(false);
-////                falling = false;
-//                tempY = (curRow + 1) * tileMap.getTileSize() - spriteHeight / 2;
-//            } else {
-//                tempY += dy;
-//            }
-//        }
-//        
-//        calculateCorners(toX, y);
-//        if (dx < 0) {
-//            if (topLeft || bottomLeft) {
-//                dx = 0;
-//                tempX = curCol * tileMap.getTileSize() + spriteWidth / 2;
-//            } else {
-//                tempX += dx;
-//            }
-//        }
-//        if (dx > 0) {
-//            if (topRight || bottomRight) {
-//                dx = 0;
-//                tempX = (curCol + 1) * tileMap.getTileSize() - spriteWidth / 2;
-//                
-//            } else {
-//                tempX += dx;
-//            }
-//        }
-        //flytter vinduet
-//        tileMap.setX((int) (GamePanel.WIDTH / 2)+x);
-//        tileMap.setY((int) (GamePanel.HEIGHT / 2 - y));
 
         //sprite animation
         if (((right || left) && up) || (up && y != 0)) {
