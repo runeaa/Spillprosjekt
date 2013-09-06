@@ -2,3 +2,7 @@ Hva gjør man i oppstartsfasen?
 Skriver kode#F
 Definerer use-cases#R
 Tegner klassediagram#F
+Hvordan går demoen?
+Bra#R
+Dårlig#F
+Sånn Ca.#F

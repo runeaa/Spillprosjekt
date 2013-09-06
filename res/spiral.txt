@@ -2,3 +2,7 @@ Hva er hoveddrivkraften bak spiralmodellen?
 Raskt utvikle et okay produkt#F
 Kvalitet#F
 Risiko#R
+Hvordan går demoen?
+Bra#R
+Dårlig#F
+Sånn Ca.#F

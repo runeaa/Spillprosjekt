@@ -2,3 +2,7 @@ Hva er det første steget i fossefallsmodellen?
 Design#F
 Kravspesifikasjon#R
 Implementasjon#F
+Hvordan går demoen?
+Bra#R
+Dårlig#F
+Sånn Ca.#F
