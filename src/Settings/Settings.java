@@ -8,9 +8,11 @@ import Main.GameMenu;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JPanel;
 
 /**
@@ -124,14 +126,15 @@ File file  = new File("./res/music/z3fairy.mid");
             songName = "Theme from Jurassic Park";
         } else if (song.contains("jamesbond")) {
             songName = "Theme from James Bond";
-}
+        }
         File file = new File("./res/music/" + song);
         ais = AudioSystem.
                 getAudioInputStream(file);
         }
-        
+        AudioFormat format = ais.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, format);
         // getAudioInputStream() also accepts a File or InputStream
-        
+        clip = (Clip) AudioSystem.getLine(info);
         clip.open(ais);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
         
