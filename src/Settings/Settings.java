@@ -82,8 +82,7 @@ public class Settings {
     
     public void startMusic(JPanel p) throws Exception {
         if(p instanceof GameMenu){
-            
-File file  = new File("./res/music/z3fairy.mid");
+            File file  = new File("./res/music/z3fairy.mid");
             ais = AudioSystem.
                 getAudioInputStream(file);
         }else{
@@ -133,7 +132,6 @@ File file  = new File("./res/music/z3fairy.mid");
         }
         AudioFormat format = ais.getFormat();
         DataLine.Info info = new DataLine.Info(Clip.class, format);
-        // getAudioInputStream() also accepts a File or InputStream
         clip = (Clip) AudioSystem.getLine(info);
         clip.open(ais);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
