@@ -1,0 +1,12 @@
+Hva er de tre rollene i scrum?
+Produkt-backlog, Sprint backlog og burndown chart#F
+Produkteier, scrummaster og scrumteam#R
+sprintplanleggningsmøte, daglig scrummøte og sprintrevisjonsmøte#F
+Hva er de tre artefaktene i scrum?
+Produkt-backlog, Sprint backlog og burndown chart#R
+Produkteier, scrummaster og scrumteam#F
+sprintplanleggningsmøte, daglig scrummøte og sprintrevisjonsmøte#F
+Hva er de tre seremoniene i scrum?
+Produkt-backlog, Sprint backlog og burndown chart#F
+Produkteier, scrummaster og scrumteam#F
+sprintplanleggningsmøte, daglig scrummøte og sprintrevisjonsmøte#R
