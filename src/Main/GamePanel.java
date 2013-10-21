@@ -45,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
     private DialogBox dialogbox;
+    private int score = 0;
+    private boolean pointsGiven = false;
 
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
@@ -83,8 +85,10 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+       
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
+       
         tileMap = new TileMap("res/levels/tutorial.txt", 32);
         tileMap.loadTiles("res/levels/tileset2.png");
         tileMap2 = new TileMap("res/levels/level1.txt", 32);
@@ -162,19 +166,27 @@ public class GamePanel extends JPanel implements Runnable {
     public void render() {
 
         if (!player.getOptionValue()) {
-            //          remove(dialogbox);
+         //          remove(dialogbox);
             if (!player.getInterOk()) {
                 if (player.answer != -1) {
                         FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
                         feedback.paintComponent(g);
+                        
+                        if(feedback.getBoolAnswer() && pointsGiven == false){
+                            score +=10;
+                            pointsGiven = true;
+                        }
+                        
                         add(feedback);
-                        if(player.confirmedFeedback)
-                    player.answer = -1;
+                        if(player.confirmedFeedback){
+                            pointsGiven = false;
+                            player.answer = -1;
+                        }
                 } else {
                 if (currentLevel == 1) {
                     tileMap.draw(g);
                     npc1.draw(g);
-                    npc2.draw(g);
+                     npc2.draw(g);
                     String[] s = drawText();
                     if (s != null) {
                         g.setColor(Color.WHITE);
@@ -185,6 +197,8 @@ public class GamePanel extends JPanel implements Runnable {
                 } else if (currentLevel == 2) {
                     tileMap2.draw(g);
                 }
+                g.setColor(Color.WHITE);
+                g.drawString("Poeng "+score, settings.WITDH-150, 20);
                 player.draw(g);
                 }
             } else {
