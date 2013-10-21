@@ -78,7 +78,3 @@ Hva er ikke en aktivitet i sprintplanleggingen?
 Sprintrevisjonsmøte#R
 Identifisere oppgaver med høy prioritet#F
 Planlegge implementasjon av oppgaver med høy prioritet#F
-Random spørsmål for å få commit
-lol#R
-asd#F
-knis#F
