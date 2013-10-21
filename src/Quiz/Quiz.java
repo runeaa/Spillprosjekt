@@ -55,7 +55,7 @@ public class Quiz {
                     String[] answer = line.split("#");
                     answers.add(new Answer(answer[0], answer[1].equals("R")));
                 }
-                getQuestions().add(new Question(question, answers));
+                questions.add(new Question(question, answers));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,8 +65,8 @@ public class Quiz {
     @Override
     public String toString() {
         String s = "";
-        for (Question q : getQuestions()) {
-            s += q.getQuestion() + "\n";
+        for (Question q : questions) {
+            s += questions + "\n";
             for (Answer a : q.getAnswers()) {
                 s += a.getAnswer() + " " + a.isIsCorrect() + "\n";
             }
@@ -92,6 +92,11 @@ public class Quiz {
      * @return the questions
      */
     public List<Question> getQuestions() {
+        //System.out.println(toString());
+        
+            
+        
+        System.out.println("Lengde ="+questions.size());
         return questions;
     }
 
