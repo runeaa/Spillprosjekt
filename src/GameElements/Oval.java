@@ -23,7 +23,7 @@ public class Oval {
     public Oval(NPC npc, Text text) {
         this.npc = npc;
         this.text = text;
-        text.makeTab();
+        text.makeTab(25);
     }
 
     public void draw(Graphics2D g) {
