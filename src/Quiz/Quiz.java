@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- *
- * @author espen
- */
 public class Quiz {
 
     private int valg;
@@ -28,20 +24,20 @@ public class Quiz {
 
     public void buildQuiz(int valg) {
         if (valg == 0) {
-            String s = "res/fossefall.txt";
+            String s = "res/dialog//fossefall.txt";
             readFromFile(s);
 
         }
         if (valg == 1) {
-            String s = "res/spiral.txt";
+            String s = "res/dialog//spiral.txt";
             readFromFile(s);
         }
         if (valg == 2) {
-            String s = "res/up.txt";
+            String s = "res/dialog//up.txt";
             readFromFile(s);
         }
         if (valg == 3) {
-            String s = "res/scrum.txt";
+            String s = "res/dialog//scrum.txt";
             readFromFile(s);
         }
     }

@@ -98,19 +98,23 @@ public class TileMap {
         try {
             tileset = ImageIO.read(new File(s));
             int numTilesWidth = (tileset.getWidth() + 1) / (tileSize + 1);
-            tiles = new Tile[2][numTilesWidth];
+            int numTilesHeight = (tileset.getHeight() +1) / (tileSize +1);
+            System.out.println("WIdth: "+numTilesWidth);
+            System.out.println("Num tiles height" +numTilesHeight);
+            tiles = new Tile[numTilesHeight][numTilesWidth];
 
             BufferedImage subImage;
+       
             for (int col = 0; col < numTilesWidth; col++) {
-                subImage = tileset.getSubimage(col * tileSize + col,
-                        0, tileSize, tileSize);
-
-                tiles[0][col] = new Tile(subImage, false);
-                subImage = tileset.getSubimage(col * tileSize + col,
-                        tileSize + 1, tileSize, tileSize);
-
-                tiles[1][col] = new Tile(subImage, true);
-            }
+                for (int i = 0; i < numTilesHeight; i++) {
+                    
+                
+                    subImage = tileset.getSubimage(col * tileSize + col,
+                            tileSize*i + i, tileSize, tileSize);
+                    tiles[i][col] = new Tile(subImage, false);
+                    }
+                }
+     
         } catch (IOException e) {
             e.printStackTrace();
         }
