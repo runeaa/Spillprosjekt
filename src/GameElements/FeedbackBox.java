@@ -18,6 +18,9 @@ public class FeedbackBox extends JLabel {
         this.answer = answer;
     }
 
+    public boolean getBoolAnswer(){
+        return answer.isIsCorrect();
+    }
     public void paintComponent(Graphics2D g) {
         
         if(answer.isIsCorrect()){
