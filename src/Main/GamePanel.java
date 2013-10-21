@@ -38,10 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Graphics2D g;
     private Player player;
     private int currentLevel;
-    private NPC npc1;
-    private NPC npc2;
-    private NPC npc3;
-    private NPC npc4;
+    private NPC npc1, npc2, npc3, npc4, npc5;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
     private DialogBox dialogbox;
@@ -98,6 +95,12 @@ public class GamePanel extends JPanel implements Runnable {
         npcs.add(npc1);
         npc2 = new NPC(2, 405, 125, "blueNPC");
         npcs.add(npc2);
+        npc3 = new NPC(3, 150, 355, "blueNPC");
+        npcs.add(npc3);
+        npc4 = new NPC(4, 150, 290, "blueNPC");
+        npcs.add(npc4);
+        npc5 = new NPC(5, 150, 225, "blueNPC");
+        npcs.add(npc5);
         player.setNPCs(npcs);
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
@@ -196,6 +199,9 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 } else if (currentLevel == 2) {
                     tileMap2.draw(g);
+                    npc3.draw(g);
+                    npc4.draw(g);
+                    npc5.draw(g);
                 }
                 g.setColor(Color.WHITE);
                 g.drawString("Poeng "+score, settings.WITDH-150, 20);
