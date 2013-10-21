@@ -92,12 +92,7 @@ public class Quiz {
      * @return the questions
      */
     public List<Question> getQuestions() {
-        //System.out.println(toString());
-        
-            
-        
-        System.out.println("Lengde ="+questions.size());
-        return questions;
+      return questions;
     }
 
     /**

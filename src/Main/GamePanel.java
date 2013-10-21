@@ -9,6 +9,7 @@ import GameElements.FeedbackBox;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
+import Player.BuildNPCs;
 import Settings.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,6 +27,7 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable {
 
+    BuildNPCs buildNPC = new BuildNPCs();
     private Settings settings;
     private boolean running;
     private BufferedImage image;
@@ -38,7 +40,13 @@ public class GamePanel extends JPanel implements Runnable {
     private Graphics2D g;
     private Player player;
     private int currentLevel;
-    private NPC npc1, npc2, npc3, npc4, npc5;
+    private NPC npc1;
+    private NPC npc2;
+    private NPC npc3;
+    private NPC npc4;
+    private NPC npc5;
+    private NPC npc6;
+    private NPC npc7;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
     private DialogBox dialogbox;
@@ -47,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
+        npcs = buildNPC.getLevel_one();
         this.settings = settings;
         this.playersettings = playersettings;
         this.dialogbox = new DialogBox(playersettings);
@@ -59,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
                 settings.startMusic(this);
             } catch (Exception e) {
                 e.printStackTrace();
-    }
+            }
         }
     }
 
@@ -82,26 +91,20 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-       
+
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
-       
         tileMap = new TileMap("res/levels/tutorial.txt", 32);
         tileMap.loadTiles("res/levels/tileset2.png");
         tileMap2 = new TileMap("res/levels/level1.txt", 32);
         tileMap2.loadTiles("res/levels/tileset2.png");
         player = new Player(tileMap, 0, -200, 200, 5, "blue");
-        npc1 = new NPC(1, 130, 180, "mentorside");
-        npcs.add(npc1);
-        npc2 = new NPC(2, 405, 125, "blueNPC");
-        npcs.add(npc2);
-        npc3 = new NPC(3, 150, 355, "blueNPC");
-        npcs.add(npc3);
-        npc4 = new NPC(4, 150, 290, "blueNPC");
-        npcs.add(npc4);
-        npc5 = new NPC(5, 150, 225, "blueNPC");
-        npcs.add(npc5);
-        player.setNPCs(npcs);
+        //npc1 = new NPC(1, 130, 180, "mentorside");
+        //npcs.add(npc1);
+        //npc2 = new NPC(2, 405, 125, "blueNPC");
+        //npcs.add(npc2);
+
+        player.setNPCs(npcs); //må forandres når level skkiftes
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
@@ -119,7 +122,6 @@ public class GamePanel extends JPanel implements Runnable {
             update();
             render();
             draw();
-
 
             loopTime = (System.nanoTime() - start) / 1000000;
 
@@ -146,12 +148,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         currentLevel = player.getLevel();
-        if(currentLevel == 1){
+        if (currentLevel == 1) {
             player.updateTitleMap(tileMap);
-        }else if(currentLevel == 2){
+        } else if (currentLevel == 2) {
             player.updateTitleMap(tileMap2);
         }
-        
+
     }
 
     private String[] drawText() {
@@ -166,54 +168,63 @@ public class GamePanel extends JPanel implements Runnable {
         return null;
     }
 
+    public void drawNPCs() {
+        for (NPC n : npcs) {
+            n.draw(g);
+        }
+        player.setNPCs(npcs);
+    }
+
     public void render() {
 
         if (!player.getOptionValue()) {
-         //          remove(dialogbox);
+            //          remove(dialogbox);
             if (!player.getInterOk()) {
                 if (player.answer != -1) {
-                        FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
-                        feedback.paintComponent(g);
-                        
-                        if(feedback.getBoolAnswer() && pointsGiven == false){
-                            score +=10;
-                            pointsGiven = true;
-                        }
-                        
-                        add(feedback);
-                        if(player.confirmedFeedback){
-                            pointsGiven = false;
-                            player.answer = -1;
-                        }
-                } else {
-                if (currentLevel == 1) {
-                    tileMap.draw(g);
-                    npc1.draw(g);
-                     npc2.draw(g);
-                    String[] s = drawText();
-                    if (s != null) {
-                        g.setColor(Color.WHITE);
-                        g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
-                        g.setColor(Color.BLACK);
-                        g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+                    FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
+                    feedback.paintComponent(g);
+
+                    if (feedback.getBoolAnswer() && pointsGiven == false) {
+                        score += 10;
+                        pointsGiven = true;
                     }
-                } else if (currentLevel == 2) {
-                    tileMap2.draw(g);
-                    npc3.draw(g);
-                    npc4.draw(g);
-                    npc5.draw(g);
-                }
-                g.setColor(Color.WHITE);
-                g.drawString("Poeng "+score, settings.WITDH-150, 20);
-                player.draw(g);
+
+                    add(feedback);
+                    if (player.confirmedFeedback) {
+                        pointsGiven = false;
+                        player.answer = -1;
+                    }
+                } else {
+                    if (currentLevel == 1) {
+                        tileMap.draw(g);
+                        npcs = buildNPC.getLevel_one();
+                        drawNPCs();
+
+                     //npc1.draw(g);
+                        //npc2.draw(g);
+                        String[] s = drawText();
+                        if (s != null) {
+                            g.setColor(Color.WHITE);
+                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                            g.setColor(Color.BLACK);
+                            g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
+                        }
+                    } else if (currentLevel == 2) {
+                        tileMap2.draw(g);
+                        npcs = buildNPC.getLevel_two();
+                        drawNPCs();
+                    }
+                    g.setColor(Color.WHITE);
+                    g.drawString("Poeng " + score, settings.WITDH - 150, 20);
+                    player.draw(g);
                 }
             } else {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
                     dialogbox.setInteractedNPCID(player.interactedNPCID);
-                dialogbox.paintComponent(g);
-                add(dialogbox);
+                    dialogbox.paintComponent(g);
+                    add(dialogbox);
                     player.setDialogBoxDrawn(true);
-            }
+                }
             }
         } else {
             optionState.draw(g);

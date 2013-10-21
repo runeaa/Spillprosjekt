@@ -57,6 +57,11 @@ public class NPC implements KeyListener {
 
 
 
+   
+        
+    }
+    public int getID(){
+        return npcID;
     }
 
     @Override
@@ -73,4 +78,5 @@ public class NPC implements KeyListener {
     public void keyReleased(KeyEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
 }
