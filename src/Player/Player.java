@@ -141,11 +141,12 @@ public class Player extends NPC {
     }
 
     public void update() {
-        if (level == 1 && y >= 370 && x < -615) {
-            updatePlayerPosition(-50, 380);
+        System.out.println("X: "+x+ "Y: "+y);
+        if (level == 1 && y >= 305 && x < -615) {
+            updatePlayerPosition(-25, 380);
             level++;
         } else if (level == 2 && y >= 370 && x > -20) {
-            updatePlayerPosition(-600, 380);
+            updatePlayerPosition(-615, 310);
             level--;
         }
         if (!OptionTrigger && !interOk) {
