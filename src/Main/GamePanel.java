@@ -86,9 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
         //Quiz quiz = new Quiz(int valg);
         //player = new Player(quiz, 200, 200, 5);
         tileMap = new TileMap("res/levels/tutorial.txt", 32);
-        tileMap.loadTiles("res/levels/tileset.png");
+        tileMap.loadTiles("res/levels/tileset2.png");
         tileMap2 = new TileMap("res/levels/level1.txt", 32);
-        tileMap2.loadTiles("res/levels/tileset.png");
+        tileMap2.loadTiles("res/levels/tileset2.png");
         player = new Player(tileMap, 0, -200, 200, 5, "blue");
         npc1 = new NPC(1, 50, 300, "red");
         npcs.add(npc1);
