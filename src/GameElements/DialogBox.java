@@ -6,10 +6,14 @@ import Quiz.Quiz;
 import Settings.PlayerSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+
 
 /**
  *
@@ -23,10 +27,12 @@ public class DialogBox extends JLabel {
     public Quiz quiz;
     private PlayerSettings playersettings;
     public Question question;
+   
 
     public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
         quiz = new Quiz(playersettings.getDevMethodInt());
+        
     }
 
     public void paintComponent(Graphics2D g) {
@@ -34,7 +40,7 @@ public class DialogBox extends JLabel {
         if (interactedNPCID < 9000) {
             g.setColor(Color.BLACK);
             g.drawString("Programmerer", 36, 295);
-            //question:
+            
             question = quiz.getQuestions().get(interactedNPCID);
             String questionString = question.getQuestion();
             int y = 295;

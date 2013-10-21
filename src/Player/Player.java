@@ -107,12 +107,13 @@ public class Player extends NPC {
     }
 
     public int interaction() {
-        for (int i = 0; i < npcs.size(); i++) {
-            int a = -npcs.get(i).getX();
-            int b = npcs.get(i).getY();
-            if (!finishedInteractedNPCs.contains(i)) {
+        for (NPC n: npcs) {
+            int a = -n.getX();
+            int b = n.getY();
+            if (!finishedInteractedNPCs.contains(n.getID())) {
                 if (interact(a, b)) {
-                    return i;
+                    
+                    return n.getID();
                 }
             }
         }
