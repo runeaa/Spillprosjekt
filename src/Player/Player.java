@@ -141,7 +141,7 @@ public class Player extends NPC {
     }
 
     public void update() {
-        System.out.println("X: "+x+ "Y: "+y);
+        //System.out.println("X: "+x+ "Y: "+y);
         if (level == 1 && y >= 305 && x < -615) {
             updatePlayerPosition(-25, 380);
             level++;
