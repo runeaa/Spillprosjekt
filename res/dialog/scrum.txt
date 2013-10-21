@@ -10,3 +10,71 @@ Hva er de tre seremoniene i scrum?
 Produkt-backlog, Sprint backlog og burndown chart#F
 Produkteier, scrummaster og scrumteam#F
 sprintplanleggningsmøte, daglig scrummøte og sprintrevisjonsmøte#R
+Hvilken av følgende er ikke en Scrum rolle?
+Produkteier#F
+Teamet#F
+Produktsjef#R
+Hvor lang er en sprint i scrum?
+2-4 dager#F
+2-4 uker#R
+2-4 måneder#F
+Hvilken av de følgende spørsmålene er ikke relevant for et vanlig scrummøte?
+Hva har du gjort siden det siste scrummøtet i dette prosjektet?#F
+Hva vil du gjøre frem til neste daglige scrummøte og er det noe som hindrer deg i dette?#F
+Vil du klare å gjennomføre jobben innen tidsfristen?#R
+Hvilken av følgende sertifiseringer er vanligvis assosiert med scrum?
+Sertifisert ScrumMaster#R
+Sertifisert ScrumManager#F
+Sertifisert Scrum Trener#F
+Hva er en burndown graf?
+En graf for å måle hvor utbrennt et team er til en gitt til under sprinten#F
+En oversikt over hvor lang tid teamet har brukt på sprinten#F
+Gjenværende arbeid iht. gjenværende tid i en sprint, utgivelse eller ferdigstillelse av et produkt#R
+Hvilket møte viser teamet fram hva de klarte å gjennomføre til produkteier og andre intresenter iløpet av en sprint?
+Daglig scrummøte#F
+Sprintrevisjonsmøte#R
+Sprintplanleggningsmøte#F
+Scrum har et tall som går igjen med tanke på antall roller, møter osv... Hvilket tall er dette?
+Tallet 4#F
+Tallet 6#F
+Tallet 3#R
+Hva er ikke ansvaret til scrummaster?
+Lære bort scrum til alle i teamet#F
+Implementere scrum basert på organisasjonens kultur#F
+Planlegge arbeid basert på scrum prinsipper#R
+Hva blir omtalt som hovedlisten over prosjektets mål?
+User stories#F
+Produkt-backlog#R
+Iterasjonslogg#F
+Hva er ikke et riktig utsagn om sprint backloggen?
+Den er lagd av scrummaster#R
+Det er planlagt arbeid i løpet av en sprint#F
+Det er teamet som kan gjøre endringer på sprint backloggen#F
+Et utmerket hjelpemiddel til å visualisere sammenhengen imellom gjennstående arbeid og tid er:
+Burndown chart#R
+Sprint backlog#F
+User stories#F
+Hvordan holder man oversikt over oppgaver som skal gjøres i sprinten?
+Tre ulike lister: to do, doing og done#R
+Avlater munltig på forhånd#F
+Scrummaster har en egen oversikt over dette#F
+Hvem skal få tilgang til oversikten over oppgaver som skal gjøres i sprinten?
+Produkteier#F
+Scrummaster og scrumteam#F
+Alle ovenfor#R
+Hvordan sikkrer man at viktige oppgaver får høy prioritet?
+Ved å ha lik prioritering på alle oppgaver i en sprint#F
+Det er ingen grunn til prioritering siden alle oppgavene skal gjøres ferdig i sprinten uansett#F
+Ved å lage en prioriteringsliste i starten av sprinten#R
+Hvem har ansvaret for at prioriterte oppgaver blir gjort først?
+Sluttbruker#F
+Utviklingsteamet#F
+Produkteier#R
+En sammling av funksjonelle og ikke-funksjonelle krav som til sammen vil oppnå prosjetets visjon er:
+Prosjektets visjonslogg#F
+Sprint backlog#F
+Produkt-backlog#R
+Hva er ikke en aktivitet i sprintplanleggingen?
+Sprintrevisjonsmøte#R
+Identifisere oppgaver med høy prioritet#F
+Planlegge implementasjon av oppgaver med høy prioritet#F
