@@ -32,6 +32,7 @@ public class DialogBox extends JLabel {
     public void paintComponent(Graphics2D g) {
         dialogImage.paintIcon(null, g, 0, 420 - 147);
         if (interactedNPCID < 9000) {
+            g.setColor(Color.BLACK);
             g.drawString("Programmerer", 36, 295);
             //question:
             question = quiz.getQuestions().get(interactedNPCID);
