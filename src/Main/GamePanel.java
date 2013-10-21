@@ -90,9 +90,9 @@ public class GamePanel extends JPanel implements Runnable {
         tileMap2 = new TileMap("res/levels/level1.txt", 32);
         tileMap2.loadTiles("res/levels/tileset2.png");
         player = new Player(tileMap, 0, -200, 200, 5, "blue");
-        npc1 = new NPC(1, 50, 300, "red");
+        npc1 = new NPC(1, 130, 180, "mentorside");
         npcs.add(npc1);
-        npc2 = new NPC(2, 315, 100, "blue");
+        npc2 = new NPC(2, 405, 125, "blueNPC");
         npcs.add(npc2);
         player.setNPCs(npcs);
         optionState = new GameStateSettings(settings);

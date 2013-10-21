@@ -33,7 +33,7 @@ public class NPC implements KeyListener {
         this.y = y;
         this.npcID = npcID;
         try {
-            BufferedImage img = ImageIO.read(new File("res/npc/" + color + "NPC.png"));
+            BufferedImage img = ImageIO.read(new File("res/npc/" + color + ".png"));
             for (int i = 0; i < idleSprite.length; i++) {
                 idleSprite[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }
