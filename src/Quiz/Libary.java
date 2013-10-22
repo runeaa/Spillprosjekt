@@ -65,7 +65,6 @@ public class Libary {
         int y = 50;
         g.setColor(Color.black);
         List<String> text = getList();
-        System.out.println(text.size() + "LOOOOOOOOOOOOOOL");
         for (int i = 0; i < text.size(); i++) {
             if (i < 23) {
                 g.drawString(text.get(i), x, y+(15*i));
