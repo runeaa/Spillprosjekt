@@ -143,6 +143,8 @@ public class GamePanel extends JPanel implements Runnable {
             player.updateTitleMap(levels.get(1));
         }else if(currentLevel == 3){
             player.updateTitleMap(levels.get(2));
+        }else if(currentLevel == 4){
+            player.updateTitleMap(levels.get(3));
         }
     }
 
@@ -207,6 +209,8 @@ public class GamePanel extends JPanel implements Runnable {
                         
                     }else if(currentLevel == 3){
                         levels.get(2).draw(g);
+                    }else if(currentLevel == 4){
+                        levels.get(3).draw(g);
                     }
                     g.setColor(Color.WHITE);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
