@@ -39,6 +39,19 @@ public class BuildNPCs {
         
         return list;
     }
+    
+    public ArrayList<NPC> getLevel_three(){
+        list.removeAll(list);
+        list.add(new NPC(8, 100, 292, "blueNPC"));
+        list.add(new NPC(9, 165, 292, "blueNPC"));
+        list.add(new NPC(10, 220, 292, "blueNPC"));
+        list.add(new NPC(11, 290, 292, "blueNPC"));
+        list.add(new NPC(12, 165, 200, "blueNPC"));
+        list.add(new NPC(13, 222, 200, "blueNPC"));
+        list.add(new NPC(14, 290, 200, "blueNPC"));
+        return list;
+    }
+    
     public NPC getLibary(){
         NPC lib = new NPC(100,490,110,"blueNPC");
         return lib;

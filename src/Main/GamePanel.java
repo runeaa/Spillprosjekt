@@ -207,6 +207,8 @@ public class GamePanel extends JPanel implements Runnable {
                         
                     }else if(currentLevel == 3){
                         levels.get(2).draw(g);
+                        npcs = buildNPC.getLevel_three();
+                        drawNPCs();
                     }
                     g.setColor(Color.WHITE);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
