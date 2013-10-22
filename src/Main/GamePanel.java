@@ -40,13 +40,6 @@ public class GamePanel extends JPanel implements Runnable {
     private Graphics2D g;
     private Player player;
     private int currentLevel;
-    private NPC npc1;
-    private NPC npc2;
-    private NPC npc3;
-    private NPC npc4;
-    private NPC npc5;
-    private NPC npc6;
-    private NPC npc7;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
     private DialogBox dialogbox;
