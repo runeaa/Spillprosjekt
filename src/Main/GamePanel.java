@@ -15,6 +15,7 @@ import Player.BuildNPCs;
 import Settings.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -197,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable {
                         String[] s = drawText();
                         if (s != null) {
                             g.setColor(Color.WHITE);
-                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 220, 50);
                             g.setColor(Color.BLACK);
                             g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                         }
@@ -217,7 +218,11 @@ public class GamePanel extends JPanel implements Runnable {
                         drawNPCs();
                     }
                     g.setColor(Color.WHITE);
+                    Font font = new Font("Monospaced", Font.PLAIN, 18);
+                    g.setFont(font);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
+                    font = new Font("DejaVu Sans", Font.PLAIN,12);
+                    g.setFont(font);
                     player.draw(g);
                 }
             } else {
