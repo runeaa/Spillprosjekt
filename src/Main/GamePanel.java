@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +7,7 @@ package Main;
 
 import GameElements.DialogBox;
 import GameElements.FeedbackBox;
+import Map.BuildLevels;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
@@ -28,6 +30,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements Runnable {
 
     BuildNPCs buildNPC = new BuildNPCs();
+    BuildLevels buildLevels = new BuildLevels();
     private Settings settings;
     private boolean running;
     private BufferedImage image;
@@ -40,22 +43,17 @@ public class GamePanel extends JPanel implements Runnable {
     private Graphics2D g;
     private Player player;
     private int currentLevel;
-    private NPC npc1;
-    private NPC npc2;
-    private NPC npc3;
-    private NPC npc4;
-    private NPC npc5;
-    private NPC npc6;
-    private NPC npc7;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     private PlayerSettings playersettings;
     private DialogBox dialogbox;
     private int score = 0;
     private boolean pointsGiven = false;
+    private ArrayList<TileMap> levels = new ArrayList();
 
     public GamePanel(PlayerSettings playersettings, Settings settings) {
         super();
         npcs = buildNPC.getLevel_one();
+        levels = buildLevels.getLevels();
         this.settings = settings;
         this.playersettings = playersettings;
         this.dialogbox = new DialogBox(playersettings);
@@ -91,18 +89,9 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-        //Quiz quiz = new Quiz(int valg);
-        //player = new Player(quiz, 200, 200, 5);
-        tileMap = new TileMap("res/levels/tutorial.txt", 32);
-        tileMap.loadTiles("res/levels/tileset2.png");
-        tileMap2 = new TileMap("res/levels/level1.txt", 32);
-        tileMap2.loadTiles("res/levels/tileset2.png");
-        player = new Player(tileMap, 0, -200, 200, 5, "blue");
-        //npc1 = new NPC(1, 130, 180, "mentorside");
-        //npcs.add(npc1);
-        //npc2 = new NPC(2, 405, 125, "blueNPC");
-        //npcs.add(npc2);
+        
+        buildLevels.loadTilesLevel(levels);
+        player = new Player(levels.get(0), 0, -200, 200, 5, "blue");
 
         player.setNPCs(npcs); //må forandres når level skkiftes
         optionState = new GameStateSettings(settings);
@@ -149,11 +138,12 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         currentLevel = player.getLevel();
         if (currentLevel == 1) {
-            player.updateTitleMap(tileMap);
+            player.updateTitleMap(levels.get(0));
         } else if (currentLevel == 2) {
-            player.updateTitleMap(tileMap2);
+            player.updateTitleMap(levels.get(1));
+        }else if(currentLevel == 3){
+            player.updateTitleMap(levels.get(2));
         }
-
     }
 
     private String[] drawText() {
@@ -196,7 +186,7 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 } else {
                     if (currentLevel == 1) {
-                        tileMap.draw(g);
+                        levels.get(0).draw(g);
                         npcs = buildNPC.getLevel_one();
                         drawNPCs();
 
@@ -210,9 +200,13 @@ public class GamePanel extends JPanel implements Runnable {
                             g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                         }
                     } else if (currentLevel == 2) {
-                        tileMap2.draw(g);
+                        levels.get(1).draw(g);
                         npcs = buildNPC.getLevel_two();
                         drawNPCs();
+                        npcs.add(buildNPC.getLibary());
+                        
+                    }else if(currentLevel == 3){
+                        levels.get(2).draw(g);
                     }
                     g.setColor(Color.WHITE);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);

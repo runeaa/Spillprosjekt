@@ -10,6 +10,7 @@ import java.util.ArrayList;
  *
  * @author espen
  */
+//MERK! ikke lag en npc med npcid = 100, denne id er reservert biblioteket!
 
 public class BuildNPCs {
     private ArrayList<NPC> list = new ArrayList<NPC>();
@@ -25,13 +26,22 @@ public class BuildNPCs {
         npcs.add(npc1);
         npc2 = new NPC(2, 315, 100, "blue");
      */
+    //MERK! ikke lag en npc med npcid = 100, denne id er reservert biblioteket!
     public ArrayList<NPC> getLevel_two(){
         list.removeAll(list);
-        list.add(new NPC(2, 100, 140, "blueNPC"));
-        list.add(new NPC(3, 400, 250, "blueNPC"));
+        list.add(new NPC(2, 150, 355, "blueNPC"));
+        list.add(new NPC(3, 150, 292, "blueNPC"));
+        list.add(new NPC(4, 150, 227, "blueNPC"));
+        list.add(new NPC(5, 335, 227, "blueNPC"));
+        list.add(new NPC(6, 335, 162, "blueNPC"));
+        list.add(new NPC(7, 335, 97, "blueNPC"));
         
         
         return list;
+    }
+    public NPC getLibary(){
+        NPC lib = new NPC(100,490,110,"blueNPC");
+        return lib;
     }
 /*      npc = BuildNPCs.getLevel_one()
         

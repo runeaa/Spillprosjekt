@@ -31,13 +31,13 @@ public class Text {
         return s.size();
     }
 
-    public void makeTab() {
+    public void makeTab(int grense) {
         int counter = 0;
         String string = "";
         String[] parts = text.split(" ");
 
         for (int i = 0; i < parts.length; i++) {
-            if (counter + parts[i].length() > stringLength) {
+            if (counter + parts[i].length() > grense) {
                 s.add(string);
                 counter = 0;
                 string = "";
