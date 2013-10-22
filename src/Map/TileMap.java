@@ -36,7 +36,7 @@ public class TileMap {
             BufferedReader br = new BufferedReader(new FileReader(s));
             width = Integer.parseInt(br.readLine());
             height = Integer.parseInt(br.readLine());
-            System.out.println("Width: " + width + "Height: " + height);
+//            System.out.println("Width: " + width + "Height: " + height);
 
             minX = GamePanel.WIDTH - width * tileSize;
             minY = GamePanel.HEIGHT - height * tileSize;
@@ -71,8 +71,8 @@ public class TileMap {
 
     public void setX(int x) {
         this.x = x;
-        System.out.println("MINX: " + minX);
-        System.out.println("MAXX: " + maxX);
+//        System.out.println("MINX: " + minX);
+//        System.out.println("MAXX: " + maxX);
         if (x < minX) {
             this.x = minX;
         }
@@ -83,7 +83,7 @@ public class TileMap {
 
     public void setY(int y) {
         this.y = y;
-        System.out.println("MINY: " + minY);
+//        System.out.println("MINY: " + minY);
 //        System.out.println("MAXY: " + maxY);
 
         if (y < minY) {
@@ -99,8 +99,8 @@ public class TileMap {
             tileset = ImageIO.read(new File(s));
             int numTilesWidth = (tileset.getWidth() + 1) / (tileSize + 1);
             int numTilesHeight = (tileset.getHeight() +1) / (tileSize +1);
-            System.out.println("WIdth: "+numTilesWidth);
-            System.out.println("Num tiles height" +numTilesHeight);
+//            System.out.println("WIdth: "+numTilesWidth);
+//            System.out.println("Num tiles height" +numTilesHeight);
             tiles = new Tile[numTilesHeight][numTilesWidth];
 
             BufferedImage subImage;

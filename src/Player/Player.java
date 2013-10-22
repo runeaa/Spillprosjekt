@@ -161,7 +161,7 @@ public class Player extends NPC {
         if(level == 3 && y >= 145 && x < -615){
             System.out.println("Du bytter level");
         }
-        System.out.println("X: "+x+" Y: "+y);
+        //System.out.println("X: "+x+" Y: "+y);
         if (!OptionTrigger && !interOk) {
             if (up && y != 0) {
                 dy -= speed;

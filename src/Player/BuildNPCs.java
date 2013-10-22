@@ -43,6 +43,11 @@ public class BuildNPCs {
         NPC lib = new NPC(100,490,110,"blueNPC");
         return lib;
     }
+    
+    public NPC getScrumBoard () {
+        return new NPC(101, 530, 305, "blueNPC");
+    }
+    
 /*      npc = BuildNPCs.getLevel_one()
         
         * npc = BuildNPCs.getLevel_two()

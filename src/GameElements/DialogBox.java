@@ -13,15 +13,19 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import GameElements.Text;
+import static GameElements.TodoBoard.DONE;
+import static GameElements.TodoBoard.TODO;
 import Quiz.Libary;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author haavamoa
  */
 public class DialogBox extends JLabel {
-
-    
     public int interactedNPCID;
     private ImageIcon dialogImage = new ImageIcon("./res/npc/dialogprogrammerfade.png");
     private ImageIcon libaryImage = new ImageIcon("./res/img/book.png");
@@ -29,15 +33,14 @@ public class DialogBox extends JLabel {
     private PlayerSettings playersettings;
     public Question question;
     Libary libary = new Libary();
-
+    TodoBoard tb = new TodoBoard();
+    
     public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
         quiz = new Quiz(playersettings.getDevMethodInt());
-
     }
 
     public int drawText(Graphics2D g, String s, int x, int y) {
-
         Text text = new Text(s);
         text.makeTab(70);
         for (String st : text.getString()) {
@@ -45,14 +48,15 @@ public class DialogBox extends JLabel {
         }
         return y;
     }
-
+    
     public void paintComponent(Graphics2D g) {
         //dialogImage.paintIcon(null, g, 0, 420 - 147);
         if (interactedNPCID == 100) {
             libaryImage.paintIcon(null, g, 0, 0 - 0);
             libary.drawLibary(g);
-
-//g.drawString("hei hei", 300,300);
+        } else if (interactedNPCID == 101) {
+            tb.paintComponent(g);
+            return;
         } else if (interactedNPCID < 9000) {
             dialogImage.paintIcon(null, g, 0, 420 - 147);
 
@@ -85,4 +89,28 @@ public class DialogBox extends JLabel {
     public void setInteractedNPCID(int interactedNPCID) {
         this.interactedNPCID = interactedNPCID;
     }
+//    private void setKeyBindings() {
+//        System.out.println("HELLO?");
+//        tb.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "goLeft");
+//        tb.getActionMap().put("goLeft", new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e){
+//                if (tb.getShowPart()!=TodoBoard.TODO) {
+//                    tb.setShowPart(tb.getShowPart()-1);
+//                }              
+//                System.out.println("LEFT NIGGA");
+//            }
+//        });
+//        
+//        tb.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "goRight");
+//        tb.getActionMap().put("goRight", new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e){
+//                if (tb.getShowPart()!=TodoBoard.DONE) {
+//                    tb.setShowPart(tb.getShowPart()+1);
+//                }                
+//                System.out.println("RIGHT NIGGA");
+//            }
+//        });
+//    }
 }

@@ -166,7 +166,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
-
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
@@ -189,7 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
                         levels.get(0).draw(g);
                         npcs = buildNPC.getLevel_one();
                         drawNPCs();
-
+                        npcs.add(buildNPC.getScrumBoard());
                      //npc1.draw(g);
                         //npc2.draw(g);
                         String[] s = drawText();

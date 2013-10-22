@@ -53,12 +53,7 @@ public class NPC implements KeyListener {
 
     public void draw(Graphics2D g) {
         // g.drawImage(idleSprite[0], (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
-        g.drawImage(idleSprite[0], x, y, null);
-
-
-
-   
-        
+        g.drawImage(idleSprite[0], x, y, null);   
     }
     public int getID(){
         return npcID;
