@@ -213,6 +213,8 @@ public class GamePanel extends JPanel implements Runnable {
                         tileMap2.draw(g);
                         npcs = buildNPC.getLevel_two();
                         drawNPCs();
+                        npcs.add(buildNPC.getLibary());
+                        
                     }
                     g.setColor(Color.WHITE);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
