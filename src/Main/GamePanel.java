@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JPanel;
@@ -218,11 +219,15 @@ public class GamePanel extends JPanel implements Runnable {
                         drawNPCs();
                     }
                     g.setColor(Color.WHITE);
-                    Font font = new Font("Monospaced", Font.PLAIN, 18);
-                    g.setFont(font);
+                    Font font;
+                    try{
+                    font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/Minecraftia.ttf"));
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
-                    font = new Font("DejaVu Sans", Font.PLAIN,12);
-                    g.setFont(font);
+//                    font = new Font("DejaVu Sans", Font.PLAIN,12);
                     player.draw(g);
                 }
             } else {
