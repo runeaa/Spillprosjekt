@@ -150,9 +150,16 @@ public class Player extends NPC {
             updatePlayerPosition(-615, 310);
             level--;
         }
-        if(level == 2 && y>=160 && x< -610){
-            updatePlayerPosition(-200, 200);
+        if(level == 2 && y>=145 && x< -630){
+            updatePlayerPosition(-30, 385);
             level++;
+        } else if(level == 3 && y >=380 && x > -30){
+            updatePlayerPosition(-590, 160);
+            level--;
+        }
+        
+        if(level == 3 && y >= 145 && x < -615){
+            System.out.println("Du bytter level");
         }
         System.out.println("X: "+x+" Y: "+y);
         if (!OptionTrigger && !interOk) {
