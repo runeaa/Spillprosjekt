@@ -15,10 +15,12 @@ import Player.BuildNPCs;
 import Settings.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JPanel;
@@ -143,14 +145,16 @@ public class GamePanel extends JPanel implements Runnable {
             player.updateTitleMap(levels.get(1));
         }else if(currentLevel == 3){
             player.updateTitleMap(levels.get(2));
+        }else if(currentLevel==4){
+            player.updateTitleMap(levels.get(3));
         }
     }
 
     private String[] drawText() {
         String[] s = new String[3];
         int interaction = player.interaction();
-        s[0] = "O hi young programmer";
-        if (interaction == 0) {
+        s[0] = "Hei! Trykk E for å snakke med meg!";
+        if (interaction != -1) {
             s[1] = ((Integer) npcs.get(interaction).getX()).toString();
             s[2] = ((Integer) npcs.get(interaction).getY()).toString();
             return s;
@@ -194,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable {
                         String[] s = drawText();
                         if (s != null) {
                             g.setColor(Color.WHITE);
-                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 150, 40);
+                            g.fillOval(Integer.parseInt(s[1]) - 10, Integer.parseInt(s[2]) - 60, 220, 50);
                             g.setColor(Color.BLACK);
                             g.drawString(s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]) - 37);
                         }
@@ -206,9 +210,23 @@ public class GamePanel extends JPanel implements Runnable {
                         
                     }else if(currentLevel == 3){
                         levels.get(2).draw(g);
+                        npcs = buildNPC.getLevel_three();
+                        drawNPCs();
+                        }else if(currentLevel == 4){
+                        levels.get(3).draw(g);
+                        npcs = buildNPC.getLevel_four();
+                        drawNPCs();
                     }
                     g.setColor(Color.WHITE);
+                    Font font;
+                    try{
+                    font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/Minecraftia.ttf"));
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
+//                    font = new Font("DejaVu Sans", Font.PLAIN,12);
                     player.draw(g);
                 }
             } else {

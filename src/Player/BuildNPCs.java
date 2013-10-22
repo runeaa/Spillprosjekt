@@ -16,8 +16,8 @@ public class BuildNPCs {
     private ArrayList<NPC> list = new ArrayList<NPC>();
     public ArrayList<NPC> getLevel_one(){
         list.removeAll(list);
-        list.add(new NPC(0, 130, 180, "mentorside"));
-        list.add(new NPC(1, 405, 125, "blueNPC"));
+        list.add(new NPC(9001, 130, 180, "mentorside"));
+        list.add(new NPC(0, 405, 125, "blueNPC"));
         return list;
     }
     
@@ -29,16 +29,40 @@ public class BuildNPCs {
     //MERK! ikke lag en npc med npcid = 100, denne id er reservert biblioteket!
     public ArrayList<NPC> getLevel_two(){
         list.removeAll(list);
-        list.add(new NPC(2, 150, 355, "blueNPC"));
-        list.add(new NPC(3, 150, 292, "blueNPC"));
-        list.add(new NPC(4, 150, 227, "blueNPC"));
-        list.add(new NPC(5, 335, 227, "blueNPC"));
-        list.add(new NPC(6, 335, 162, "blueNPC"));
-        list.add(new NPC(7, 335, 97, "blueNPC"));
+        list.add(new NPC(1, 150, 355, "blueNPC"));
+        list.add(new NPC(2, 150, 292, "blueNPC"));
+        list.add(new NPC(3, 150, 227, "blueNPC"));
+        list.add(new NPC(4, 335, 227, "blueNPC"));
+        list.add(new NPC(5, 335, 162, "blueNPC"));
+        list.add(new NPC(6, 335, 97, "blueNPC"));
         
         
         return list;
     }
+    
+    public ArrayList<NPC> getLevel_three(){
+        list.removeAll(list);
+        list.add(new NPC(7, 100, 292, "blueNPC"));
+        list.add(new NPC(8, 165, 292, "blueNPC"));
+        list.add(new NPC(9, 220, 292, "blueNPC"));
+        list.add(new NPC(10, 290, 292, "blueNPC"));
+        list.add(new NPC(11, 165, 200, "blueNPC"));
+        list.add(new NPC(12, 222, 200, "blueNPC"));
+        list.add(new NPC(13, 290, 200, "blueNPC"));
+        return list;
+    }
+    
+    public ArrayList<NPC> getLevel_four(){
+        list.removeAll(list);
+        list.add(new NPC(14, 440, 290, "blueNPC"));
+        list.add(new NPC(15, 560, 290, "blueNPC"));
+        list.add(new NPC(16, 440, 225, "blueNPC"));
+        list.add(new NPC(17, 560, 225, "blueNPC"));
+        list.add(new NPC(18, 440, 160, "blueNPC"));
+        list.add(new NPC(19, 560, 160, "blueNPC"));
+        return list;
+    }
+    
     public NPC getLibary(){
         NPC lib = new NPC(100,490,110,"blueNPC");
         return lib;

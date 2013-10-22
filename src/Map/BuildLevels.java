@@ -18,6 +18,7 @@ public class BuildLevels {
         levels.add(new TileMap("res/levels/tutorial.txt",32));
         levels.add(new TileMap("res/levels/level1.txt",32));
         levels.add(new TileMap("res/levels/level2.txt",32));
+        levels.add(new TileMap("res/levels/level3.txt",32));
         return levels;
     }
     
