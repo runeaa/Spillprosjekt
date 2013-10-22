@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import GameElements.Text;
+import Quiz.Libary;
 
 /**
  *
@@ -20,11 +21,14 @@ import GameElements.Text;
  */
 public class DialogBox extends JLabel {
 
+    
     public int interactedNPCID;
     private ImageIcon dialogImage = new ImageIcon("./res/npc/dialogprogrammerfade.png");
+    private ImageIcon libaryImage = new ImageIcon("./res/img/book.png");
     public Quiz quiz;
     private PlayerSettings playersettings;
     public Question question;
+    Libary libary = new Libary();
 
     public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
@@ -44,9 +48,11 @@ public class DialogBox extends JLabel {
 
     public void paintComponent(Graphics2D g) {
         //dialogImage.paintIcon(null, g, 0, 420 - 147);
-        if(interactedNPCID == 100){
-            g.drawString("hei hei", 300,300);
+        if (interactedNPCID == 100) {
+            libaryImage.paintIcon(null, g, 0, 0 - 0);
+            libary.drawLibary(g);
 
+//g.drawString("hei hei", 300,300);
         } else if (interactedNPCID < 9000) {
             dialogImage.paintIcon(null, g, 0, 420 - 147);
 
