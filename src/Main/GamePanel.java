@@ -143,14 +143,16 @@ public class GamePanel extends JPanel implements Runnable {
             player.updateTitleMap(levels.get(1));
         }else if(currentLevel == 3){
             player.updateTitleMap(levels.get(2));
+        }else if(currentLevel==4){
+            player.updateTitleMap(levels.get(3));
         }
     }
 
     private String[] drawText() {
         String[] s = new String[3];
         int interaction = player.interaction();
-        s[0] = "O hi young programmer";
-        if (interaction == 0) {
+        s[0] = "Hei! Trykk E for å snakke med meg!";
+        if (interaction != -1) {
             s[1] = ((Integer) npcs.get(interaction).getX()).toString();
             s[2] = ((Integer) npcs.get(interaction).getY()).toString();
             return s;
@@ -208,6 +210,10 @@ public class GamePanel extends JPanel implements Runnable {
                     }else if(currentLevel == 3){
                         levels.get(2).draw(g);
                         npcs = buildNPC.getLevel_three();
+                        drawNPCs();
+                        }else if(currentLevel == 4){
+                        levels.get(3).draw(g);
+                        npcs = buildNPC.getLevel_four();
                         drawNPCs();
                     }
                     g.setColor(Color.WHITE);
