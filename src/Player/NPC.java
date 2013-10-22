@@ -38,7 +38,7 @@ public class NPC implements KeyListener {
                 idleSprite[i] = img.getSubimage(i * spriteWidth, 0, spriteWidth, spriteHeight);
             }
         } catch (Exception e) {
-            System.out.println("NPC konstruktør:  " + e);
+            //System.out.println("NPC konstruktør:  " + e + npcID);
         }
         animation = new Animation();
     }
