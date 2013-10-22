@@ -150,6 +150,11 @@ public class Player extends NPC {
             updatePlayerPosition(-615, 310);
             level--;
         }
+        if(level == 2 && y>=160 && x< -610){
+            updatePlayerPosition(-200, 200);
+            level++;
+        }
+        System.out.println("X: "+x+" Y: "+y);
         if (!OptionTrigger && !interOk) {
             if (up && y != 0) {
                 dy -= speed;
@@ -302,7 +307,6 @@ public class Player extends NPC {
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             right = false;
         }
-
     }
 
     public void setDialogBoxDrawn(boolean dialogBoxDrawn) {
