@@ -39,14 +39,11 @@ public class GamePanel extends JPanel implements Runnable {
     private int maxrameCount = 60;
     private GameStateSettings optionState;
     int frameCount = 1;
-    private TileMap tileMap;
-    private TileMap tileMap2;
     private Thread thread;
     private Graphics2D g;
     private Player player;
     private int currentLevel;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
-    private PlayerSettings playersettings;
     private DialogBox dialogbox;
     private int score = 0;
     private boolean pointsGiven = false;
@@ -57,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable {
         npcs = buildNPC.getLevel_one();
         levels = buildLevels.getLevels();
         this.settings = settings;
-        this.playersettings = playersettings;
         this.dialogbox = new DialogBox(playersettings);
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
@@ -95,7 +91,7 @@ public class GamePanel extends JPanel implements Runnable {
         buildLevels.loadTilesLevel(levels);
         player = new Player(levels.get(0), 0, -200, 200, 5, "blue");
 
-        player.setNPCs(npcs); //må forandres når level skkiftes
+        //player.setNPCs(npcs); //må forandres når level skkiftes
         optionState = new GameStateSettings(settings);
         addKeyListener(player);
     }
@@ -154,7 +150,7 @@ public class GamePanel extends JPanel implements Runnable {
         String[] s = new String[3];
         int interaction = player.interaction();
         s[0] = "Hei! Trykk E for å snakke med meg!";
-        if (interaction != -1) {
+        if (interaction != -1 && interaction < s.length) {
             s[1] = ((Integer) npcs.get(interaction).getX()).toString();
             s[2] = ((Integer) npcs.get(interaction).getY()).toString();
             return s;
@@ -181,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
                         score += 10;
                         pointsGiven = true;
                     }
-
+                    
                     add(feedback);
                     if (player.confirmedFeedback) {
                         pointsGiven = false;
@@ -212,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable {
                         levels.get(2).draw(g);
                         npcs = buildNPC.getLevel_three();
                         drawNPCs();
-                        }else if(currentLevel == 4){
+                    }else if(currentLevel == 4){
                         levels.get(3).draw(g);
                         npcs = buildNPC.getLevel_four();
                         drawNPCs();

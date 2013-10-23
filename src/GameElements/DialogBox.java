@@ -89,28 +89,4 @@ public class DialogBox extends JLabel {
     public void setInteractedNPCID(int interactedNPCID) {
         this.interactedNPCID = interactedNPCID;
     }
-//    private void setKeyBindings() {
-//        System.out.println("HELLO?");
-//        tb.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "goLeft");
-//        tb.getActionMap().put("goLeft", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e){
-//                if (tb.getShowPart()!=TodoBoard.TODO) {
-//                    tb.setShowPart(tb.getShowPart()-1);
-//                }              
-//                System.out.println("LEFT NIGGA");
-//            }
-//        });
-//        
-//        tb.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "goRight");
-//        tb.getActionMap().put("goRight", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e){
-//                if (tb.getShowPart()!=TodoBoard.DONE) {
-//                    tb.setShowPart(tb.getShowPart()+1);
-//                }                
-//                System.out.println("RIGHT NIGGA");
-//            }
-//        });
-//    }
 }

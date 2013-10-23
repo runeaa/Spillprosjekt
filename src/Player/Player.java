@@ -25,7 +25,6 @@ public class Player extends NPC {
     private int speed;
     private TileMap tileMap;
     private boolean up, down, left, right, facingLeft, interOk;
-    private boolean topLeft, topRight, bottomLeft, bottomRight;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private int idleDirection = 3;
@@ -39,7 +38,6 @@ public class Player extends NPC {
     private boolean OptionTrigger;
     private int level = 1;
     private int lock = 1;
-    private int lock2 = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     public int interactedNPCID = -1;
     public boolean dialogBoxDrawn, confirmedFeedback;
@@ -54,7 +52,6 @@ public class Player extends NPC {
         this.speed = speed;
 
         try {
-
             idleSprite = new BufferedImage[1];
             walking_sideways = new BufferedImage[2];
             walking_up = new BufferedImage[2];
@@ -111,8 +108,7 @@ public class Player extends NPC {
             int a = -n.getX();
             int b = n.getY();
             if (!finishedInteractedNPCs.contains(n.getID())) {
-                if (interact(a, b)) {
-                    
+                if (interact(a, b)) {                
                     return n.getID();
                 }
             }
@@ -272,7 +268,6 @@ public class Player extends NPC {
                     interOk = false;
                 }
             }
-
         }
 
         if (key == KeyEvent.VK_ESCAPE) {
