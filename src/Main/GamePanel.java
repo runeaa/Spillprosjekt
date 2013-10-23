@@ -7,18 +7,22 @@ package Main;
 
 import GameElements.DialogBox;
 import GameElements.FeedbackBox;
+import Listeners.PauseListener;
 import Map.BuildLevels;
 import Map.TileMap;
 import Player.NPC;
 import Player.Player;
 import Player.BuildNPCs;
 import Settings.*;
+import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -170,6 +174,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void render() {
+        //Litt haxx for å få pauseknapper til å fungere
+        MouseListener pauselistener = new PauseListener(player.getOptionValue());
+        addMouseListener(pauselistener);
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
@@ -238,7 +245,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         } else {
-            
             optionState.draw(g);
         }
     }
