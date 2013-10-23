@@ -24,7 +24,7 @@ public class Player extends NPC {
     private int dx, dy;
     private int speed;
     private TileMap tileMap;
-    private boolean up, down, left, right, facingLeft, interOk;
+    public boolean up, down, left, right, facingLeft, interOk;
     private final int spriteWidth = 32;
     private final int spriteHeight = 34;
     private int idleDirection = 3;
@@ -37,7 +37,7 @@ public class Player extends NPC {
     private Animation animation;
     private boolean OptionTrigger;
     private int level = 1;
-    private int lock = 1;
+    public int lock = 1;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
     public int interactedNPCID = -1;
     public boolean dialogBoxDrawn, confirmedFeedback;
@@ -218,6 +218,12 @@ public class Player extends NPC {
         return OptionTrigger;
     }
 
+    public void setOptionTrigger(boolean OptionTrigger) {
+        this.OptionTrigger = OptionTrigger;
+    }
+    
+    
+
     @Override
     public void draw(Graphics2D g) {
         //filler verdier, bruk tikeMap.getX/Y for å gi størrelsen til mappet
@@ -272,9 +278,11 @@ public class Player extends NPC {
 
         if (key == KeyEvent.VK_ESCAPE) {
             if (lock % 2 != 0) {
+                System.out.println("if");
                 OptionTrigger = true;
                 lock--;
             } else {
+                System.out.println("else");
                 OptionTrigger = false;
                 lock++;
             }
@@ -318,4 +326,9 @@ public class Player extends NPC {
     public void setDialogBoxDrawn(boolean dialogBoxDrawn) {
         this.dialogBoxDrawn = dialogBoxDrawn;
     }
+
+    public void setInterOk(boolean interOk) {
+        this.interOk = interOk;
+    }
+    
 }

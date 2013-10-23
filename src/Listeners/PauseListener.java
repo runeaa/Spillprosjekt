@@ -4,6 +4,7 @@
  */
 package Listeners;
 
+import Player.Player;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,9 +14,9 @@ import java.awt.event.MouseListener;
  */
 public class PauseListener implements MouseListener{
 
-    private boolean optionValue;
-    public PauseListener(boolean optionValue) {
-        this.optionValue = optionValue;
+    private Player player;
+    public PauseListener(Player player) {
+        this.player = player;
     }
     
     
@@ -26,7 +27,24 @@ public class PauseListener implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-                System.out.println(optionValue);
+        //Inne i pausemenyen
+        if(player.getOptionValue()){
+            int x = e.getX();
+            int y = e.getY();
+            if(x>= 210 && x<=435){
+                //resume
+                if(y>=220 && y<=261){
+                    player.setOptionTrigger(false);
+                    player.lock++;
+                }
+                //end game
+                else if(y>=292 && y<=340){
+                    System.exit(0);
+                }
+                
+                
+            }
+           }
     }
 
     @Override

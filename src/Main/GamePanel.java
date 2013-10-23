@@ -175,7 +175,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void render() {
         //Litt haxx for å få pauseknapper til å fungere
-        MouseListener pauselistener = new PauseListener(player.getOptionValue());
+        MouseListener pauselistener = new PauseListener(player);
         addMouseListener(pauselistener);
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
@@ -246,6 +246,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         } else {
             optionState.draw(g);
+            player.setInterOk(false);
         }
     }
     public void draw() {
