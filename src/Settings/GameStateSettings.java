@@ -6,12 +6,15 @@ package Settings;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Rune
  */
-public class GameStateSettings {
+public class GameStateSettings extends JPanel {
 
     private Settings setting;
 

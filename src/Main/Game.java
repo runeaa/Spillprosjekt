@@ -22,7 +22,7 @@ public class Game {
         gamemenu.playerSettings.setDevMethod("SCRUM");
         gamemenu.settings.clip.stop();
         gamemenu.settings.setSound(false);
-        window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings));
+        window.setContentPane(new GamePanel(gamemenu.playerSettings, gamemenu.settings,window));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.pack();

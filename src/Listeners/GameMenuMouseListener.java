@@ -81,7 +81,7 @@ public class GameMenuMouseListener implements MouseListener {
             for(ComponentListener c:gamem.getComponentListeners()){
                 frame.getContentPane().removeComponentListener(c);
             }
-            frame.getContentPane().add(new GamePanel(gamem.playerSettings,gamem.settings));
+            frame.getContentPane().add(new GamePanel(gamem.playerSettings,gamem.settings,frame));
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
 

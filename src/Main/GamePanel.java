@@ -23,6 +23,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -48,13 +50,15 @@ public class GamePanel extends JPanel implements Runnable {
     private int score = 0;
     private boolean pointsGiven = false;
     private ArrayList<TileMap> levels = new ArrayList();
+    private JFrame frame;
 
-    public GamePanel(PlayerSettings playersettings, Settings settings) {
+    public GamePanel(PlayerSettings playersettings, Settings settings,JFrame frame) {
         super();
         npcs = buildNPC.getLevel_one();
         levels = buildLevels.getLevels();
         this.settings = settings;
         this.dialogbox = new DialogBox(playersettings);
+        this.frame = frame;
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
         requestFocus();
@@ -82,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
 
-        //Anti-aliasing
+        //Anti-aliasing        g.
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -229,15 +233,15 @@ public class GamePanel extends JPanel implements Runnable {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
                     dialogbox.setInteractedNPCID(player.interactedNPCID);
                     dialogbox.paintComponent(g);
-                    add(dialogbox);
+                   // add(dialogbox);
                     player.setDialogBoxDrawn(true);
                 }
             }
         } else {
+            
             optionState.draw(g);
         }
     }
-
     public void draw() {
         Graphics g2 = this.getGraphics();
         g2.drawImage(image, 0, 0, null);
