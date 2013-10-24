@@ -7,6 +7,8 @@ package Main;
 
 import GameElements.DialogBox;
 import GameElements.FeedbackBox;
+import GameElements.Popup;
+import GameElements.TodoBoard;
 import Listeners.PauseListener;
 import Map.BuildLevels;
 import Map.TileMap;
@@ -14,20 +16,17 @@ import Player.NPC;
 import Player.Player;
 import Player.BuildNPCs;
 import Settings.*;
-import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -50,18 +49,20 @@ public class GamePanel extends JPanel implements Runnable {
     private Player player;
     private int currentLevel;
     private ArrayList<NPC> npcs = new ArrayList<NPC>();
-    private DialogBox dialogbox;
+    private Popup popup;
     private int score = 0;
     private boolean pointsGiven = false;
     private ArrayList<TileMap> levels = new ArrayList();
+    private PlayerSettings playersettings;
     private JFrame frame;
 
     public GamePanel(PlayerSettings playersettings, Settings settings,JFrame frame) {
         super();
+        this.playersettings = playersettings;
         npcs = buildNPC.getLevel_one();
         levels = buildLevels.getLevels();
         this.settings = settings;
-        this.dialogbox = new DialogBox(playersettings);
+        this.popup = new Popup();
         this.frame = frame;
         setPreferredSize(new Dimension(settings.WITDH, settings.HEIGHT));
         setFocusable(true);
@@ -181,7 +182,8 @@ public class GamePanel extends JPanel implements Runnable {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
                 if (player.answer != -1) {
-                    FeedbackBox feedback = new FeedbackBox(dialogbox.question.getAnswers().get(player.answer));
+                    popup = new DialogBox(playersettings);
+                    FeedbackBox feedback = new FeedbackBox(((DialogBox)popup).question.getAnswers().get(player.answer));
                     feedback.paintComponent(g);
 
                     if (feedback.getBoolAnswer() && pointsGiven == false) {
@@ -228,7 +230,7 @@ public class GamePanel extends JPanel implements Runnable {
                     Font font;
                     try{
                     font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/Minecraftia.ttf"));
-                    }catch(Exception e){
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
                     
@@ -238,8 +240,12 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             } else {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
-                    dialogbox.setInteractedNPCID(player.interactedNPCID);
-                    dialogbox.paintComponent(g);
+                    if (player.interactedNPCID==101)
+                        popup = new TodoBoard();
+                    else
+                        popup = new DialogBox(playersettings);
+                    popup.setInteractedNPCID(player.interactedNPCID);
+                    popup.paintComponent(g);
                    // add(dialogbox);
                     player.setDialogBoxDrawn(true);
                 }

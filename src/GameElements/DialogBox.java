@@ -6,34 +6,22 @@ import Quiz.Quiz;
 import Settings.PlayerSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import GameElements.Text;
-import static GameElements.TodoBoard.DONE;
-import static GameElements.TodoBoard.TODO;
 import Quiz.Libary;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
 
 /**
  *
  * @author haavamoa
  */
-public class DialogBox extends JLabel {
-    public int interactedNPCID;
+public class DialogBox extends Popup {
     private ImageIcon dialogImage = new ImageIcon("./res/npc/dialogprogrammerfade.png");
     private ImageIcon libaryImage = new ImageIcon("./res/img/book.png");
     public Quiz quiz;
     private PlayerSettings playersettings;
     public Question question;
     Libary libary = new Libary();
-    TodoBoard tb = new TodoBoard();
     
     public DialogBox(PlayerSettings playersettings) {
         this.playersettings = playersettings;
@@ -54,9 +42,6 @@ public class DialogBox extends JLabel {
         if (interactedNPCID == 100) {
             libaryImage.paintIcon(null, g, 0, 0 - 0);
             libary.drawLibary(g);
-        } else if (interactedNPCID == 101) {
-            tb.paintComponent(g);
-            return;
         } else if (interactedNPCID < 9000) {
             dialogImage.paintIcon(null, g, 0, 420 - 147);
 
@@ -84,9 +69,5 @@ public class DialogBox extends JLabel {
             g.drawString("Tore", 60, 295);
         }
         super.paintComponent(g);
-    }
-
-    public void setInteractedNPCID(int interactedNPCID) {
-        this.interactedNPCID = interactedNPCID;
     }
 }

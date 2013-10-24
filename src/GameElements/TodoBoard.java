@@ -20,7 +20,7 @@ import javax.swing.KeyStroke;
  *
  * @author amund
  */
-public class TodoBoard extends JPanel{
+public class TodoBoard extends Popup{
     private List<Task> todo;
     private List<Task> doing;
     private List<Task> done;
