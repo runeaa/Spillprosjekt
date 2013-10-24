@@ -152,13 +152,13 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         currentLevel = player.getLevel();
         if (currentLevel == 1) {
-            player.updateTitleMap(levels.get(0));
+            player.updateTileMap(levels.get(0));
         } else if (currentLevel == 2) {
-            player.updateTitleMap(levels.get(1));
+            player.updateTileMap(levels.get(1));
         }else if(currentLevel == 3){
-            player.updateTitleMap(levels.get(2));
+            player.updateTileMap(levels.get(2));
         }else if(currentLevel==4){
-            player.updateTitleMap(levels.get(3));
+            player.updateTileMap(levels.get(3));
         }
     }
 

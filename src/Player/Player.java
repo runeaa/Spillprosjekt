@@ -133,7 +133,7 @@ public class Player extends NPC {
         y = dy;
     }
 
-    public void updateTitleMap(TileMap tileMap) {
+    public void updateTileMap(TileMap tileMap) {
         this.tileMap = tileMap;
     }
 
