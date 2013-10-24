@@ -50,6 +50,7 @@ public class NPC implements KeyListener {
     public int getY() {
         return y;
     }
+   
 
     public void draw(Graphics2D g) {
         // g.drawImage(idleSprite[0], (int) (tx - x - spriteWidth / 2), (int) (ty + y - spriteWidth / 2), null);
