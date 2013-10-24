@@ -238,7 +238,6 @@ public class GamePanel extends JPanel implements Runnable {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-                    
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
 //                    font = new Font("DejaVu Sans", Font.PLAIN,12);
                     player.draw(g);
