@@ -1,9 +1,7 @@
 God dag,.
 I dag skal du starte på ett nytt prosjekt, et spill.
- 
 Kunden vil ha et produkt som kan brukes som et supplement i en tradisjonell
 utdanning, det skal lære spilleren om programvareutvikling.
- 
-Det er ingen krav om hvilken type spill det skal være, bare at det skal være 
+Det er ingen krav om hvilken type spill det skal være, bare at det skal være
 lærerikt. Spilleren skal kunne gå fra krav til kjørbart system, og forstå
 sammenhengen mellom stegene.

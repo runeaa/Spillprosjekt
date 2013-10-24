@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import Quiz.Libary;
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -72,23 +72,20 @@ public class DialogBox extends Popup {
             mentorImage.paintIcon(null, g, 0, 420 - 147);
             g.drawString("Tore", 60, 295);
             g.setColor(Color.BLACK);
-            try{
-                int y = 265;
+
+            String line1 = "God dag, "+playersettings.getPlayerName();
+            String line2 = "I dag skal du starte på ett nytt prosjekt, et spill.";
+            String line3 = "Kunden vil ha et produkt som kan brukes som et supplement i en ";
+            String line4 = "tradisjonell utdanning, det skal lære spilleren om programvareutvikling.";
+            String line5 = "Det er ingen krav om hvilken type spill det skal være, bare at det skal være ";
+            String line6 = "lærerikt. Spilleren skal kunne gå fra krav til kjørbart system, og forstå";
+            String line7 = "sammenhengen mellom stegene.";
+            String[] dialog = {line1,line2,line3,line4,line5,line6,line7};
+            int y = 265;
             y += 25;
-            BufferedReader br = new BufferedReader(new FileReader("./res/dialog/tore/level1.txt"));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            while(line !=null){
-                sb.append(line);
-                sb.append('\n');
-                line = br.readLine();
-                System.out.println(line);
-                y = drawText(g, line, 160, y);
+            for (int i = 0; i < dialog.length; i++) {
+                y = drawText(g, dialog[i], 160, y);
             }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            
 
         }
         super.paintComponent(g);

@@ -65,8 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(PlayerSettings playersettings, Settings settings,JFrame frame) {
         super();
         this.playersettings = playersettings;
-        npcs = buildNPC.getLevel_one();
-        levels = buildLevels.getLevels();
+        
         this.settings = settings;
         this.popup = new Popup();
         this.frame = frame;
@@ -94,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void init() {
+        
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
 
@@ -102,7 +102,8 @@ public class GamePanel extends JPanel implements Runnable {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
+        npcs = buildNPC.getLevel_one();
+        levels = buildLevels.getLevels();
         buildLevels.loadTilesLevel(levels);
         player = new Player(levels.get(0), 0, -200, 200, 5, "blue");
 
