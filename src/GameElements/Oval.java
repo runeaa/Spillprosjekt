@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package GameElements;
-
+import Player.Player;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import Player.NPC;
@@ -21,6 +21,7 @@ public class Oval {
     private ArrayList<String> s;
 
     public Oval(NPC npc, Text text) {
+        
         this.npc = npc;
         this.text = text;
         text.makeTab(25);
@@ -31,8 +32,10 @@ public class Oval {
         s = text.getString();
         lines = text.getLines();
         System.out.println(lines);
-        g.setColor(Color.WHITE);
-        g.fillOval(npc.getX() - 10, npc.getY() - 60, 275, 40 * lines);
+        g.setColor(Color.GREEN);
+       // 150, 355
+        g.fillOval(150 - 10, 355 - 60, 275, 40 * lines);
+       //g.fillOval(npc.getX() - 10, npc.getY() - 60, 275, 40 * lines);
         g.setColor(Color.BLACK);
         int x = npc.getX()+10;
         int y = npc.getY()-35;

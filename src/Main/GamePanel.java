@@ -62,10 +62,10 @@ public class GamePanel extends JPanel implements Runnable {
     private JFrame frame;
     private int todoShow = TODO;
 
-    public GamePanel(PlayerSettings playersettings, Settings settings,JFrame frame) {
+    public GamePanel(PlayerSettings playersettings, Settings settings, JFrame frame) {
         super();
         this.playersettings = playersettings;
-        
+
         this.settings = settings;
         this.popup = new Popup();
         this.frame = frame;
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void init() {
-        
+
         image = new BufferedImage(settings.WITDH, settings.HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
 
@@ -151,25 +151,24 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         currentLevel = player.getLevel();
-        if (currentLevel == 1) {
-            player.updateTileMap(levels.get(0));
-        } else if (currentLevel == 2) {
-            player.updateTileMap(levels.get(1));
-        }else if(currentLevel == 3){
-            player.updateTileMap(levels.get(2));
-        }else if(currentLevel==4){
-            player.updateTileMap(levels.get(3));
-        }
+        player.updateTileMap(levels.get(currentLevel - 1));
     }
 
     private String[] drawText() {
+        int x = 0;
+        int y = 0;
         String[] s = new String[3];
         int interaction = player.interaction();
         s[0] = "Hei! Trykk E for å snakke med meg!";
-        if (interaction != -1 && interaction < s.length) {
-            s[1] = ((Integer) npcs.get(interaction).getX()).toString();
-            s[2] = ((Integer) npcs.get(interaction).getY()).toString();
-            return s;
+        if (buildNPC.getXYOnId(0)[0] != -1 || buildNPC.getXYOnId(0)[1] != -1) {
+            x = buildNPC.getXYOnId(0)[0];
+            y = buildNPC.getXYOnId(0)[1];
+
+            if (interaction != -1 && interaction < s.length) {
+                s[1] = x+"";
+                s[2] = y+"";
+                return s;
+            }
         }
         return null;
     }
@@ -200,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
                         score += 10;
                         pointsGiven = true;
                     }
-                    
+
                     add(feedback);
                     if (player.confirmedFeedback) {
                         pointsGiven = false;
@@ -212,7 +211,7 @@ public class GamePanel extends JPanel implements Runnable {
                         npcs = buildNPC.getLevel_one();
                         drawNPCs();
                         npcs.add(buildNPC.getScrumBoard());
-                     //npc1.draw(g);
+                        //npc1.draw(g);
                         //npc2.draw(g);
                         String[] s = drawText();
                         if (s != null) {
@@ -226,38 +225,40 @@ public class GamePanel extends JPanel implements Runnable {
                         npcs = buildNPC.getLevel_two();
                         drawNPCs();
                         npcs.add(buildNPC.getLibary());
-                        
-                    }else if(currentLevel == 3){
+
+                    } else if (currentLevel == 3) {
                         levels.get(2).draw(g);
                         npcs = buildNPC.getLevel_three();
                         drawNPCs();
-                    }else if(currentLevel == 4){
+                    } else if (currentLevel == 4) {
                         levels.get(3).draw(g);
                         npcs = buildNPC.getLevel_four();
                         drawNPCs();
                     }
                     g.setColor(Color.WHITE);
                     Font font;
-                    try{
-                    font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/Minecraftia.ttf"));
-                    }catch (Exception e){
+                    try {
+                        font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/Minecraftia.ttf"));
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    g.drawString("Navn: " + playersettings.getPlayerName(), 20,20);
+                    g.drawString("Navn: " + playersettings.getPlayerName(), 20, 20);
                     g.drawString("Poeng " + score, settings.WITDH - 150, 20);
 //                    font = new Font("DejaVu Sans", Font.PLAIN,12);
                     player.draw(g);
                 }
             } else {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
-                    if (player.interactedNPCID==101){
+                    if (player.interactedNPCID == 101) {
                         popup = new TodoBoard(todoShow);
                         setKeyBindings();
-                    }else
+                    } else {
                         popup = new DialogBox(playersettings);
+                    }
                     popup.setInteractedNPCID(player.interactedNPCID);
+
                     popup.paintComponent(g);
-                   // add(dialogbox);
+                    // add(dialogbox);
                     player.setDialogBoxDrawn(true);
                 }
             }
@@ -266,38 +267,40 @@ public class GamePanel extends JPanel implements Runnable {
             player.setInterOk(false);
         }
     }
+
     public void draw() {
         Graphics g2 = this.getGraphics();
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
-    
-    private void setKeyBindings() {        
+
+    private void setKeyBindings() {
         String l = "goLeft";
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), l);
         getActionMap().put(l, new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 System.out.println("goLeft actionPerformed");
-                
-                if (((TodoBoard)popup).showPart!=TODO) {
+
+                if (((TodoBoard) popup).showPart != TODO) {
                     todoShow--;
-                }              
+                }
             }
         });
         String r = "goRight";
-        getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),r);
+        getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), r);
         getActionMap().put(r, new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 System.out.println("goRight actionPerformed");
-                
-                if (((TodoBoard)popup).showPart!=DONE) {
+
+                if (((TodoBoard) popup).showPart != DONE) {
                     todoShow++;
-                }                
+                }
             }
         });
     }
+
     private void unbindKeys() {
         getActionMap().put("goLeft", null);
         getActionMap().put("goRight", null);
