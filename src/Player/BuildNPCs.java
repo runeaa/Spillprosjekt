@@ -71,6 +71,16 @@ public class BuildNPCs {
     public NPC getScrumBoard () {
         return new NPC(101, 530, 305, "blueNPC");
     }
+    public int[] getXYOnId(int id){
+        int[] xy = {-1,-1};
+        for (int i = 0; i < list.size(); i++) {
+            if(id==list.get(i).getID()){
+                xy[0]= list.get(i).getX();
+                xy[1]=list.get(i).getY();
+            }
+        }
+        return xy;
+    }
     
 /*      npc = BuildNPCs.getLevel_one()
         
