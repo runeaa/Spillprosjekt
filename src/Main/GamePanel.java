@@ -151,15 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         currentLevel = player.getLevel();
-        if (currentLevel == 1) {
-            player.updateTileMap(levels.get(0));
-        } else if (currentLevel == 2) {
-            player.updateTileMap(levels.get(1));
-        }else if(currentLevel == 3){
-            player.updateTileMap(levels.get(2));
-        }else if(currentLevel==4){
-            player.updateTileMap(levels.get(3));
-        }
+        player.updateTileMap(levels.get(currentLevel-1));
     }
 
     private String[] drawText() {
