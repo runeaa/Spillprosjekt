@@ -278,11 +278,9 @@ public class Player extends NPC {
 
         if (key == KeyEvent.VK_ESCAPE) {
             if (lock % 2 != 0) {
-                System.out.println("if");
                 OptionTrigger = true;
                 lock--;
             } else {
-                System.out.println("else");
                 OptionTrigger = false;
                 lock++;
             }

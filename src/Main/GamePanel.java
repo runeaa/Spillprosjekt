@@ -9,6 +9,8 @@ import GameElements.DialogBox;
 import GameElements.FeedbackBox;
 import GameElements.Popup;
 import GameElements.TodoBoard;
+import static GameElements.TodoBoard.DONE;
+import static GameElements.TodoBoard.TODO;
 import Listeners.PauseListener;
 import Map.BuildLevels;
 import Map.TileMap;
@@ -22,13 +24,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -240,9 +245,10 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             } else {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
-                    if (player.interactedNPCID==101)
+                    if (player.interactedNPCID==101){
                         popup = new TodoBoard();
-                    else
+                        setKeyBindings();
+                    }else
                         popup = new DialogBox(playersettings);
                     popup.setInteractedNPCID(player.interactedNPCID);
                     popup.paintComponent(g);
@@ -259,5 +265,31 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics g2 = this.getGraphics();
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
+    }
+        private void setKeyBindings() {        
+        String l = "goLeft";
+        getInputMap().put(KeyStroke.getKeyStroke("LEFT"), l);
+        getActionMap().put(l, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("goLeft actionPerformed");
+                
+                if (((TodoBoard)popup).showPart!=TODO) {
+                    ((TodoBoard)popup).showPart--;
+                }              
+            }
+        });
+        String r = "goRight";
+        getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),r);
+        getActionMap().put(r, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println("goRight actionPerformed");
+                
+                if (((TodoBoard)popup).showPart!=DONE) {
+                    ((TodoBoard)popup).showPart++;
+                }                
+            }
+        });
     }
 }
