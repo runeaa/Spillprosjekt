@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<TileMap> levels = new ArrayList();
     private PlayerSettings playersettings;
     private JFrame frame;
+    private int todoShow = TODO;
 
     public GamePanel(PlayerSettings playersettings, Settings settings,JFrame frame) {
         super();
@@ -186,6 +187,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (!player.getOptionValue()) {
             //          remove(dialogbox);
             if (!player.getInterOk()) {
+                unbindKeys();
                 if (player.answer != -1) {
                     popup = new DialogBox(playersettings);
                     FeedbackBox feedback = new FeedbackBox(((DialogBox)popup).question.getAnswers().get(player.answer));
@@ -246,7 +248,7 @@ public class GamePanel extends JPanel implements Runnable {
             } else {
                 if (!player.finishedInteractedNPCs.contains(player.interactedNPCID)) {
                     if (player.interactedNPCID==101){
-                        popup = new TodoBoard();
+                        popup = new TodoBoard(todoShow);
                         setKeyBindings();
                     }else
                         popup = new DialogBox(playersettings);
@@ -266,7 +268,8 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
-        private void setKeyBindings() {        
+    
+    private void setKeyBindings() {        
         String l = "goLeft";
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), l);
         getActionMap().put(l, new AbstractAction() {
@@ -275,7 +278,7 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("goLeft actionPerformed");
                 
                 if (((TodoBoard)popup).showPart!=TODO) {
-                    ((TodoBoard)popup).showPart--;
+                    todoShow--;
                 }              
             }
         });
@@ -287,9 +290,13 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("goRight actionPerformed");
                 
                 if (((TodoBoard)popup).showPart!=DONE) {
-                    ((TodoBoard)popup).showPart++;
+                    todoShow++;
                 }                
             }
         });
+    }
+    private void unbindKeys() {
+        getActionMap().put("goLeft", null);
+        getActionMap().put("goRight", null);
     }
 }

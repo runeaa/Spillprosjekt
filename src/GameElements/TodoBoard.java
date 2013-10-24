@@ -28,13 +28,15 @@ public class TodoBoard extends Popup{
     public int showPart = TODO;
     private ImageIcon scrumBoard;
     
-    public TodoBoard(List<Task> todo, List<Task> doing, List<Task> done) {
+    public TodoBoard(int showPart, List<Task> todo, List<Task> doing, List<Task> done) {
+        this.showPart = showPart;
         this.todo = todo;
         this.doing = doing;
         this.done = done;
     }
 
-    public TodoBoard() {
+    public TodoBoard(int showPart) {
+        this.showPart = showPart;
         todo = new ArrayList<>();
         doing = new ArrayList<>();
         done = new ArrayList<>();
