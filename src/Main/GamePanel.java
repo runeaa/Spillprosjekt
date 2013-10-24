@@ -191,6 +191,8 @@ public class GamePanel extends JPanel implements Runnable {
                 unbindKeys();
                 if (player.answer != -1) {
                     popup = new DialogBox(playersettings);
+                    if (((DialogBox)popup).question == null && player.interactedNPCID!=-1)
+                        ((DialogBox)popup).question = ((DialogBox)popup).quiz.getQuestions().get(player.interactedNPCID);
                     FeedbackBox feedback = new FeedbackBox(((DialogBox)popup).question.getAnswers().get(player.answer));
                     feedback.paintComponent(g);
 

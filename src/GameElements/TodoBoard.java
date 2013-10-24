@@ -6,15 +6,10 @@ package GameElements;
 
 import Tasks.Task;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 /**
  *
@@ -27,6 +22,7 @@ public class TodoBoard extends Popup{
     public static final int TODO = 0, DOING = 1, DONE = 2;
     public int showPart = TODO;
     private ImageIcon scrumBoard;
+    private ImageIcon postit;
     
     public TodoBoard(int showPart, List<Task> todo, List<Task> doing, List<Task> done) {
         this.showPart = showPart;
@@ -46,15 +42,20 @@ public class TodoBoard extends Popup{
     /*
      * TODO: add post its with tasks
      */
+    @Override
     public void paintComponent(Graphics2D g) {
         if (showPart == TODO) {
             scrumBoard = new ImageIcon("./res/img/todo.png");
+            postit = new ImageIcon("./res/img/PostItA.png");
         } else if (showPart == DOING) {
             scrumBoard = new ImageIcon("./res/img/doing.png");
+            postit = new ImageIcon("./res/img/PostItA.png");
         } else {
             scrumBoard = new ImageIcon("./res/img/done.png");
+            postit = new ImageIcon("./res/img/PostItA.png");
         }
         scrumBoard.paintIcon(null, g, 0, 0);
+        postit.paintIcon(null, g, 50,50);
         super.paintComponent(g);
     }
 

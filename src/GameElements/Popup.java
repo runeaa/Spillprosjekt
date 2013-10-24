@@ -16,4 +16,11 @@ public class Popup extends JLabel {
     public void setInteractedNPCID(int interactedNPCID) {
         this.interactedNPCID = interactedNPCID;
     }
+    
+    @Override
+    public String toString() {
+        String s = super.toString();
+        s+= "\ninteractednpcid: "+interactedNPCID;
+        return s;
+    }
 }

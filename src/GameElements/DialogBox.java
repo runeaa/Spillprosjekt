@@ -51,7 +51,6 @@ public class DialogBox extends Popup {
 
             g.setColor(Color.BLACK);
             g.drawString("Programmerer", 36, 295);
-
             question = quiz.getQuestions().get(interactedNPCID);
             String questionString = question.getQuestion();
             int y = 280;
@@ -89,5 +88,11 @@ public class DialogBox extends Popup {
 
         }
         super.paintComponent(g);
+    }
+    @Override
+    public String toString () {
+        String s = super.toString();
+        s+=quiz.toString();
+        return s;
     }
 }
