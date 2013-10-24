@@ -43,15 +43,14 @@ public class TodoBoard extends JPanel{
     }
     
     private void setKeyBindings() {        
-        System.out.println("KEYS GETTIN BOUND");
+        System.out.println("TodoBoard setKeyBindings");
         
         String l = "goLeft";
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), l);
         getActionMap().put(l, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e){
-                
-                System.out.println("LEFT NIGGA");
+                System.out.println("goLeft actionPerformed");
                 
                 if (showPart!=TODO) {
                     showPart--;
@@ -61,12 +60,9 @@ public class TodoBoard extends JPanel{
         String r = "goRight";
         getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),r);
         getActionMap().put(r, new AbstractAction() {
-            {
-                setEnabled(true);
-            }
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("RIGHT NIGGA");
+                System.out.println("goRight actionPerformed");
                 
                 if (showPart!=DONE) {
                     showPart++;
