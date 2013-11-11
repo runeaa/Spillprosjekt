@@ -192,19 +192,22 @@ public class GamePanel extends JPanel implements Runnable {
                     popup = new DialogBox(playersettings);
                     if (((DialogBox)popup).question == null && player.interactedNPCID!=-1)
                         ((DialogBox)popup).question = ((DialogBox)popup).quiz.getQuestions().get(player.interactedNPCID);
-                    FeedbackBox feedback = new FeedbackBox(((DialogBox)popup).question.getAnswers().get(player.answer));
-                    feedback.paintComponent(g);
+                    if (((DialogBox)popup).question != null) {
+                        FeedbackBox feedback = new FeedbackBox(((DialogBox)popup).question.getAnswers().get(player.answer));
+                        feedback.paintComponent(g);
 
-                    if (feedback.getBoolAnswer() && pointsGiven == false) {
-                        score += 10;
-                        pointsGiven = true;
+                        if (feedback.getBoolAnswer() && pointsGiven == false) {
+                            score += 10;
+                            pointsGiven = true;
+                        }
+
+                        add(feedback);
                     }
-
-                    add(feedback);
                     if (player.confirmedFeedback) {
                         pointsGiven = false;
                         player.answer = -1;
                     }
+
                 } else {
                     if (currentLevel == 1) {
                         levels.get(0).draw(g);
